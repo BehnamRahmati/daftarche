@@ -22,3 +22,8 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+.root-layout {
+  @apply antialiased flex max-w-screen;
+}
