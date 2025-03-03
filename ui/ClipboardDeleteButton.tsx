@@ -26,6 +26,7 @@ export default function ClipboardDeleteButton({ id }: { id: string }) {
 			<button type='submit' className='text-[0px] cursor-pointer leading-0 flex items-center'>
 				delete clipboard
 				<FiTrash2 size={20} />
+				<span className="lg:hidden text-base ml-1">delete</span>
 			</button>
 		</form>
 	);

@@ -9,10 +9,10 @@ export default async function Header() {
 	const session = await getServerSession(authOptions);
 	return (
 		<header>
-			<div className='pt-10 pb-5 flex items-center justify-between'>
+			<div className='lg:pt-10 pb-5 px-3 lg:px-0 flex items-center justify-between'>
 				<div className='flex items-center gap-2'>
 					<GoBackButton />
-					<div className='h-10 w-3xs text-gray-300 border leading-10 border-gray-300 rounded-xl px-2'>
+					<div className='h-10 hidden lg:block w-3xs text-gray-300 border leading-10 border-gray-300 rounded-xl px-2'>
 						search ...
 					</div>
 				</div>

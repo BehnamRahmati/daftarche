@@ -38,19 +38,19 @@ export default function ClipboardForm({email} : {email:string}) {
 
 	return (
 		<form
-			className='flex items-center justify-center py-10 gap-2'
+			className='flex items-center justify-center w-full bg-white px-3 pb-3 lg:py-10 gap-2 fixed lg:static bottom-0 left-0 z-10'
 			onSubmit={handleSubmit(onSubmit)}
 		>
-			<div className='flex items-center flex-1 border-2 border-gray-200 h-10 rounded-2xl overflow-hidden'>
+			<div className='flex items-center flex-1 border-2 border-gray-200 h-12 rounded-2xl overflow-hidden'>
 				<input
 					type='text'
                     placeholder="paste or write your text here ..."
-					className='h-10 flex-1 px-4 outline-0'
+					className='h-12  flex-1 px-4 outline-0 '
 					{...register("content", { required: true })}
 				/>
 				<button
 					onClick={() => handlePasteFromClipboard()}
-					className='bg-gray-100 h-10 px-3 rounded-xl curspor-pointer text-[0px]'
+					className='bg-gray-100 h-12 px-3 rounded-xl curspor-pointer text-[0px]'
 					type='button'
 				>
 					paste from clipboard <FiClipboard size={20} />{" "}
@@ -58,7 +58,7 @@ export default function ClipboardForm({email} : {email:string}) {
 			</div>
 
 			<button
-				className='bg-gray-100 h-10 px-3 rounded-xl curspor-pointer text-[0px]'
+				className='bg-gray-100 h-12 px-3 rounded-xl curspor-pointer text-[0px]'
 				type='submit'
 			>
 				Add

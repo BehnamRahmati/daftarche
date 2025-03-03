@@ -14,9 +14,9 @@ export default function Sidebarlink({ children, text, link }: TProp) {
 	const classNames =  pathname.endsWith(link) ? "bg-gray-100 font-bold" : ""
 	
 	return (
-		<Link href={link} className={`flex gap-4 px-5 py-4 hover:bg-gray-100 rounded-3xl ${classNames}`} >
+		<Link href={link} className={`flex gap-1 items-center lg:justify-start justify-center lg:gap-4 flex-1 px-2 lg:px-5 py-4 hover:bg-gray-100 lg:rounded-3xl ${classNames}`} >
 			{children}
-			<p>{text}</p>
+			<p className="text-xs lg:text-base">{text}</p>
 		</Link>
 	);
 }

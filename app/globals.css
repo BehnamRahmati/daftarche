@@ -25,5 +25,5 @@ body {
 
 
 .root-layout {
-  @apply antialiased flex max-w-screen;
+  @apply antialiased max-w-screen flex flex-col lg:flex-row min-h-dvh;
 }
