@@ -1,7 +1,7 @@
 import { prisma } from "@/libs/prisma";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
 	const { searchParams } = new URL(req.url);
 	const email = searchParams.get("email");
 
@@ -22,7 +22,7 @@ export async function GET(req: Request) {
 	return NextResponse.json({ message: "failed" }, { status: 500 });
 }
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
 	const data = await req.json();
 	if (!data) {
 		return NextResponse.json({ message: "no data found!" }, { status: 500 });
