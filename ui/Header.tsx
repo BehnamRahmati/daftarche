@@ -1,9 +1,9 @@
 import React from "react";
 import GoBackButton from "./GoBackButton";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { FiBell } from "react-icons/fi";
 import AccountDropdown from "./AccountDropdown";
+import { authOptions } from "@/app/api/auth/[...nextauth]/_Authoptions";
 
 export default async function Header() {
 	const session = await getServerSession(authOptions);

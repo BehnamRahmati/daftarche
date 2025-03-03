@@ -1,4 +1,5 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+
+import { authOptions } from "@/app/api/auth/[...nextauth]/_Authoptions";
 import ClipboardForm from "@/ui/ClipboardForm";
 import ClipboardTable from "@/ui/ClipboardTable";
 

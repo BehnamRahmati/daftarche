@@ -4,7 +4,7 @@ import Sidebar from "@/ui/Sidebar";
 import Header from "@/ui/Header";
 import Footer from "@/ui/Footer";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/api/auth/[...nextauth]/_Authoptions";
 import AuthButton from "@/ui/AuthButton";
 
 export default async function DaftarcheLayout({
