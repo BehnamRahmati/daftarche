@@ -7,11 +7,19 @@ import { getServerSession } from "next-auth/next";
 export default async function Clipboard() {
 	const session = await getServerSession(authOptions);
 
+	if (!session || !session.user) {
+		return <div>Error: User not authenticated</div>;
+	}
+
 	return (
 		<div>
 			<h1 className='text-3xl text-center font-bold'>Clipboard</h1>
-			<ClipboardForm email={session?.user?.email!} />
-			<ClipboardTable email={session?.user?.email!} />
+			{session.user.email && (
+				<>
+					<ClipboardForm email={session.user.email} />
+					<ClipboardTable email={session.user.email} />
+				</>
+			)}
 		</div>
 	);
 }
