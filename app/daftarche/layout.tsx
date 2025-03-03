@@ -16,16 +16,17 @@ export default async function DaftarcheLayout({
 
 	if (!session) {
 		return (
-			<div className='h-screen w-screen grid place-content-center'>
-				<div>
-					<h1 className='text-5xl font-bold underline italic mb-5'>
-						Daftarche
-					</h1>
-					<AuthButton />
+			<div>
+				<div className='grid place-content-center h-screen w-screen p-10'>
+					<div className='bg-gray-100 w-xs rounded-xl p-5 flex flex-col items-center'>
+						<p className="text-2xl font-bold text-center mb-5">Sign in to Daftarche</p>
+						<AuthButton />
+					</div>
 				</div>
 			</div>
 		);
 	}
+
 	return (
 		<html>
 			<body>

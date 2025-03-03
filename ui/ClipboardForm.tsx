@@ -1,13 +1,15 @@
 "use client";
 
+import { createNewClipboard } from "@/libs/api";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { FiPlus, FiClipboard } from "react-icons/fi";
+import { toast } from "react-toastify";
 type TReq = {
 	content: string;
 };
 
-export default function ClipboardForm() {
+export default function ClipboardForm({email} : {email:string}) {
 	const { register, handleSubmit, setValue } = useForm<TReq>();
 
 	const handlePasteFromClipboard = async () => {
@@ -21,7 +23,18 @@ export default function ClipboardForm() {
 		}
 	};
 
-	const onSubmit: SubmitHandler<TReq> = (data) => console.log(data);
+	const onSubmit: SubmitHandler<TReq> = (data) => {
+		toast.promise((async () => {
+			const formValues = {content: data.content , email }
+			const result = await createNewClipboard(formValues)
+			console.log(result);
+			
+		})(), {
+			pending: "pending",
+			success: "success",
+			error : "error"
+		})
+	}
 
 	return (
 		<form

@@ -17,7 +17,7 @@ export default function Sidebar() {
 					<FiClipboard size={20} />
 				</Sidebarlink>
 
-				<Sidebarlink link='/daftarche/files' text='Files'>
+				<Sidebarlink link='/daftarche/file' text='Files'>
 					<FiFile size={20} />
 				</Sidebarlink>
 

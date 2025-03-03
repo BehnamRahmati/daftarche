@@ -7,8 +7,9 @@ export default function GoBackButton() {
 	const pathname = usePathname()
 	if(pathname === "/") return ""
 	return (
-		<div onClick={() => router.back()}className='p-3 cursor-pointer rounded-full bg-gray-200'>
+		<button type="button" onClick={() => router.back()}className='p-3 text-[0px] cursor-pointer rounded-xl bg-gray-200'>
+			go back
 			<FiArrowLeft size={20}  />
-		</div>
+		</button>
 	);
 }
