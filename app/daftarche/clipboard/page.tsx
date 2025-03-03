@@ -1,5 +1,4 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { fetchUserClipboards } from "@/libs/api";
 import ClipboardForm from "@/ui/ClipboardForm";
 import ClipboardTable from "@/ui/ClipboardTable";
 
