@@ -33,7 +33,7 @@ export default async function DaftarcheLayout({
 				<Sidebar />
 				<main className='flex flex-col flex-1 not-only:lg:min-h-dvh w-full max-w-full lg:max-w-[calc(100%-16rem)] lg:px-5'>
 					<Header />
-					<div className='flex-1 px-2 py-5 lg:p-10 lg:border border-gray-200 rounded-3xl'>
+					<div className='flex-1 px-3 py-5 lg:p-10 lg:border border-gray-200 rounded-3xl'>
 						{children}
 					</div>
 					<Footer />

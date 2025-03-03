@@ -9,7 +9,7 @@ type TProp = {
 	link: string
 };
 
-export default function Sidebarlink({ children, text, link }: TProp) {
+function Sidebarlink({ children, text, link }: TProp) {
 	const pathname = usePathname();
 	const classNames =  pathname.endsWith(link) ? "bg-gray-100 font-bold" : ""
 	
@@ -20,3 +20,5 @@ export default function Sidebarlink({ children, text, link }: TProp) {
 		</Link>
 	);
 }
+
+export default React.memo(Sidebarlink)

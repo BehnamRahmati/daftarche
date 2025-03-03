@@ -4,7 +4,7 @@ import React from "react";
 import useSWR from "swr";
 import ClipboardItem from "@/ui/ClipboardItem";
 
-export default function ClipboardTable({ email }: { email: string }) {
+ function ClipboardTable({ email }: { email: string }) {
 	const { data: clipboards, isLoading } = useSWR(email, fetchUserClipboards, {
 		refreshInterval: 1000,
 	});
@@ -27,3 +27,5 @@ export default function ClipboardTable({ email }: { email: string }) {
 		</div>
 	);
 }
+
+export default React.memo(ClipboardTable)

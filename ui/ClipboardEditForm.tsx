@@ -9,7 +9,7 @@ type TReq = {
 	content: string;
 };
 
-export default function ClipboardEditForm({
+ function ClipboardEditForm({
 	id,
 	text,
 	setEditMode,
@@ -40,12 +40,12 @@ export default function ClipboardEditForm({
 		>
 			<input
 				type='text'
-				className='flex-1 outline-0 h-10 pr-2'
+				className='w-[calc(100%-2.25rem)] outline-0 pr-2'
 				{...register("content", { required: true, value: text })}
 			/>
 			<button
 				type='submit'
-				className='text-[0px] leading-0 h-10 bg-gray-200 rounded-xl shrink-0 w-10 flex items-center justify-center'
+				className='text-[0px] w-9 h-9 leading-0 bg-gray-200 rounded-xl shrink-0  flex items-center justify-center'
 			>
 				edit clipboard
 				<FiEdit3 size={20} />
@@ -53,3 +53,5 @@ export default function ClipboardEditForm({
 		</form>
 	);
 }
+
+export default React.memo(ClipboardEditForm)

@@ -9,7 +9,7 @@ type TReq = {
 	content: string;
 };
 
-export default function ClipboardForm({email} : {email:string}) {
+ function ClipboardForm({email} : {email:string}) {
 	const { register, handleSubmit, setValue } = useForm<TReq>();
 
 	const handlePasteFromClipboard = async () => {
@@ -45,12 +45,12 @@ export default function ClipboardForm({email} : {email:string}) {
 				<input
 					type='text'
                     placeholder="paste or write your text here ..."
-					className='h-12  flex-1 px-4 outline-0 '
+					className='h-12 w-[calc(100%-3rem)] px-4 outline-0 '
 					{...register("content", { required: true })}
 				/>
 				<button
 					onClick={() => handlePasteFromClipboard()}
-					className='bg-gray-100 h-12 px-3 rounded-xl curspor-pointer text-[0px]'
+					className='bg-gray-100 h-12 w-12 shrink-0 px-3 rounded-xl curspor-pointer text-[0px]'
 					type='button'
 				>
 					paste from clipboard <FiClipboard size={20} />{" "}
@@ -67,3 +67,5 @@ export default function ClipboardForm({email} : {email:string}) {
 		</form>
 	);
 }
+
+export default React.memo(ClipboardForm)
