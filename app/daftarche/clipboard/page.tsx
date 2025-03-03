@@ -1,5 +1,5 @@
 
-import { authOptions } from "@/app/api/auth/[...nextauth]/_Authoptions";
+import { authOptions } from "@/libs/auth";
 import ClipboardForm from "@/ui/ClipboardForm";
 import ClipboardTable from "@/ui/ClipboardTable";
 

@@ -44,3 +44,5 @@ export async function fetchUser(email: string) {
 	const user = await response.json();
 	return user;
 }
+
+
