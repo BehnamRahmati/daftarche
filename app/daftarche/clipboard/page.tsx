@@ -1,7 +1,7 @@
 
 import { authOptions } from "@/libs/auth";
-import ClipboardForm from "@/ui/ClipboardForm";
-import ClipboardTable from "@/ui/ClipboardTable";
+import ClipboardForm from "@/ui/clipboard/ClipboardForm";
+import ClipboardTable from "@/ui/clipboard/ClipboardTable";
 
 import { getServerSession } from "next-auth/next";
 

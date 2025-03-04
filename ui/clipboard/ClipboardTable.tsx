@@ -2,7 +2,7 @@
 import { fetchUserClipboards } from "@/libs/api";
 import React from "react";
 import useSWR from "swr";
-import ClipboardItem from "@/ui/ClipboardItem";
+import ClipboardItem from "@/ui/clipboard/ClipboardItem";
 
  function ClipboardTable({ email }: { email: string }) {
 	const { data: clipboards, isLoading } = useSWR(email, fetchUserClipboards, {

@@ -1,6 +1,6 @@
 
+import Sidebarlink from "@/ui/daftarche/molecules/Sidebarlink";
 import { FiHome, FiClipboard, FiFile, FiMessageCircle } from "react-icons/fi";
-import Sidebarlink from "./Sidebarlink";
 
 export default function Sidebar() {
 	return (

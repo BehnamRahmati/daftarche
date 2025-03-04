@@ -1,8 +1,8 @@
 import React from "react";
-import GoBackButton from "./GoBackButton";
+import GoBackButton from "../../../GoBackButton";
 import { getServerSession } from "next-auth";
 import { FiBell } from "react-icons/fi";
-import AccountDropdown from "./AccountDropdown";
+import AccountDropdown from "../../../AccountDropdown";
 import { authOptions } from "@/libs/auth";
 
 export default async function Header() {
