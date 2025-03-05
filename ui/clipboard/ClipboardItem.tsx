@@ -30,7 +30,7 @@ function ClipboardItem({ text, id }: { text: string; id: string }) {
 	return (
 		<div className={classnames.clipboardItem}>
 			{/* clipboard item content */}
-			<div className=' flex-1 truncate'>
+			<div className='w-4/5 truncate'>
 				{editMode ? (
 					<ClipboardEditForm
 						id={id}
@@ -64,7 +64,7 @@ function ClipboardItem({ text, id }: { text: string; id: string }) {
 				</Dropdown>
 			) : (
 				// action buttons desktop
-				<div className='w-32 hidden lg:flex items-center gap-3 *:cursor-pointer'>
+				<div className='w-1/5 hidden lg:flex items-center justify-center gap-3 *:cursor-pointer'>
 					<FiEdit
 						size={20}
 						onClick={() => setEditMode(!editMode)}
@@ -81,7 +81,7 @@ function ClipboardItem({ text, id }: { text: string; id: string }) {
 }
 
 const classnames = {
-	clipboardItem: 'flex *:px-3 lg:*:px-5 *:py-3 divide-x divide-gray-200',
-	actionButton: 'text-[0px] leading-0 w-20 flex justify-center',
+	clipboardItem: 'flex *:px-3 lg:*:px-5 *:py-3 w-full odd:bg-zinc-200 odd:dark:bg-[var(--foreground)] rounded-xl',
+	actionButton: 'text-[0px] leading-0 flex justify-center w-1/5',
 };
 export default React.memo(ClipboardItem);

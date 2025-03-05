@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
 import { addNewClipboardThunk } from '@/libs/features/clipboards/clipboardSlice';
 import { selectUser } from '@/libs/features/users/userSlice';
 import { selectLang } from '@/libs/features/global/langSlice';
-
+import { RiPlayListAddLine } from "react-icons/ri";
 type TReq = {
 	content: string;
 };
@@ -63,7 +63,7 @@ function ClipboardForm() {
 			className={classnames.clipboardForm}
 			onSubmit={handleSubmit(onSubmit)}>
 			<div className='flex flex-col flex-1'>
-				<div className={classnames.inputWrapper}>
+				<div className='input-wrapper'>
 					{/* cloipbord form  input  */}
 					<ClipboardInput
 						register={register}
@@ -83,10 +83,10 @@ function ClipboardForm() {
 
 			{/* clipboard form submit button */}
 			<button
-				className={classnames.clipboardSubmitBtn}
+				className='button-primary'
 				type='submit'>
-				Add
-				<FiPlus size={20} />
+				Add to clipboards
+				<RiPlayListAddLine size={20} />
 			</button>
 		</form>
 	);
@@ -96,10 +96,7 @@ export default React.memo(ClipboardForm);
 
 const classnames = {
 	clipboardForm:
-		'flex items-start justify-center w-full bg-white dark:bg-[var(--background)] px-3 pb-3 lg:py-10 gap-2 fixed lg:static bottom-0 left-0 z-10',
-	inputWrapper:
-		'flex items-center w-full border  dark:border-[var(--secondary)] border-gray-200 h-12 rounded-xl overflow-hidden',
-	clipboardInput: 'h-12 w-[calc(100%-3rem)] px-4 outline-0 ',
+		'flex items-start justify-center w-full bg-zinc-100 dark:bg-[var(--background)] px-3 lg:px-0 pb-3 lg:py-10 gap-2 fixed lg:static bottom-0 left-0 z-10',
 	clipboardSubmitBtn:
 		'bg-gray-100 dark:bg-[var(--foreground)] h-12 px-3 rounded-xl cursor-pointer text-[0px]',
 };

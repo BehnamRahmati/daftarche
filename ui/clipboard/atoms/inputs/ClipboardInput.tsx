@@ -16,14 +16,11 @@ function ClipboardInput({ label, register, required, placeholder }: TProps) {
 		<input
 			type='text'
 			placeholder={placeholder}
-			className={classnames.clipboardInput}
+			className='text-input'
 			{...register(label, { required: required })}
 		/>
 	);
 }
 
-const classnames = {
-	clipboardInput: "h-12 w-[calc(100%-3rem)] px-4 outline-0 ",
-};
 
 export default React.memo(ClipboardInput);

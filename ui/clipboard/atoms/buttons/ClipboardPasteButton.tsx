@@ -27,18 +27,13 @@ function ClipboardPasteButton({
 	return (
 		<button
 			onClick={() => handlePasteFromClipboard()}
-			className={classnames.clipboardPasteBtn}
+			className='text-[0px] leading-0 p-2 cursor-pointer'
 			type='button'
 		>
 			paste from clipboard <FiClipboard size={20} />
 		</button>
 	);
 }
-
-const classnames = {
-	clipboardPasteBtn:
-		"bg-gray-100 dark:bg-[var(--foreground)] h-12 w-12 shrink-0 px-3 rounded-xl curspor-pointer text-[0px]",
-};
 
 
 export default React.memo(ClipboardPasteButton)

@@ -45,10 +45,10 @@ export default async function DaftarcheLayout({ children, params }: TProps) {
 			clipboards={clipboards}
 			user={user}>
 			<div className='flex flex-col lg:flex-row min-h-dvh'>
-				<Sidebar lang={lang} />
+				<Sidebar/>
 				<main className='flex flex-col flex-1 not-only:lg:min-h-dvh w-full max-w-full lg:max-w-[calc(100%-16rem)] lg:px-5'>
 					<Header />
-					<div className='flex-1 px-3 py-5 lg:p-10 lg:border dark:border-[var(--secondary)] border-gray-200 rounded-3xl'>
+					<div className='flex-1 px-3 py-5 lg:p-10'>
 						{children}
 					</div>
 					<Footer />

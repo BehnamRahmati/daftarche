@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { i18n } from "./i18n";
 
-export function middleware(request: { nextUrl: { pathname: any; }; url: string | URL | undefined; }) {
+export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   // Skip paths like API routes or static files

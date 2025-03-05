@@ -17,8 +17,8 @@ export default async function Header() {
 				<div className='flex items-center gap-2'> 
 					<LanguageSwitcher />
 					<ThemeButton />
-					<div className='bg-gray-200 dark:bg-[var(--foreground)] rounded-xl w-10 h-10 flex items-center justify-center'>
-						<FiBell size={20} />
+					<div className='button-primary'>
+						<FiBell className='text-sm lg:text-xl' />
 					</div>
 					<AccountDropdown />
 				</div>

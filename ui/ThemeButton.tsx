@@ -9,14 +9,14 @@ export default function ThemeButton() {
 	const theme = useAppSelector(selectTheme);
 	const dispath = useAppDispatch();
 
-    
 	return (
 		<div>
 			<button
-				className='bg-gray-200 dark:bg-[var(--foreground)] rounded-xl w-10 h-10 flex items-center justify-center cursor-pointer'
+				className='button-primary'
+				title='change theme'
 				onClick={() => dispath(toggleTheme())}
 				type='button'>
-				{theme === 'dark' ? <FiSun size={20} /> : <FiMoon size={20} />}
+				{theme === 'dark' ? <FiSun className='text-sm lg:text-xl' /> : <FiMoon className='text-sm lg:text-xl' />}
 			</button>
 		</div>
 	);

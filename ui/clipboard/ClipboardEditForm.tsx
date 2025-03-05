@@ -43,15 +43,15 @@ function ClipboardEditForm({
 	return (
 		<form
 			onSubmit={handleSubmit(onSubmit)}
-			className='flex items-center w-full'>
+			className='flex items-center w-full border border-dashed rounded-md border-zinc-300 dark:border-[var(--secondary-dark)]'>
 			<input
 				type='text'
-				className='w-[calc(100%-2.25rem)] outline-0 pr-2'
+				className='w-[calc(100%-2rem)] outline-0 p-2'
 				{...register('content', { required: true, value: text })}
 			/>
 			<button
 				type='submit'
-				className='text-[0px] w-9 h-9 leading-0 bg-gray-200 dark:bg-[var(--foreground)] rounded-xl shrink-0  flex items-center justify-center'>
+				className='text-[0px] leading-0 cursor-pointer'>
 				edit clipboard
 				<FiEdit3 size={20} />
 			</button>

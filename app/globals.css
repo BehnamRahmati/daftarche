@@ -3,10 +3,23 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-	--background: #101214;
-	--foreground: #1d2125;
-	--primary: #da0037;
-	--secondary: #8c9bab;
+	/* zink 950 */
+	--background: oklch(0.141 0.005 285.823);
+
+	/*zink-900  */
+	--foreground: oklch(0.21 0.006 285.885);
+
+	/* indigo 800 */
+	--primary: oklch(0.398 0.195 277.366);
+
+	/* zink 300*/
+	--secondary:oklch(0.871 0.006 286.286);
+	
+	/* zink 500*/
+	--secondary-dark:oklch(0.442 0.017 285.786);
+
+	/* zinc 800 */
+	--secondary-heavy: oklch(0.274 0.006 286.033);
 }
 
 @font-face {
@@ -98,9 +111,9 @@
 }
 
 @theme {
-	--font-iranyekan : iranyekan, Helvetica, sans-serif;
+	--font-iranyekan: iranyekan, Helvetica, sans-serif;
+	--text-dark-primary: ;
 }
-
 
 html[dir='rtl'] {
 	direction: rtl;
@@ -120,6 +133,45 @@ html[dir='ltr'] body {
 	font-family: 'Poppins', Helvetica, sans-serif;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+.dark input:-webkit-autofill,
+.dark input:-webkit-autofill:hover, 
+.dark input:-webkit-autofill:focus, 
+.dark input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 28px var(--foreground) inset !important;
+	-webkit-text-fill-color: var(--secondary) !important;
+}
+
 .root-layout {
-	@apply antialiased max-w-screen dark:bg-[var(--background)] dark:text-[var(--secondary)];
+	@apply antialiased max-w-screen bg-zinc-100 dark:bg-[var(--background)] dark:text-[var(--secondary)];
+}
+
+
+.button-primary {
+	@apply p-2 text-[0px] cursor-pointer shadow-md dark:shadow-black rounded-xl ;
+	@apply flex items-center justify-center;
+	@apply bg-zinc-200 dark:bg-[var(--foreground)] border border-zinc-300 dark:border-[var(--secondary-heavy)]
+}
+
+.dropdown-container {
+	@apply font-iranyekan overflow-hidden *:p-3  rounded-xl *:hover:bg-gray-100 dark:*:hover:bg-[var(--background)];
+	@apply flex flex-col *:flex shadow-md;
+	@apply bg-white dark:bg-[var(--foreground)];
+	@apply divide-y divide-zinc-200 dark:divide-[var(--secondary-heavy)] border dark:border-[var(--secondary-heavy)] border-zinc-200;
+}
+
+.input-wrapper {
+	@apply flex items-center w-full rounded-xl overflow-hidden dark:bg-[var(--foreground)];
+	@apply border dark:border-[var(--secondary-heavy)] border-zinc-200 pl-2;
+}
+
+
+.text-input {
+	@apply w-[calc(100%-2rem)] px-2 py-1 outline-0 ;
 }
