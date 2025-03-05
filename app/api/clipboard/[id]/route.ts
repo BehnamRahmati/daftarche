@@ -1,31 +1,53 @@
-import { prisma } from "@/libs/prisma";
-import { NextRequest, NextResponse } from "next/server";
+import { deletingClipboard, updatingClipboard } from '@/libs/clipboardServices';
+import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
 
-export async function PUT(
-	req: NextRequest,
-	{ params }: { params: Promise<{ id: string }> }
-) {
+const contentSchema = z.string()
+.min(1, "content is too short")
+.max(500, "content is too long")
+.refine((val) => !/<.*?>/.test(val), "Invalid input: HTML tags not allowed")
+
+
+// updating clipboard content in db
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+
+	// clipboard id
 	const { id } = await params;
-	const content = await req.json();
 
-	const clipboard = await prisma.clipboard.update({
-		where: { id },
-		data: { content },
-	});
-	if (!clipboard) {
-		return NextResponse.json({ message: "failed" }, { status: 500 });
+	// new content
+	const content = await req.json();
+	const validContent = contentSchema.safeParse(content)
+
+	if (!validContent.success) {
+		return NextResponse.json({ message: validContent.error }, { status: 500 });
 	}
-	return NextResponse.json({ message: "success" }, { status: 200 });
+
+	// updating clipboard
+	const clipboard = await updatingClipboard(content, id);
+
+	// if updating failed respond error
+	if (!clipboard) {
+		return NextResponse.json({ message: 'failed' }, { status: 500 });
+	}
+
+	// if updating succeeded respond success
+	return NextResponse.json(clipboard, { status: 200 });
 }
 
-export async function DELETE(
-	req: NextRequest,
-	{ params }: { params:Promise<{ id: string }> }
-) {
+//deleting clipboard from db
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+	// clipboard id
 	const { id } = await params;
-	const user = await prisma.clipboard.delete({ where: { id } });
+
+	// deleting clipboard
+	const user = await deletingClipboard(id);
+
+	// if deleting failed respond error
 	if (!user) {
-		return NextResponse.json({ message: "failed" }, { status: 500 });
+		return NextResponse.json({ message: 'failed' }, { status: 500 });
 	}
-	return NextResponse.json({ message: "success" }, { status: 200 });
+
+	// if deleting succeeded respond success
+
+	return NextResponse.json(user, { status: 200 });
 }

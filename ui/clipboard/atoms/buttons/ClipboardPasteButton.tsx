@@ -10,7 +10,6 @@ function ClipboardPasteButton({
 	setValue: UseFormSetValue<any>;
 }) {
 
-	console.warn("clipboard button paste rendered" );
 	
     
     // handling user paste value from clipboard
@@ -38,7 +37,7 @@ function ClipboardPasteButton({
 
 const classnames = {
 	clipboardPasteBtn:
-		"bg-gray-100 h-12 w-12 shrink-0 px-3 rounded-xl curspor-pointer text-[0px]",
+		"bg-gray-100 dark:bg-[var(--foreground)] h-12 w-12 shrink-0 px-3 rounded-xl curspor-pointer text-[0px]",
 };
 
 

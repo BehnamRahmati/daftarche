@@ -9,7 +9,6 @@ import ClipboardActionDropdown from './molecules/dropdowns/ClipboardActionDropdo
 function ClipboardItem({ text, id }: { text: string; id: string }) {
 	const [editMode, setEditMode] = React.useState(false);
 	const [responsive, setResponsive] = React.useState(false);
-
 	// handle copy to clipboard
 	const handleCopy = React.useCallback(async () => {
 		console.warn('handleCopy rendered');
@@ -28,7 +27,6 @@ function ClipboardItem({ text, id }: { text: string; id: string }) {
 		}
 	}, []);
 
-	console.warn('clipboard item rendered');
 	return (
 		<div className={classnames.clipboardItem}>
 			{/* clipboard item content */}
@@ -66,13 +64,12 @@ function ClipboardItem({ text, id }: { text: string; id: string }) {
 				</Dropdown>
 			) : (
 				// action buttons desktop
-				<div className='w-32 hidden lg:flex items-center gap-2'>
+				<div className='w-32 hidden lg:flex items-center gap-3 *:cursor-pointer'>
 					<FiEdit
 						size={20}
 						onClick={() => setEditMode(!editMode)}
 					/>
 					<FiCopy
-						className='cursor-pointer'
 						onClick={() => handleCopy()}
 						size={20}
 					/>

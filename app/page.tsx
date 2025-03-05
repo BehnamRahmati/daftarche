@@ -18,10 +18,9 @@ export default async function Home() {
 								all your devices
 							</div>
 							<Link
-								href={'/daftarche'}
+								href={'/en/daftarche'}
 								className='px-7 py-2 border rounded-xl w-fit hover:bg-white'>
-								{' '}
-								Get Started{' '}
+								Get Started
 							</Link>
 						</div>
 						<div className='w-full lg:w-1/2 bg-white rounded-xl h-72'>pics</div>
@@ -47,8 +46,8 @@ export default async function Home() {
 					className='bg-gray-200 min-h-96 py-10'>
 					<h2 className='text-3xl font-bold text-center mb-10'>projects</h2>
 					<div className='grid grid-cols-2 md:grid-cols-4 gap-5 container mx-auto p-5 lg:p-0'>
-						{[...new Array(8)].map((arr) => {
-							return <div key={arr} className='h-40 bg-white p-5 rounded-xl'>project</div>;
+						{[...new Array(8)].map((_, index) => {
+							return <div key={index} className='h-40 bg-white p-5 rounded-xl'>project</div>;
 						})}
 					</div>
 				</section>

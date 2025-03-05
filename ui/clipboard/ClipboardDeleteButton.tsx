@@ -1,5 +1,7 @@
 "use client";
-import { deleteUserClipboard } from "@/libs/api";
+import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
+import { deleteClipboardThunk } from "@/libs/features/clipboards/clipboardSlice";
+import { selectLang } from "@/libs/features/global/langSlice";
 import React, { useLayoutEffect } from "react";
 import { useForm } from "react-hook-form";
 import { FiTrash2 } from "react-icons/fi";
@@ -8,15 +10,18 @@ import { toast } from "react-toastify";
 export default function ClipboardDeleteButton({ id }: { id: string }) {
 	const { handleSubmit } = useForm();
 	const [responsive, setResponsive] = React.useState(false);
+	const lang = useAppSelector(selectLang)
+
+	const dispath = useAppDispatch()
 	const onSubmit = () => {
 		toast.promise(
 			(async () => {
-				const result = await deleteUserClipboard(id);
+				 await dispath(deleteClipboardThunk(id))
 			})(),
 			{
-				pending: "pending",
-				success: "success",
-				error: "error",
+				pending: lang === 'fa' ? 'در حال پاک کردن.' : 'removing...',
+				success: lang === 'fa' ? 'با موفقیت پاک شد.' : 'successfully removed clipboard',
+				error: lang === 'fa' ? 'عملیات حذف شکست خورد.' : 'failed to remove clipboard',
 			}
 		);
 	};
@@ -36,7 +41,7 @@ export default function ClipboardDeleteButton({ id }: { id: string }) {
 			>
 				delete clipboard
 				{responsive ? <FiTrash2 size={15} /> : <FiTrash2 size={20} />}
-				<span className='lg:hidden text-sm ml-1'>delete</span>
+				<span className='lg:hidden text-sm ml-1'>{lang === 'fa' ? 'حذف' : 'delete'}</span>
 			</button>
 		</form>
 	);

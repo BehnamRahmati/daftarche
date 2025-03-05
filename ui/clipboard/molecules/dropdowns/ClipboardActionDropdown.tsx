@@ -3,7 +3,8 @@
 import React from "react";
 import ClipboardDeleteButton from "../../ClipboardDeleteButton";
 import { FiCopy, FiEdit } from "react-icons/fi";
-import { poppins } from "@/ui/AccountDropdown";
+import { useAppSelector } from "@/hooks/hooks";
+import { selectLang } from "@/libs/features/global/langSlice";
 
 type TProps = {
 	id: string;
@@ -12,6 +13,9 @@ type TProps = {
 };
 
 function ClipboardActionDropdown({ setEditMode, handleCopy, id }: TProps) {
+
+	const lang = useAppSelector(selectLang)
+
 	return (
 		<div className={classnames.dropdown}>
 			<button
@@ -20,7 +24,7 @@ function ClipboardActionDropdown({ setEditMode, handleCopy, id }: TProps) {
 				className={classnames.dropdownItem}
 			>
 				<FiEdit size={15} />
-				edit
+				{lang === 'fa' ? 'ویرایش' : 'edit'}
 			</button>
 			<button
 				type='button'
@@ -28,7 +32,7 @@ function ClipboardActionDropdown({ setEditMode, handleCopy, id }: TProps) {
 				className={classnames.dropdownItem}
 			>
 				<FiCopy size={15} />
-				copy
+				{lang === 'fa' ? 'کپی' : 'copy'}
 			</button>
 
 			<ClipboardDeleteButton id={id} />
@@ -37,7 +41,7 @@ function ClipboardActionDropdown({ setEditMode, handleCopy, id }: TProps) {
 }
 
 const classnames = {
-	dropdown: `${poppins.className} overflow-hidden flex flex-col bg-white *:py-3 *:px-2 divide-y divide-gray-200 rounded-xl border border-gray-200 *:flex *:hover:bg-gray-100`,
+	dropdown: `font-iranyekan overflow-hidden flex flex-col bg-white dark:bg-[var(--foreground)] *:py-3 *:px-2 divide-y divide-gray-200 rounded-xl border border-gray-200 *:flex *:hover:bg-gray-100`,
 	dropdownItem: "flex items-center justify-center gap-1 text-sm",
 };
 

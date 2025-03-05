@@ -2,8 +2,9 @@ import { prisma } from "@/libs/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
+	
 	const { searchParams } = new URL(req.url);
-	const email = searchParams.get("email");
+	const email = searchParams.get('email');
 
 	if (email) {
 		const user = await prisma.user.findUnique({ where: { email } });

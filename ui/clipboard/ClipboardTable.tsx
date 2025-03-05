@@ -1,20 +1,19 @@
 "use client";
-import { fetchUserClipboards } from "@/libs/api";
 import React from "react";
-import useSWR from "swr";
 import ClipboardItem from "@/ui/clipboard/ClipboardItem";
+import { useAppSelector } from "@/hooks/hooks";
+import { selectClipboards } from "@/libs/features/clipboards/clipboardSlice";
+import { selectLang } from "@/libs/features/global/langSlice";
 
- function ClipboardTable({ email }: { email: string }) {
-	const { data: clipboards, isLoading } = useSWR(email, fetchUserClipboards, {
-		refreshInterval: 1000,
-	});
-	if(isLoading) return <p className="border border-gray-200 text-gray-500 my-10 lg:my-0 p-5 lg:p-10 text-center rounded-2xl">Please wait while we are loading your clipboards.</p>;
-	if (!clipboards) return <p className="border border-gray-200 text-gray-500 my-10 lg:my-0 p-5 lg:p-10 text-center rounded-2xl">You have no clipboard ath the moment!</p>;
+ function ClipboardTable() {
+	const {clipboards } = useAppSelector(selectClipboards)
+	const lang = useAppSelector(selectLang)
+	if (!clipboards) return <p className="border dark:border-[var(--secondary)] border-gray-200 text-gray-500 my-10 lg:my-0 p-5 lg:p-10 text-center rounded-xl">You have no clipboard ath the moment!</p>;
 	return (
-		<div className='w-full flex flex-col divide-y divide-gray-200 border border-gray-200 rounded-3xl my-10 lg:my-0'>
-			<div className='flex divide-x divide-gray-200 *:font-bold'>
-				<div className='flex-1 p-3 lg:p-5'>Content</div>
-				<div className='w-20 px-0 py-3 lg:p-5 text-center lg:w-32'>Action</div>
+		<div className='w-full flex flex-col divide-y dark:divide-[var(--secondary)] divide-gray-200 border dark:border-[var(--secondary)] border-gray-200 rounded-xl my-10 lg:my-0'>
+			<div className='flex divide-x dark:divide-[var(--secondary)] divide-gray-200 *:font-bold'>
+				<div className='flex-1 p-3 '>{lang === 'fa' ? 'محتوا' : 'Content'}</div>
+				<div className='w-20 px-0 py-3 text-center lg:w-32'>{lang === 'fa' ? 'عملیات' : 'Action'}</div>
 			</div>
 
 			{clipboards?.length ? (
@@ -22,7 +21,7 @@ import ClipboardItem from "@/ui/clipboard/ClipboardItem";
 					<ClipboardItem id={clipboard.id} text={clipboard.content} key={clipboard.id} />
 				))
 			) : (
-				<p className='text-center p-5'>no item found!</p>
+				<p className='text-center p-5'>{lang === 'fa' ? 'هیچ موردی یافت نشد!' : 'No item found!'}</p>
 			)}
 		</div>
 	);

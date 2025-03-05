@@ -5,12 +5,12 @@ import { FiMenu, FiMinimize2 } from 'react-icons/fi';
 function HeaderMenu() {
 	const [menu, setMenu] = React.useState(false);
 	const menuClass = menu
-		? 'fixed lg:static right-0 top-0 h-dvh lg:h-auto w-3/4 lg:w-auto z-10 bg-white p-5 transition linear '
-		: 'fixed lg:static right-0 top-0 h-dvh lg:h-auto w-3/4 lg:w-auto z-10 bg-white p-5 transition linear transform translate-x-full';
+		? 'fixed lg:static right-0 top-0 h-dvh lg:h-auto w-3/4 lg:w-auto z-10 bg-white dark:bg-[var(--background)] p-5 transition linear '
+		: 'fixed lg:static right-0 top-0 h-dvh lg:h-auto w-3/4 lg:w-auto z-10 bg-white dark:bg-[var(--background)] p-5 transition linear transform lg:transform-none lg:translate-x-0 translate-x-full';
 
         const overlayClass = menu 
-        ?"block z-0 bg-black opacity-35 fixed h-full w-full top-0 left-0"
-        : " hidden z-0 bg-black opacity-35 fixed h-full w-full top-0 left-0"
+        ?"block lg:hidden z-0 bg-black opacity-35 fixed h-full w-full top-0 left-0"
+        : " hidden lg:hidden z-0 bg-black opacity-35 fixed h-full w-full top-0 left-0"
 	return (
 		<>
 			<button
@@ -21,7 +21,7 @@ function HeaderMenu() {
 			</button>
             <div className={overlayClass} onClick={() => setMenu(false)} ></div>
 			<div className={menuClass}>
-				<div className='flex items-center justify-between p-5 border border-gray-300 rounded-xl z-10'>
+				<div className='flex lg:hidden items-center justify-between p-5 border border-gray-300 rounded-xl z-10'>
 					<button
 						className='lg:hidden text-[0px] leading-0 border border-gray-300 rounded-xl px-4 py-2 cursor-pointer'
 						onClick={() => setMenu(false)}

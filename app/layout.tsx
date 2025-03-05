@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import './globals.css';
 import { ToastContainer } from 'react-toastify';
-import Providers from '@/ui/Providers';
+import SessionProviders from '@/ui/SessionProviders';
 
 const poppins = Poppins({
 	weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
@@ -17,13 +17,15 @@ export const metadata: Metadata = {
 
 type TProps = Readonly<{
 	children: React.ReactNode;
+	params: Promise<{ lang: 'fa' | 'en' }>;
 }>;
 
-export default function RootLayout({ children }: TProps) {
+export default async function RootLayout({ children }: TProps) {
+	
 	return (
 		<html lang='en'>
 			<body className={`${poppins.className} root-layout`}>
-				<Providers>{children}</Providers>
+				<SessionProviders>{children}</SessionProviders>
 				<ToastContainer
 					position='bottom-left'
 					autoClose={1000}

@@ -20,6 +20,14 @@ export async function fetchUserClipboards(email: string) {
 	return clipboards as clipboard[];
 }
 
+export async function serverFetchUserClipboards(email: string) {
+	const response = await fetch(
+		`${process.env.NEXTAUTH_URL}/api/clipboard?email=${encodeURIComponent(email)}`
+	);
+	const clipboards = await response.json();
+	return clipboards as clipboard[];
+}
+
 export async function deleteUserClipboard(id: string) {
 	const response = await fetch(`/api/clipboard/${id}`, {
 		method: "DELETE",
@@ -37,7 +45,7 @@ export async function editClipboard(content: string ,id: string) {
 	return clipboard as clipboard;
 }
 
-export async function fetchUser(email: string) {
+export async function serverFetchUser(email: string) {
 	const response = await fetch(
 		`${process.env.NEXTAUTH_URL}/api/user?email=${encodeURIComponent(email)}`
 	);

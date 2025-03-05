@@ -10,7 +10,8 @@ type TProps = {
 };
 
 function ClipboardInput({ label, register, required, placeholder }: TProps) {
-	console.warn("clipboard input rendered");
+	
+	
 	return (
 		<input
 			type='text'
