@@ -6,7 +6,7 @@ import Footer from '@/ui/daftarche/organisms/global/Footer';
 import { getServerSession } from 'next-auth/next';
 import AuthButton from '@/ui/AuthButton';
 import { authOptions } from '@/libs/auth';
-import { serverFetchUser, serverFetchUserClipboards } from '@/libs/api';
+import { serverFetchUser, serverFetchUserClipboards, ServerfetchUsetConversations } from '@/libs/api';
 import { notFound } from 'next/navigation';
 import { i18n } from '@/app/i18n';
 import ReduxProviders from '@/ui/ReduxProviders';
@@ -22,7 +22,7 @@ export default async function DaftarcheLayout({ children, params }: TProps) {
 		// Redirect to the default locale if `lang` is invalid
 		notFound();
 	}
-	
+
 	const session = await getServerSession(authOptions);
 
 	if (!session || !session.user || !session.user.email) {
@@ -38,19 +38,18 @@ export default async function DaftarcheLayout({ children, params }: TProps) {
 
 	const clipboards = await serverFetchUserClipboards(session.user.email);
 	const user = await serverFetchUser(session.user.email);
-
+	const chats = await ServerfetchUsetConversations(session.user.email);
 	return (
 		<ReduxProviders
+			chats={chats}
 			lang={lang}
 			clipboards={clipboards}
 			user={user}>
-			<div className='flex flex-col lg:flex-row min-h-dvh'>
-				<Sidebar/>
-				<main className='flex flex-col flex-1 not-only:lg:min-h-dvh w-full max-w-full lg:max-w-[calc(100%-16rem)] lg:px-5'>
+			<div className='flex flex-col w-full lg:flex-row h-[calc(100dvh-5rem)] gap-7 lg:gap-10'>
+				<Sidebar />
+				<main className='flex flex-col gap-7 flex-1 lg:min-h-full max-w-full'>
 					<Header />
-					<div className='flex-1 px-3 py-5 lg:p-10'>
-						{children}
-					</div>
+					<div className='flex-1'>{children}</div>
 					<Footer />
 				</main>
 			</div>

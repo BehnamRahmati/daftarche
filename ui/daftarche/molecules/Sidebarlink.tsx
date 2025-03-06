@@ -24,7 +24,7 @@ function Sidebarlink({ children, text, link, faText, closeSidebar }: TProp) {
 			href={generateLocalePath(lang, link)}
 			className={`flex items-center lg:justify-start justify-center lg:w-full *:h-6 py-1.5 px-2 lg:p-3 *:leading-6 hover:bg-zinc-200 dark:hover:bg-[var(--foreground)] rounded-md lg:rounded-xl ${classNames}`}>
 			{children}
-			<p className={`${closeSidebar ? "text-[0px] delay-100": "text-xs mx-1 lg:mx-4 lg:text-base delay-300"} `}>{lang === 'fa' ? faText : text}</p>
+			<p className={`${closeSidebar ? "text-[0px] delay-150": "text-xs mx-1 lg:mx-4 lg:text-base transition-[font-size] delay-300"} `}>{lang === 'fa' ? faText : text}</p>
 		</Link>
 	);
 }

@@ -1,10 +1,10 @@
 import { RootState } from "@/libs/store";
-import { TUser } from "@/types/api";
+import { TStatus, TUser } from "@/types/api";
 import { createSlice } from "@reduxjs/toolkit";
 
 type TState = {
     user: TUser | null;
-    status: 'idle' | 'loading' | 'succeeded' | 'failed';
+    status: TStatus
     error: string | null;
 };
 

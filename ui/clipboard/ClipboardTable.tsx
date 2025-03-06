@@ -6,8 +6,9 @@ import { selectClipboards } from '@/libs/features/clipboards/clipboardSlice';
 import { selectLang } from '@/libs/features/global/langSlice';
 
 function ClipboardTable() {
-	const { clipboards } = useAppSelector(selectClipboards);
 	const lang = useAppSelector(selectLang);
+
+	const { clipboards } = useAppSelector(selectClipboards);
 	if (!clipboards || !clipboards.length)
 		return (
 			<p className=' text-gray-500 my-10 lg:my-0 p-5 lg:p-10 text-center rounded-xl'>

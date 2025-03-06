@@ -1,16 +1,19 @@
 import {configureStore} from "@reduxjs/toolkit"
-import { themeSlice } from "./features/global/themeSlice"
-import { clipboardSlice } from "./features/clipboards/clipboardSlice"
-import { userSlice } from "./features/users/userSlice"
-import { langSlice } from "./features/global/langSlice"
+import themeReducer from "@/libs/features/global/themeSlice"
+import langReducer from "@/libs/features/global/langSlice"
+import clipboardsReducer from "@/libs/features/clipboards/clipboardSlice"
+import userReducer from "@/libs/features/users/userSlice"
+import chatReducer from "@/libs/features/chats/chatSlice"
+
 
 export const makeStore = () => {
     return configureStore({
         reducer: {
-            theme : themeSlice.reducer,
-            clipboard : clipboardSlice.reducer,
-            user : userSlice.reducer,
-            lang: langSlice.reducer
+            theme : themeReducer,
+            clipboard : clipboardsReducer,
+            user : userReducer,
+            lang: langReducer,
+            chat : chatReducer
         }
     })
 }

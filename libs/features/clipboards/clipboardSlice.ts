@@ -52,13 +52,15 @@ export const updateClipboardThunk = createAsyncThunk(
 		}
 	}
 );
-
+ 
 export const clipboardSlice = createSlice({
 	name: 'clipboard',
 	initialState,
 	reducers: {
 		initiateClipboards: (state, action) => {
-			action.payload ? (state.clipboards = action.payload) : null;
+			if (action.payload) {
+                state.clipboards = action.payload;
+            }
 		},
 	},
 	extraReducers(builder) {

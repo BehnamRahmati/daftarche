@@ -9,7 +9,7 @@ export default async function Header() {
 	
 	return (
 		<header>
-			<div className='lg:pt-10 pb-5 px-3 lg:px-0 flex items-center justify-between'>
+			<div className='px-3 lg:px-0 flex items-center justify-between'>
 				<div className='flex items-center gap-2'>
 					<GoBackButton />
 				</div>

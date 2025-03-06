@@ -149,14 +149,14 @@ input:-webkit-autofill:active{
 }
 
 .root-layout {
-	@apply antialiased max-w-screen bg-zinc-100 dark:bg-[var(--background)] dark:text-[var(--secondary)];
+	@apply antialiased max-w-screen p-3 lg:p-10 bg-zinc-100 dark:bg-[var(--background)] dark:text-[var(--secondary)];
 }
 
 
 .button-primary {
-	@apply p-2 text-[0px] cursor-pointer shadow-md dark:shadow-black rounded-xl ;
+	@apply p-2 text-[0px] cursor-pointer rounded-xl ;
 	@apply flex items-center justify-center;
-	@apply bg-zinc-200 dark:bg-[var(--foreground)] border border-zinc-300 dark:border-[var(--secondary-heavy)]
+	@apply bg-white dark:bg-[var(--foreground)] border border-zinc-300 dark:border-[var(--secondary-heavy)]
 }
 
 .dropdown-container {
