@@ -1,0 +1,12 @@
+.form-clipboard_creation {
+    @apply fixed bottom-0 left-0 z-10 flex w-full items-start justify-center gap-2  px-3 pb-3 lg:static lg:px-0 lg:py-10 dark:bg-[var(--background)];
+}
+
+.input-wrapper {
+    @apply flex w-full items-center overflow-hidden rounded-xl  bg-white dark:bg-[var(--foreground)];
+    @apply border border-zinc-300 pl-2 dark:border-[var(--secondary-heavy)];
+}
+
+.text-input {
+    @apply w-[calc(100%-2rem)] px-2 py-1 outline-0 h-9 ;
+}

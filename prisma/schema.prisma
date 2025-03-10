@@ -1,3 +1,4 @@
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,21 +9,23 @@ datasource db {
 }
 
 model User {
-  id            String      @id @default(uuid())
+  id            String    @id @default(uuid())
   name          String
-  email         String      @unique
+  email         String    @unique
   emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  Clipboard     Clipboard[]
+  image         String    @default("/user-placeholder.png")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // Relations
+  // relations
+  accounts      Account[]
+  sessions      Session[]
   messages      Message[]
   conversations ConversationParticipant[]
+  clipboard     Clipboard[]
+  contacts      Contact[]                 @relation("UserOwnedContacts")
+  inContacts    Contact[]                 @relation("UserInOtherContacts")
 }
 
 model Account {
@@ -70,31 +73,43 @@ model Clipboard {
 }
 
 model Message {
-  id            String   @id @default(uuid())
-  content       String
-  createdAt     DateTime @default(now())
-  senderId      String
-  sender        User      @relation(fields: [senderId], references: [id])
+  id             String       @id @default(uuid())
+  content        String
+  createdAt      DateTime     @default(now())
+  senderId       String
+  sender         User         @relation(fields: [senderId], references: [id])
   conversationId String
-  conversation  Conversation @relation(fields: [conversationId], references: [id])
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
 }
 
 model Conversation {
-  id         String   @id @default(uuid())
-  createdAt  DateTime @default(now())
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
 
   // Relations
-  participants  ConversationParticipant[]
-  messages      Message[]
+  participants ConversationParticipant[]
+  messages     Message[]
 }
 
 model ConversationParticipant {
-  id             String @id @default(uuid())
+  id             String       @id @default(uuid())
   conversationId String
   conversation   Conversation @relation(fields: [conversationId], references: [id])
   userId         String
-  user           User @relation(fields: [userId], references: [id])
+  user           User         @relation(fields: [userId], references: [id])
 
   // Add constraints
   @@unique([conversationId, userId])
+}
+
+model Contact {
+  id        String @id @default(uuid())
+  ownerId   String // The user who owns the contact list
+  owner     User   @relation("UserOwnedContacts", fields: [ownerId], references: [id])
+  contactId String // The user who is a contact
+  contact   User   @relation("UserInOtherContacts", fields: [contactId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@unique([ownerId, contactId]) // Avoid duplicate contacts
 }

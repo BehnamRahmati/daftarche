@@ -1,0 +1,5 @@
+.button {
+    @apply cursor-pointer rounded-xl p-2 text-[0px];
+    @apply flex items-center justify-center;
+    @apply border border-zinc-300 bg-white dark:border-[var(--secondary-heavy)] dark:bg-[var(--foreground)];
+}

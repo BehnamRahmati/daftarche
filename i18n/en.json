@@ -1,0 +1,33 @@
+{
+    "home": {
+        "title": "home"
+    },
+    "file": {
+        "title": "file"
+    },
+    "clipboard": {
+        "title": "clipboard",
+        "table": {
+            "columns": {
+                "content": "content",
+                "action": "action",
+                "updatedAt": "updated at"
+            }
+        },
+        "form": {
+            "content": "paste or write your text here"
+        }
+    },
+    "dashboard": {
+        "title": "dashboard",
+        "clipboard" : {
+            "title": "recent clipbords"
+        },
+        "conversation": {
+            "title": "recent conversation"
+        }
+    },
+    "conversation": {
+        "title": "conversation"
+    }
+}

@@ -1,0 +1,33 @@
+{
+    "home": {
+        "title": "خانه"
+    },
+    "clipboard": {
+        "title": "کلیپ بورد",
+        "table": {
+            "columns": {
+                "content": "محتوا",
+                "action": "عملیات",
+                "updatedAt": "بروزرسانی شده در"
+            }
+        },
+        "form": {
+            "content": "متن خود را اینجا جای گذاری کنید."
+        }
+    },
+    "dashboard": {
+        "title": "داشبرد",
+        "clipboard" : {
+            "title": "آخرین کلیپ برد ها"
+        },
+        "conversation": {
+            "title": "آخرین گفتگو ها"
+        }
+    },
+    "conversation": {
+        "title": "گفتگو"
+    },
+    "file": {
+        "title": "فایل"
+    }
+}

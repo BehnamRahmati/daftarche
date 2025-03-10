@@ -1,0 +1,39 @@
+.layout {
+    @apply flex h-[calc(100dvh-5rem)] w-full flex-col gap-7 lg:flex-row;
+}
+
+.layout-aside {
+    @apply flex shrink-0 flex-col lg:min-h-full;
+}
+ 
+.layout-sidebar {
+    @apply lg:w-2xs duration-400 flex h-full w-full flex-col overflow-hidden rounded-3xl bg-white px-3 py-5 transition-[width] lg:border lg:border-zinc-200 dark:bg-[var(--foreground)] lg:dark:border-[var(--secondary-heavy)];
+}
+
+.layout-sidebar_menu {
+    @apply flex flex-1 justify-between gap-1 overflow-hidden lg:flex-none lg:flex-col lg:justify-start;
+}
+
+.layout-sidebar_menu-link {
+    @apply flex items-center justify-center rounded-md py-1.5 *:h-6 *:leading-6 hover:bg-zinc-200 lg:w-full lg:justify-start lg:rounded-xl  dark:hover:bg-[var(--foreground)];
+}
+
+.layout-sidebar_menu-link > p {
+    @apply mx-1 text-xs lg:text-base;
+}
+
+.layout-main {
+    @apply flex max-w-full flex-1 flex-col gap-7 p-7 lg:min-h-full ;
+}
+
+.layout-footer {
+    @apply rounded-3xl border border-zinc-200 bg-white p-5 dark:border-[var(--secondary-heavy)] dark:bg-[var(--foreground)];
+}
+
+.layout-header {
+    @apply flex items-center justify-between px-3 lg:px-0;
+}
+
+.layout-header_group {
+    @apply flex items-center gap-2;
+}

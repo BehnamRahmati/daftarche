@@ -1,0 +1,9 @@
+.clipboard-list_con {
+    @apply my-10 flex w-full flex-col gap-y-1 rounded-xl lg:my-0
+}
+.clipboard-list_heading {
+    @apply flex w-full rounded-xl bg-zinc-200 *:py-3 *:font-bold dark:bg-[var(--foreground)]
+}
+.clipboard-list {
+    @apply flex items-center rounded-xl p-2 odd:bg-zinc-100 odd:dark:bg-[var(--background)]
+}

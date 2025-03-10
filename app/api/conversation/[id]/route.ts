@@ -1,48 +1,59 @@
-import { prisma } from '@/libs/prisma';
-import { NextRequest, NextResponse } from 'next/server';
-import { z } from 'zod';
+import { prisma } from '@/libs/prisma'
+import { NextRequest, NextResponse } from 'next/server'
 
-const contentSchema = z
-	.string()
-	.min(1, 'content is too short')
-	.max(500, 'content is too long')
-	.refine((val) => !/<.*?>/.test(val), 'Invalid input: HTML tags not allowed');
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+    const id = (await params).id
+
+    const messages = await prisma.message.findMany({
+        where: {
+            conversationId: id,
+        },
+        include: {
+            sender: true,
+        },
+    })
+
+    const conversation = await prisma.conversation.findUnique({
+        where: { id },
+    })
+
+    if (!messages || !conversation) {
+        return NextResponse.json({}, { status: 500 })
+    }
+
+    return NextResponse.json({ messages, conversation }, { status: 200 })
+}
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-	// clipboard id
-	const { id } = await params;
+    const id = (await params).id
+    const { message, senderEmail } = await req.json()
 
-	// new content
-	const { content, senderId } = (await req.json()) as { content: string; senderId: string };
-	const validContent = contentSchema.safeParse(content);
+    const user = await prisma.user.findUnique({ where: { email: senderEmail } })
 
-	if (!validContent.success) {
-		return NextResponse.json({ message: validContent.error }, { status: 500 });
-	}
+    if (!user) {
+        return NextResponse.json({ message: 'User not found' }, { status: 404 })
+    }
 
-	const newMessage = await prisma.message.create({
-		data: {
-			content,
-			sender: { connect: { id: senderId } },
-			conversation: { connect: { id: id } },
-		},
-	});
+    const conversation = await prisma.conversation.update({
+        where: { id },
+        data: {
+            messages: {
+                create: {
+                    content: message,
+                    sender: { connect: { id: user.id } },
+                },
+            },
+        },
+        include: { messages: true },
+    })
 
-	if (!newMessage) {
-		return NextResponse.json({ message: 'no message' }, { status: 500 });
-	}
+    if (!conversation) {
+        return NextResponse.json({ message: 'failed to create convers' }, { status: 500 })
+    }
 
-	const conversation = await prisma.conversation.findUnique({
-		where: { id },
-		include: {
-			participants: {
-				include: { user: true },
-			},
-			messages: {
-				orderBy: { createdAt: 'desc' }
-			},
-		},
-	});
+    return NextResponse.json({ message: 'successfully created convers' }, { status: 200 })
+}
 
-	return NextResponse.json(conversation, { status: 200 });
+export async function DELETE(req: NextRequest) {
+    return NextResponse.json({ message: 'hi' })
 }

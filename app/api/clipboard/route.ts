@@ -1,54 +1,32 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { creatingClipboard, findingAllUserClipboards } from '@/libs/clipboardServices';
-import { z } from 'zod';
-
-
-
-const clipbordSchema = z.object({
-	email : z.string().min(1, "email is too short").email(),
-	content : z.string().min(1, "content is too short").max(500, "content is too long").refine((val) => !/<.*?>/.test(val), "Invalid input: HTML tags not allowed"),
-})
+import { NextRequest, NextResponse } from 'next/server'
+import { createNewClipboard, findUserClipboards, retirievingEmail } from './clipboard.services'
 
 export async function GET(req: NextRequest) {
+    // retirieving email from search params
+    const email = retirievingEmail(req)
 
-	const { searchParams } = new URL(req.url);
-	const email = searchParams.get('email');
+    if (!email) {
+        return NextResponse.json({ message: 'no email field found' }, { status: 500 })
+    }
 
-	if (email) {
+    //finding clipboards
+    const clipboards = await findUserClipboards(email)
 
-		const clipboards = await findingAllUserClipboards(email);
-
-		if (!clipboards) {
-			return NextResponse.json([], { status: 500 });
-		}
-
-		return NextResponse.json(clipboards, { status: 200 });
-	}
-
-	return NextResponse.json({ message: 'failed' }, { status: 500 });
+    return NextResponse.json(clipboards, { status: 200 })
 }
 
-
-
 export async function POST(req: NextRequest) {
-	// recieving data
-	const data: { content: string; email: string } = await req.json();
-	const validData = clipbordSchema.safeParse(data)
+    // retirieving email from search params
+    const data: { content: string; email: string } = await req.json()
 
+    if (!data) {
+        return NextResponse.json({ message: 'no data field found' }, { status: 500 })
+    }
 
-	// if empty data respond with error
-	if (!validData.success) {
-		return NextResponse.json({ message: validData.error }, { status: 500 });
-	}
+    const newClipboard = await createNewClipboard(data)
 
-	// creating new clipboard
-	const newClipboard = await creatingClipboard(data);
-
-	// if failed to create new clip respond with error
-	if (!data) {
-		return NextResponse.json({ message: 'faild to create new clipboard' }, { status: 500 });
-	}
-
-	// if success respond with success
-	return NextResponse.json(newClipboard, { status: 200 });
+    if (!newClipboard) {
+        return NextResponse.json({ message: 'failed to create new user' }, { status: 500 })
+    }
+    return NextResponse.json({ message: 'successfuly created new user' }, { status: 200 })
 }

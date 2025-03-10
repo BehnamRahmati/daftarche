@@ -1,86 +1,80 @@
-import { prisma } from '@/libs/prisma';
-import { NextRequest, NextResponse } from 'next/server';
+import { prisma } from '@/libs/prisma'
+import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(req: NextRequest) {
-	const { searchParams } = new URL(req.url);
-	const email = searchParams.get('email');
+    const { searchParams } = new URL(req.url)
+    const email = searchParams.get('email')
 
-	if (!email) {
-		return NextResponse.json({ message: 'Missing required fields' }, { status: 500 });
-	}
+    if (!email) {
+        return NextResponse.json({ message: 'lets go back in time' }, { status: 500 })
+    }
 
-	const user = await prisma.user.findUnique({
-		where: {
-			email,
-		},
-	});
+    const conversations = await prisma.conversation.findMany({
+        where: {
+            participants: {
+                some: {
+                    user: { email },
+                },
+            },
+        },
+        include: {
+            participants: {
+                include: {
+                    user: true,
+                },
+            },
+            messages: { orderBy: { createdAt: 'desc' }, take: 1 },
+        },
+    })
 
-	if (!user) {
-		return NextResponse.json({ message: 'User not found' }, { status: 500 });
-	}
+    if (!conversations) {
+        return NextResponse.json({ message: 'lets go back in time' })
+    }
 
-	const conversations = await prisma.conversation.findMany({
-		where: {
-			participants: {
-				some: { userId: user.id },
-			},
-		},
-		include: {
-			participants: {
-				include: { user: true },
-			},
-			messages: {
-				orderBy: { createdAt: 'desc' },
-				//take: 1,  Optionally include the last message in each conversation
-			},
-		},
-	});
-
-	return NextResponse.json(conversations, { status: 200 });
+    return NextResponse.json(conversations, { status: 200 })
 }
 
 export async function POST(req: NextRequest) {
-	const { senderId, recipientId, content } = await req.json();
+    const { senderEmail, recipientId } = await req.json()
 
-	if (!senderId || !recipientId || !content) {
-		return NextResponse.json({ message: 'Missing required fields' }, { status: 500 });
-	}
+    const sender = await prisma.user.findUnique({ where: { email: senderEmail } })
 
-	let conversation = await prisma.conversation.findFirst({
-		where: {
-			participants: {
-				every: {
-					OR: [{ userId: senderId }, { userId: recipientId }],
-				},
-			},
-		},
-		include: { participants: true },
-	});
+    
+    
 
-	// If no conversation exists, create a new one
-	if (!conversation) {
-		conversation = await prisma.conversation.create({
-			data: {
-				participants: {
-					create: [
-						{ userId: senderId }, // Add sender as a participant
-						{ userId: recipientId }, // Add recipient as a participant
-					],
-				},
-			},
-			include: { participants: true },
-		});
-	}
+    if (!senderEmail || !recipientId || !sender) {
+        return NextResponse.json({ message: 'failed', status: 500 })
+    }
 
-	// Add a new message to the conversation
-	const message = await prisma.message.create({
-		data: {
-			content,
-			senderId,
-			conversationId: conversation.id,
-		},
-		include: { sender: true, conversation: true },
-	});
 
-	return NextResponse.json({ conversation, message }, { status: 200 });
+    // Find an existing conversation between sender and recipient
+    let conversation = await prisma.conversation.findFirst({
+        where: {
+            participants: {
+                every: {
+                    OR: [{ userId: sender.id }, { userId: recipientId }],
+                },
+            },
+        },
+        include: { participants: true },
+    })
+
+    // If no conversation exists, create a new one
+    if (!conversation) {
+        conversation = await prisma.conversation.create({
+            data: {
+                participants: {
+                    create: [
+                        { userId: sender.id }, // Add sender as a participant
+                        { userId: recipientId }, // Add recipient as a participant
+                    ],
+                },
+            },
+            include: {
+                participants: true,
+            },
+        })
+    }
+
+    return NextResponse.json({ message: 'successful', status: 200 , conversation })
 }
