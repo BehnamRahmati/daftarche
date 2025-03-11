@@ -17,10 +17,10 @@ async function Conversation({ params, user }: TProps) {
     const conversations = await fetchAllConversations(user.email)
 
     return (
-        <div className='size-full max-h-[calc(100%-7rem)] max-w-full'>
-            <h2 className='text-center text-2xl font-bold mb-10'>{dictionary.conversation.title}</h2>
+        <div className='lg:size-full lg:max-h-[calc(100%-5rem)] '>
+            <h2 className='text-center text-2xl font-bold mb-5 lg:mb-10'>{dictionary.conversation.title}</h2>
             <div className='flex flex-col lg:flex-row gap-5 size-full'>
-                <div className='h-[calc(100%-10rem)] lg:h-full lg:flex-1 border border-accent rounded-lg p-5'>
+                <div className='h-full lg:flex-1 border border-accent rounded-lg p-5'>
                     <div className='flex flex-col gap-2 h-full'>
                         <h2 className='text-base lg:text-xl my-3'> {locale === 'fa' ? 'آخرین گفتگو ها :' : 'Latest Conversations :'}</h2>
                         {conversations.length ? (
@@ -30,7 +30,7 @@ async function Conversation({ params, user }: TProps) {
                                     <Link
                                         key={convers.id}
                                         href={`/${locale}/dashboard/conversation/${convers.id}`}
-                                        className='flex items-center gap-2 border p-3 hover:bg-accent rounded-lg '
+                                        className='flex items-center gap-2 border p-3 hover:bg-accent rounded-lg overflow-hidden'
                                     >
                                         <Avatar className='size-12'>
                                             <AvatarImage src={sender?.user.image || '#'} alt={sender?.user.name} />

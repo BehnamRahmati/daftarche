@@ -20,7 +20,7 @@ export default function ClipboardsTable({ user }: { user: TUser }) {
     if (error || !clipboards) return <p>no clipboards</p>
 
     return (
-        <div className='mt-10'>
+        <div className='mt-5'>
             <DataTable columns={columns} data={clipboards} mutate={mutate} />
         </div>
     )

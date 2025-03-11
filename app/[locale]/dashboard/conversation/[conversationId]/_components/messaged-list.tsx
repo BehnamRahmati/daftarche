@@ -8,7 +8,7 @@ import useSWR from 'swr'
 
 export default function MessagesList({ conversationId, user }: { conversationId: string; user: TUser }) {
     const bottomOfMessagesRef = useRef<HTMLDivElement | null>(null)
-    const { data, isLoading } = useSWR(conversationId, fetchConversation, {
+    const { data, isLoading } = useSWR(`/api/conversation/${conversationId}`, fetchConversation, {
         refreshInterval: 1000,
     })
 
@@ -19,8 +19,8 @@ export default function MessagesList({ conversationId, user }: { conversationId:
     if (isLoading || !data) return <p className='h-[calc(100dvh-20rem)] mb-2 p-2'>loading</p>
 
     return (
-        <div className='mb-1 rounded-lg border border-accent p-2'>
-            <div className='h-[calc(100dvh-15rem)] lg:h-[calc(100dvh-23rem)] gap-1 overflow-y-auto no-scrollbar'>
+        <div className='mb-1 flex-1 h-full rounded-lg border border-accent p-2'>
+            <div className='h-full max-h-[calc(100dvh*3/4)] lg:max-h-[calc(100dvh-21.5rem)] gap-1 overflow-y-auto no-scrollbar'>
                 {data.messages.length ? (
                     data.messages.map(message => {
                         const sender = message.sender.email === user.email

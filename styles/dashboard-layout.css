@@ -23,7 +23,7 @@
 }
 
 .layout-main {
-    @apply flex max-w-full flex-1 flex-col gap-7 p-3 lg:p-7 lg:min-h-full ;
+    @apply flex max-w-full lg:flex-1 flex-col gap-7 lg:gap-0 lg:justify-between p-3 lg:p-7 min-h-full ;
 }
 
 .layout-footer {

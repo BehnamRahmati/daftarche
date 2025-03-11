@@ -49,7 +49,7 @@ export default function DataTable<TData, TValue>({ columns, data, mutate }: Data
 
     return (
         <div className=''>
-            <div className='flex gap-2 flex-col lg:flex-row lg:items-center justify-between py-4'>
+            <div className='flex gap-2 flex-col lg:flex-row lg:items-center justify-between pb-5'>
                 <div className='flex items-center'>
                     <Input
                         placeholder= {locale === 'fa' ? 'جستجو بین کلیپ بورد ها' : 'search between clipboards'}

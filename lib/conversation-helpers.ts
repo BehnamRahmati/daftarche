@@ -1,7 +1,7 @@
 import { TConversation, TMessage } from './types'
 
-export async function fetchConversation(id: string): Promise<{ conversation: TConversation; messages: TMessage[] }> {
-    const response = await fetch(`/api/conversation/${id}`, {
+export async function fetchConversation(url: string): Promise<{ conversation: TConversation; messages: TMessage[] }> {
+    const response = await fetch(url, {
         next: { revalidate: 1 },
         cache: 'no-store',
     })

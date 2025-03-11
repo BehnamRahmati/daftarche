@@ -20,7 +20,7 @@ async function DashboardLayout({ children, params }: TProps) {
                 <DashboardHeader locale={locale} />
 
                 {/* main content */}
-                <main className='flex-1'>{children}</main>
+                <main className='h-full lg:max-h-[calc(100dvh-15rem)]'>{children}</main>
 
                 {/* footer */}
                 <DashboardFooter />

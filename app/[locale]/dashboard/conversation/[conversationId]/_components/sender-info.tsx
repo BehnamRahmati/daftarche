@@ -5,7 +5,7 @@ import { fetchConversation } from '@/lib/conversation-helpers';
 import useSWR from 'swr'
 
 export default function SenderInfo({ conversationId, userEmail }: { conversationId: string; userEmail: string }) {
-    const { data, isLoading } = useSWR(conversationId, fetchConversation)
+    const { data, isLoading } = useSWR(`/api/conversation/${conversationId}`, fetchConversation)
 
     if (isLoading || !data) return <p>loading</p>
     const sender = data.conversation.participants.find(x => x.user.email !== userEmail)
@@ -16,7 +16,7 @@ export default function SenderInfo({ conversationId, userEmail }: { conversation
                 <Avatar className={`size-7 border-4 ${sender?.user.isOnline ? 'border-green-500' : 'border-zinc-300'}`}>
                     <AvatarImage src={sender?.user.image} alt={`${sender?.user.name}`} />
                     <AvatarFallback>DF</AvatarFallback>
-                </Avatar>
+                </Avatar> 
                 <div className=''>{sender?.user.name}</div>
             </div>
 

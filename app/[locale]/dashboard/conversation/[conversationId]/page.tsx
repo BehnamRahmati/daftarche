@@ -12,7 +12,7 @@ async function SingleConversation({ params, user }: TProps) {
     const locale = (await params).locale
 
     return (
-        <div className='flex flex-col flex-1 gap-2'>
+        <div className='flex flex-col h-full lg:flex-1 gap-2'>
             <SenderInfo conversationId={id} userEmail={user.email} />
             <MessagesList user={user} conversationId={id} />
             <CreateMessageForm locale={locale} conversationId={id} senderEmail={user.email} />
