@@ -1,23 +1,16 @@
 'use client'
 
-import React from 'react'
+import { SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/components/ui/sidebar'
 import Link from 'next/link'
-import { SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar'
+import React from 'react'
 
-export default function DashboardSidebarMenuItem({
-    title,
-    children,
-    link,
-}: {
-    link: string
-    title: string
-    children: React.ReactNode
-}) {
+export default function DashboardSidebarLink({ title, link, icon }: { title: string; link: string; icon: React.ReactNode }) {
+    const { setOpenMobile } = useSidebar()
     return (
         <SidebarMenuItem >
-            <SidebarMenuButton asChild className='py-6 pl-3'>
-                <Link className='flex items-center' href={link}>
-                    {children}
+            <SidebarMenuButton asChild>
+                <Link className='flex items-center py-6 pl-3' href={link} onClick={() => setOpenMobile(false)}>
+                    {icon}
                     <p className='text-base font-light'>{title}</p>
                 </Link>
             </SidebarMenuButton>

@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { deleteClipboard } from '../clipboard.services'
 
-export async function GET(req: NextRequest) {
-    return NextResponse.json({ message: 'hi' })
-}
+// export async function GET() {
+//     return NextResponse.json({ message: 'hi' })
+// }
 
-export async function PUT(req: NextRequest) {
-    return NextResponse.json({ message: 'hi' })
-}
+// export async function PUT() {
+//     return NextResponse.json({ message: 'hi' })
+// }
 
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     const { id } = await params

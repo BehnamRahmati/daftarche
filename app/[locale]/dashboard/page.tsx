@@ -1,18 +1,16 @@
-import { getDictionary } from '@/i18n/dictionaries'
-import React from 'react'
 import { TParamsLocale } from '@/app/[locale]/_contants'
-import DashboardClipboardList from '@/components/molecules/list/DashboardClipboardList'
-import DashboardConversationList from '@/components/molecules/list/DashboardConversationList'
-import DashboardUser from '@/components/molecules/DashboardUser'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/app/api/auth/[...nextauth]/auth.services'
+import DashboardClipboardList from '@/app/[locale]/dashboard/_components/dashboard-clipboard-list'
+import DashboardConversationList from '@/app/[locale]/dashboard/_components/dashboard-conversation-list'
+import { getDictionary } from '@/i18n/dictionaries'
+import WithUser, { TWithUserProp } from './with-user'
+import ConversationSidebar from './conversation/_components/conversation-sidebar'
+import { DashboardUser } from './_components'
 
-type TProps = TParamsLocale
+type TProps = TParamsLocale & TWithUserProp
 
-export default async function Dashboard({ params }: TProps) {
+async function Dashboard({ params, user }: TProps) {
     const locale = (await params).locale
     const dictionary = await getDictionary(locale)
-    const session = await getServerSession(authOptions)
 
     return (
         <div className='dashboard'>
@@ -20,29 +18,30 @@ export default async function Dashboard({ params }: TProps) {
                 {/* user and files info */}
                 <div className='dashboard-fileUser_container'>
                     {/* user info */}
-                    <div className='flex gap-5'>
-                        <DashboardUser session={session} />
-                        <div className='w-2/5 rounded-3xl border border-zinc-200 bg-white p-5 dark:border-[var(--secondary-heavy)] dark:bg-[var(--foreground)]'>
-                            <div className='dashboard-title'>used space</div>
-                            <div className='mt-5 flex justify-center'>
-                                <div className='h-36 w-36 rounded-full bg-zinc-200'></div>
-                            </div>
+                    <div className='flex flex-col lg:flex-row gap-5 lg:col-span-3'>
+                        <DashboardUser user={user} />
+                        <div className='w-full lg:w-3/5 rounded-3xl lg:shadow-md border border-accent bg-background p-5 '>
+                            <div className='dashboard-title'>{locale === "en" ? "Contacts" : "مخاطبین"}</div>
+                           <ConversationSidebar user={user} />
                         </div>
                     </div>
                     {/* files info */}
                     <div className=''>
-                        <div className='dashboard-title'>Recent files</div>
+                        <div className='dashboard-title'>{locale === "en" ? "Recent Files" : "آخرین فایل ها"}</div>
+                        <div className='lg:h-[calc(100%-3rem)] lg:shadow-md bg-background border border-accent p-5 rounded-3xl'>{locale === "en" ? "no file found !" : "هیچ فایلی پیدا نشد!"} </div>
                     </div>
                 </div>
-                <div className='dashboard-conversation'>
+                <div className='dashboard-conversation lg:shadow-md'>
                     <div className='dashboard-title'>{dictionary.dashboard.conversation.title}</div>
-                    <DashboardConversationList locale={locale} />
+                    <DashboardConversationList locale={locale} user={user} />
                 </div>
             </div>
-            <div className='dashboard-sidebar'>
-                <div className='dashboard-title'>{dictionary.dashboard.clipboard.title}</div>
-                <DashboardClipboardList session={session} />
+            <div className='dashboard-sidebar lg:shadow-md'>
+                <div className='dashboard-title p-5 pb-0'>{dictionary.dashboard.clipboard.title}</div>
+                <DashboardClipboardList user={user} />
             </div>
         </div>
     )
 }
+
+export default WithUser(Dashboard)

@@ -4,7 +4,6 @@ const locales = ['en', 'fa']
 const defaultLocale = 'en'
 
 export default function middleware(request: NextRequest) {
-    console.log('Middleware triggered:', request.nextUrl.pathname)
 
     //check if there is any suported locale in pathname
     const { pathname } = request.nextUrl

@@ -1,13 +1,11 @@
-
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { SidebarFooter, SidebarMenu, SidebarMenuItem } from '@/components/ui/sidebar'
 import { TUser } from '@/libs/clipboard.helpers'
 import { AvatarFallback } from '@radix-ui/react-avatar'
 
-import SidebarAccountDropmenu from './sidebar-account-dropmenu'
 import WithUser from '../../with-user'
 
-function DashboardSidebarFooter({ user }: { user: TUser }) {
+function DashboardSidebarFooter({ children, user }: { user: TUser; children: React.ReactNode }) {
     return (
         <SidebarFooter>
             <SidebarMenu>
@@ -24,7 +22,7 @@ function DashboardSidebarFooter({ user }: { user: TUser }) {
                         </div>
                     </div>
                     {/* account drop menu */}
-                    <SidebarAccountDropmenu />
+                    {children}
                 </SidebarMenuItem>
             </SidebarMenu>
         </SidebarFooter>

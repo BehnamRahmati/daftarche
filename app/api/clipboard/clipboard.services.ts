@@ -1,4 +1,4 @@
-import { prisma } from '@/libs/prisma'
+import { prisma } from '@/lib/prisma'
 import CryptoJS from 'crypto-js'
 import { NextRequest } from 'next/server'
 

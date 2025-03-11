@@ -7,17 +7,19 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { SidebarMenuAction } from '@/components/ui/sidebar'
 import Link from 'next/link'
-import { FiLogOut, FiMoreVertical, FiUser } from 'react-icons/fi'
+import { FiMoreVertical, FiUser } from 'react-icons/fi'
+import SignoutButton from './signout-button'
 
-export default function SidebarAccountDropmenu() {
+async function SidebarAccountDropmenu({ locale }: { locale: 'fa' | 'en' }) {
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger asChild className='py-3'>
+            <DropdownMenuTrigger asChild className={`py-3 ${locale === 'fa' && 'right-auto left-1'}`}>
                 <SidebarMenuAction>
                     <FiMoreVertical />
                 </SidebarMenuAction>
             </DropdownMenuTrigger>
-            <DropdownMenuContent side='right' sideOffset={20} align='end'>
+
+            <DropdownMenuContent side={locale === 'fa' ? 'left' : 'right'} sideOffset={20} align='end'>
                 <DropdownMenuItem>
                     <Link href={`/profile`} className='flex w-full justify-start gap-2'>
                         <FiUser />
@@ -26,12 +28,11 @@ export default function SidebarAccountDropmenu() {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                    <button type='button' className='flex w-full cursor-pointer justify-start gap-2'>
-                        <FiLogOut />
-                        <p>log out</p>
-                    </button>
+                    <SignoutButton />
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     )
 }
+
+export default SidebarAccountDropmenu

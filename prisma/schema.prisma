@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -15,9 +14,11 @@ model User {
   emailVerified DateTime?
   image         String    @default("/user-placeholder.png")
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  isOnline   Boolean   @default(false) // Tracks if user is currently online
+  lastActive DateTime? // Tracks the last time the user was active
+ 
   // relations
   accounts      Account[]
   sessions      Session[]
@@ -75,11 +76,14 @@ model Clipboard {
 model Message {
   id             String       @id @default(uuid())
   content        String
-  createdAt      DateTime     @default(now())
   senderId       String
   sender         User         @relation(fields: [senderId], references: [id])
   conversationId String
   conversation   Conversation @relation(fields: [conversationId], references: [id])
+
+  createdAt DateTime @default(now())
+  received  Boolean  @default(false) // Indicates if the message was received
+  read      Boolean  @default(false) // Indicates if the message was read
 }
 
 model Conversation {

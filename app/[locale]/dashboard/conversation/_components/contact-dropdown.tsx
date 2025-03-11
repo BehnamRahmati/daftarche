@@ -4,20 +4,30 @@ import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { deleteContact } from '@/libs/clipboard.actions'
+import { TUser } from '@/lib/types'
+import { deleteContact } from '@/lib/user-helpers'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { FiMoreVertical } from 'react-icons/fi'
 import { toast } from 'sonner'
 import { z } from 'zod'
 import CreateConversation from './create-conversation'
-import { TUser } from '@/libs/clipboard.helpers'
 
 const deleteContactForm = z.object({
     contactId: z.string().min(2).max(50),
 })
 
-export default function ContactDropdown({ contactId , user , recipientId }: { contactId: string , user : TUser , recipientId: string}) {
+export default function ContactDropdown({
+    contactId,
+    user,
+    recipientId,
+}: {
+    contactId: string
+    user: TUser
+    recipientId: string
+}) {
+    const { locale } = useParams()
     const form = useForm<z.infer<typeof deleteContactForm>>({
         resolver: zodResolver(deleteContactForm),
         defaultValues: {
@@ -39,7 +49,7 @@ export default function ContactDropdown({ contactId , user , recipientId }: { co
                     <span className='sr-only'>Open menu</span>
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align='end'>
+            <DropdownMenuContent side={locale === 'fa' ? 'right' : 'left'} align='end'>
                 <DropdownMenuItem>
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -54,13 +64,13 @@ export default function ContactDropdown({ contactId , user , recipientId }: { co
                                     </FormItem>
                                 )}
                             />
-                            <button type='submit'>delete contact</button>
+                            <button type='submit'>{locale === 'fa' ? 'حذف مخاطب' : 'delete contact'}</button>
                         </form>
                     </Form>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                    <CreateConversation recipientId={recipientId} senderEmail={user.email}  />
-                    </DropdownMenuItem>
+                    <CreateConversation recipientId={recipientId} senderEmail={user.email} />
+                </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     )

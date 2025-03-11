@@ -2,7 +2,7 @@
 
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { deleteClipboard } from '@/libs/clipboard.actions'
+import { deleteClipboard } from '@/lib/clipboard-helpers'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'

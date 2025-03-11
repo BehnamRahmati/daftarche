@@ -1,24 +1,19 @@
 'use client'
 
-import { signIn, signOut, useSession } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
+import { redirect } from 'next/navigation'
 
 export default function LoginForm() {
     const { data: session } = useSession()
 
     if (session) {
-        return (
-            <div>
-                <button className='cursor-pointer text-sm' type='button' onClick={() => signOut()}>
-                    Sign out
-                </button>
-            </div>
-        )
+        redirect('/dashboard')
     }
 
     return (
         <div>
             <button
-                className='cursor-pointer rounded-xl border border-gray-200 bg-white px-5 py-3'
+                className='cursor-pointer rounded-xl border-accent bg-background px-5 py-3'
                 type='button'
                 onClick={() => signIn('google')}
             >

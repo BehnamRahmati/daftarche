@@ -4,8 +4,8 @@ import {
     ColumnFiltersState,
     flexRender,
     getCoreRowModel,
-    getPaginationRowModel,
     getFilteredRowModel,
+    getPaginationRowModel,
     getSortedRowModel,
     SortingState,
     useReactTable,
@@ -14,12 +14,13 @@ import {
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import React from 'react'
-import { Input } from './input'
-import { FiChevronLeft, FiChevronRight, FiRefreshCw } from 'react-icons/fi'
-import { Button } from './button'
-import { KeyedMutator } from 'swr'
 import { TClipboard } from '@/libs/clipboard.helpers'
+import { useParams } from 'next/navigation'
+import React from 'react'
+import { FiChevronLeft, FiChevronRight, FiRefreshCw } from 'react-icons/fi'
+import { KeyedMutator } from 'swr'
+import { Button } from './button'
+import { Input } from './input'
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -30,6 +31,7 @@ interface DataTableProps<TData, TValue> {
 export default function DataTable<TData, TValue>({ columns, data, mutate }: DataTableProps<TData, TValue>) {
     const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
+    const { locale } = useParams()
     const table = useReactTable({
         data,
         columns,
@@ -47,17 +49,17 @@ export default function DataTable<TData, TValue>({ columns, data, mutate }: Data
 
     return (
         <div className=''>
-            <div className='flex items-center justify-between py-4'>
+            <div className='flex gap-2 flex-col lg:flex-row lg:items-center justify-between py-4'>
                 <div className='flex items-center'>
                     <Input
-                        placeholder='Filter clipboards...'
+                        placeholder= {locale === 'fa' ? 'جستجو بین کلیپ بورد ها' : 'search between clipboards'}
                         value={(table.getColumn('content')?.getFilterValue() as string) ?? ''}
                         onChange={event => table.getColumn('content')?.setFilterValue(event.target.value)}
-                        className='w-sm'
+                        className='lg:w-sm'
                     />
                 </div>
 
-                <div className='flex items-center gap-2'>
+                <div className='flex items-center gap-2 '>
                     <Select
                         value={`${table.getState().pagination.pageSize}`}
                         onValueChange={value => {
@@ -119,17 +121,25 @@ export default function DataTable<TData, TValue>({ columns, data, mutate }: Data
             </div>
             <div className='flex items-center justify-end gap-2 py-4'>
                 <div className=''>
-                    Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+                    {locale === 'fa' ? (
+                        <p>
+                            صفحه {table.getState().pagination.pageIndex + 1} از {table.getPageCount()}
+                        </p>
+                    ) : (
+                        <p>
+                            Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+                        </p>
+                    )}
                 </div>
                 <Button variant='outline' size='sm' onClick={() => table.setPageIndex(0)} disabled={!table.getCanPreviousPage()}>
-                    first
+                    {locale === 'fa' ? 'اولین' : 'First'}
                 </Button>
                 <Button variant='outline' size='icon' onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
-                    <FiChevronLeft />
+                    {locale === 'fa' ? <FiChevronRight /> : <FiChevronLeft />}
                 </Button>
 
                 <Button variant='outline' size='icon' onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
-                    <FiChevronRight />
+                    {locale === 'fa' ? <FiChevronLeft /> : <FiChevronRight />}
                 </Button>
 
                 <Button
@@ -138,7 +148,7 @@ export default function DataTable<TData, TValue>({ columns, data, mutate }: Data
                     onClick={() => table.setPageIndex(table.getPageCount() - 1)}
                     disabled={!table.getCanNextPage()}
                 >
-                    last
+                    {locale === 'fa' ? 'آخرین' : 'Last'}
                 </Button>
             </div>
         </div>

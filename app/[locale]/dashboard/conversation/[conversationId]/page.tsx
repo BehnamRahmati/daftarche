@@ -1,6 +1,7 @@
 import WithUser, { TWithUserProp } from '../../with-user'
 import CreateMessageForm from './_components/create-message'
 import MessagesList from './_components/messaged-list'
+import SenderInfo from './_components/sender-info'
 
 type TProps = TWithUserProp & {
     params: Promise<{ locale: 'en' | 'fa'; conversationId: string }>
@@ -8,11 +9,13 @@ type TProps = TWithUserProp & {
 
 async function SingleConversation({ params, user }: TProps) {
     const id = (await params).conversationId
+    const locale = (await params).locale
 
     return (
-        <div className=''>
+        <div className='flex flex-col flex-1 gap-2'>
+            <SenderInfo conversationId={id} userEmail={user.email} />
             <MessagesList user={user} conversationId={id} />
-            <CreateMessageForm conversationId={id} senderEmail={user.email} />
+            <CreateMessageForm locale={locale} conversationId={id} senderEmail={user.email} />
         </div>
     )
 }

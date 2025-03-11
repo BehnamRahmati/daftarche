@@ -23,7 +23,7 @@
 }
 
 .layout-main {
-    @apply flex max-w-full flex-1 flex-col gap-7 p-7 lg:min-h-full ;
+    @apply flex max-w-full flex-1 flex-col gap-7 p-3 lg:p-7 lg:min-h-full ;
 }
 
 .layout-footer {
@@ -31,7 +31,7 @@
 }
 
 .layout-header {
-    @apply flex items-center justify-between px-3 lg:px-0;
+    @apply flex items-center justify-between px-0;
 }
 
 .layout-header_group {

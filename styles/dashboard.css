@@ -1,5 +1,5 @@
 .dashboard {
-    @apply flex size-full gap-10;
+    @apply flex flex-col lg:flex-row size-full gap-10;
 }
 
 .dashboard_main {
@@ -7,33 +7,32 @@
 }
 
 .dashboard-sidebar {
-    @apply w-xs rounded-3xl border border-zinc-200 bg-white p-5 dark:border-[var(--secondary-heavy)] dark:bg-[var(--foreground)];
+    @apply w-full lg:w-xs border-accent bg-background rounded-3xl border;
 }
 
 .dashboard-conversation {
-    @apply p-5 border border-zinc-200 dark:border-[var(--secondary-heavy)] rounded-3xl bg-white dark:bg-[var(--foreground)];
+    @apply border-accent bg-background rounded-3xl lg:border lg:p-5;
 }
 .dashboard-title {
     @apply mb-5 text-xl font-bold;
 }
 
 .dashboard-fileUser_container {
-    @apply grid grid-cols-2 gap-10
+    @apply grid grid-cols-1 lg:grid-cols-4 gap-10;
 }
 
-
 .dashboard-user_con {
-    @apply flex w-3/5 flex-col
+    @apply flex w-full lg:w-2/5 flex-col justify-between gap-7;
 }
 
 .dashboard-user_info {
-    @apply flex gap-5 rounded-3xl border border-zinc-200 bg-white p-5 dark:border-[var(--secondary-heavy)] dark:bg-[var(--foreground)]
+    @apply flex gap-2 lg:gap-5 rounded-3xl overflow-hidden  p-5 border bg-background border-accent;
 }
 
 .dashboard-user_avatar {
-    @apply h-16 w-16 shrink-0 rounded-full bg-zinc-200
+    @apply size-12 lg:size-16 shrink-0 rounded-full bg-zinc-200;
 }
 
 .dashboard-user_login {
-    @apply mt-5 rounded-3xl border border-zinc-200 bg-white p-5 dark:border-[var(--secondary-heavy)] dark:bg-[var(--foreground)]
+    @apply rounded-3xl border bg-background border-accent p-5;
 }

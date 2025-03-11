@@ -1,4 +1,4 @@
-import { prisma } from '@/libs/prisma'
+import { prisma } from '@/lib/prisma'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
@@ -15,6 +15,9 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
 
     const conversation = await prisma.conversation.findUnique({
         where: { id },
+        include: {
+            participants: { include: { user: true } },
+        },
     })
 
     if (!messages || !conversation) {
@@ -54,6 +57,6 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     return NextResponse.json({ message: 'successfully created convers' }, { status: 200 })
 }
 
-export async function DELETE(req: NextRequest) {
-    return NextResponse.json({ message: 'hi' })
-}
+// export async function DELETE() {
+//     return NextResponse.json({ message: 'hi' })
+// }

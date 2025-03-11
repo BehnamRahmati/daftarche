@@ -2,11 +2,12 @@ import WithUser, { TWithUserProp } from '@/app/[locale]/dashboard/with-user'
 import { getDictionary } from '@/i18n/dictionaries'
 import ClipboardsTable from './_components/clipboards-table'
 import CreateClipboard from './_components/create-clipboard'
-import { TParamsLocale } from '../../_contants'
 
-type TProp = TParamsLocale & TWithUserProp
+type TProp = TWithUserProp & {
+    params: Promise<{ locale: 'fa' | 'en' }>
+}
 
-async function Clipboard({ params, user }: TProp) {
+async function Clipboard({ user, params }: TProp) {
     const locale = (await params).locale
     const dictionary = await getDictionary(locale)
 

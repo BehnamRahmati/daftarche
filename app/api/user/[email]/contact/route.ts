@@ -1,20 +1,30 @@
-import { prisma } from '@/libs/prisma'
+import { prisma } from '@/lib/prisma'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ email: string }> }) {
     const email = (await params).email
 
-    const contacts = await prisma.contact.findMany({
+    const contact = await prisma.contact.findMany({
         where: { owner: { email } },
+    })
+    const user = await prisma.user.findUnique({
+        where: { email },
         include: {
-            contact: true,
+            contacts: { include: { contact: true } },
+            inContacts: { include: { owner: true } },
         },
     })
 
-    if (!contacts) {
+    if (!user || !contact) {
         return NextResponse.json([], { status: 500 })
     }
-    return NextResponse.json(contacts, { status: 200 })
+
+    const userContacts = user?.contacts.map(c => c.contact)
+    const userInContacts = user?.inContacts.map(c => c.owner)
+
+    const contacts = [...userContacts, ...userInContacts]
+
+    return NextResponse.json({ contact, contacts }, { status: 200 })
 }
 
 export async function POST(req: NextRequest, { params }: { params: Promise<{ email: string }> }) {
@@ -36,4 +46,3 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ ema
 
     return NextResponse.json({ message: 'created' }, { status: 200 })
 }
-

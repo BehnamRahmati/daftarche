@@ -2,12 +2,18 @@
 
 import { columns } from '@/app/[locale]/dashboard/clipboard/columns'
 import DataTable from '@/components/ui/data-table'
-import { fetchUserClipboards, TUser } from '@/libs/clipboard.helpers'
+import { fetchUserClipboards } from '@/lib/clipboard-helpers'
+import { TUser } from '@/lib/types'
 import useSWR from 'swr'
 import ClipboardTableSkeleton from './clipboards-table-skeleton'
 
 export default function ClipboardsTable({ user }: { user: TUser }) {
-    const { data: clipboards, mutate, isLoading, error } = useSWR(user.email, fetchUserClipboards)
+    const {
+        data: clipboards,
+        mutate,
+        isLoading,
+        error,
+    } = useSWR(`/api/clipboard?email=${encodeURIComponent(user.email)}`, fetchUserClipboards)
 
     if (isLoading) return <ClipboardTableSkeleton />
 

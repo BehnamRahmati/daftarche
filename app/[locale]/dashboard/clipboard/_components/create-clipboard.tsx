@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { createNewClipboard } from '@/libs/clipboard.actions'
+import { createNewClipboard } from '@/lib/clipboard-helpers'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { FiClipboard } from 'react-icons/fi'

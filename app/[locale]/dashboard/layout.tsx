@@ -1,9 +1,7 @@
 import { TParamsLocale } from '@/app/[locale]/_contants'
-import DashboardFooter from '@/app/[locale]/dashboard/_components/footer/dashboard-footer'
-import DashboardHeader from '@/app/[locale]/dashboard/_components/header/dashboard-header'
-import DashboardSidebar from '@/app/[locale]/dashboard/_components/sidebar/dashboard-sidebar'
 import { SidebarProvider } from '@/components/ui/sidebar'
 import React from 'react'
+import { DashboardFooter, DashboardHeader, DashboardSidebar } from './_components'
 
 type TProps = TParamsLocale &{
         children: React.ReactNode
@@ -26,6 +24,7 @@ async function DashboardLayout({ children, params }: TProps) {
 
                 {/* footer */}
                 <DashboardFooter />
+                
             </div>
         </SidebarProvider>
     )
