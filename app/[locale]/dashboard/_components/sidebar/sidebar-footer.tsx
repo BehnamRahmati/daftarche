@@ -1,9 +1,10 @@
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { SidebarFooter, SidebarMenu, SidebarMenuItem } from '@/components/ui/sidebar'
-import { TUser } from '@/libs/clipboard.helpers'
+
 import { AvatarFallback } from '@radix-ui/react-avatar'
 
 import WithUser from '../../with-user'
+import { TUser } from '@/lib/types';
 
 function DashboardSidebarFooter({ children, user }: { user: TUser; children: React.ReactNode }) {
     return (

@@ -14,13 +14,14 @@ import {
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { TClipboard } from '@/libs/clipboard.helpers'
+
 import { useParams } from 'next/navigation'
 import React from 'react'
 import { FiChevronLeft, FiChevronRight, FiRefreshCw } from 'react-icons/fi'
 import { KeyedMutator } from 'swr'
 import { Button } from './button'
 import { Input } from './input'
+import { TClipboard } from '@/lib/types'
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]

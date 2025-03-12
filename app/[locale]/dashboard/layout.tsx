@@ -17,7 +17,7 @@ async function DashboardLayout({ children, params }: TProps) {
             {/* page content */}
             <div className='layout-main'>
                 {/* header */}
-                <DashboardHeader locale={locale} />
+                <DashboardHeader />
 
                 {/* main content */}
                 <main className='h-full lg:max-h-[calc(100dvh-15rem)]'>{children}</main>
@@ -26,7 +26,7 @@ async function DashboardLayout({ children, params }: TProps) {
                 <DashboardFooter />
                 
             </div>
-        </SidebarProvider>
+        </SidebarProvider> 
     )
 }
 

@@ -4,15 +4,10 @@ import { ColumnDef } from '@tanstack/react-table'
 
 import { ActionsCell, UpdatedCell } from './_components/columns-cell'
 import { ActionsHeader, ContentHeader, UpdateHeader } from './_components/columns-header'
+import { TClipboard } from '@/lib/types'
 
-export type Clipboards = {
-    id: string
-    content: string
-    createdAt: Date
-    updatedAt: Date
-}
 
-export const columns: ColumnDef<Clipboards>[] = [
+export const columns: ColumnDef<TClipboard>[] = [
     {
         accessorKey: 'content',
         header: () => {

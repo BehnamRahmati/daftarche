@@ -4,12 +4,18 @@ const locales = ['en', 'fa']
 const defaultLocale = 'en'
 
 export default function middleware(request: NextRequest) {
-
     //check if there is any suported locale in pathname
     const { pathname } = request.nextUrl
 
-    // Skip if it's a public file (e.g., images, etc.)
-    if (pathname.startsWith('/_next')) return NextResponse.next()
+    // Exclude requests for the 'public' folder or its assets
+    if (
+        pathname.startsWith('/_next') || // Built-in files
+        pathname.startsWith('/favicon.ico') || // Favicon
+        pathname.startsWith('/public') || // Any files under /public
+        pathname.match(/\.(.*)$/) // Static assets like CSS, JS, images, fonts, etc.
+    ) {
+        return NextResponse.next() // Skip middleware for these
+    }
 
     // Example logic: Redirect if no locale in the URL
     if (!pathname.startsWith('/en') && !pathname.startsWith('/fa')) {

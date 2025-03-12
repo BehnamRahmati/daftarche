@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { TClipboard } from '@/libs/clipboard.helpers'
+
 import { MoreHorizontal } from 'lucide-react'
 import { useParams } from 'next/navigation'
 import DeleteClipboard from './delete-clipboard'
@@ -30,6 +30,7 @@ export function ActionsCell({ clipboard }: { clipboard: TClipboard }) {
 }
 
 import moment from 'moment'
+import { TClipboard } from '@/lib/types'
 
 export  function UpdatedCell({ updatedAt }: { updatedAt: Date }) {
     const locale = useParams().locale as 'en' | 'fa'

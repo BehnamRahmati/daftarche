@@ -1,9 +1,9 @@
 .dashboard {
-    @apply flex flex-col lg:flex-row size-full gap-10;
+    @apply flex flex-col lg:flex-row lg:size-full gap-10;
 }
 
 .dashboard_main {
-    @apply flex size-full flex-1 flex-col gap-10;
+    @apply flex lg:size-full lg:flex-1 flex-col gap-10;
 }
 
 .dashboard-sidebar {
@@ -21,7 +21,7 @@
     @apply grid grid-cols-1 lg:grid-cols-4 gap-10;
 }
 
-.dashboard-user_con {
+.dashboard-user_con { 
     @apply flex w-full lg:w-2/5 flex-col justify-between gap-7;
 }
 

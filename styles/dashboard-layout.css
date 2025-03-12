@@ -1,11 +1,11 @@
 .layout {
-    @apply flex h-[calc(100dvh-5rem)] w-full flex-col gap-7 lg:flex-row;
+    @apply flex w-full flex-col gap-7 lg:h-[calc(100dvh-5rem)] lg:flex-row;
 }
 
 .layout-aside {
     @apply flex shrink-0 flex-col lg:min-h-full;
 }
- 
+
 .layout-sidebar {
     @apply lg:w-2xs duration-400 flex h-full w-full flex-col overflow-hidden rounded-3xl bg-white px-3 py-5 transition-[width] lg:border lg:border-zinc-200 dark:bg-[var(--foreground)] lg:dark:border-[var(--secondary-heavy)];
 }
@@ -15,7 +15,7 @@
 }
 
 .layout-sidebar_menu-link {
-    @apply flex items-center justify-center rounded-md py-1.5 *:h-6 *:leading-6 hover:bg-zinc-200 lg:w-full lg:justify-start lg:rounded-xl  dark:hover:bg-[var(--foreground)];
+    @apply flex items-center justify-center rounded-md py-1.5 *:h-6 *:leading-6 hover:bg-zinc-200 lg:w-full lg:justify-start lg:rounded-xl dark:hover:bg-[var(--foreground)];
 }
 
 .layout-sidebar_menu-link > p {
@@ -23,7 +23,7 @@
 }
 
 .layout-main {
-    @apply flex max-w-full lg:flex-1 flex-col gap-7 lg:gap-0 lg:justify-between p-3 lg:p-7 min-h-full ;
+    @apply flex max-w-full flex-col gap-3 p-3 min-h-full lg:flex-1 lg:justify-between lg:gap-0 lg:p-7;
 }
 
 .layout-footer {

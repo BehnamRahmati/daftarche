@@ -17,7 +17,7 @@ export type TClipboard = {
     id: string
     content: string
     userId: string
-    user: TUser
+    user?: TUser
     createdAt: Date
     updatedAt: Date
 }
