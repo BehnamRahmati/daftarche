@@ -1,11 +1,12 @@
 import { TMessage } from '@/lib/types'
+import moment from 'moment';
+import { ConversationMessage, ConversationMessageContent, ConversationMessageTime } from './conversation';
 
-export default function ContactMessage({ message, isFirst }: { message: TMessage; isFirst: boolean }) {
+export default function ContactMessage({ message, isFirst, locale }: { message: TMessage; isFirst: boolean; locale: 'en' | 'fa' }) {
     return (
-        <div key={message.id} className={`shrink-0 mt-1 rtl:place-items-end`}>
-            <div className='w-fit flex rtl:flex-row-reverse'>
+        <ConversationMessage className='rtl:place-self-end rtl:flex-row-reverse' >
                 {isFirst ? (
-                    <span className={`block transform rtl:-translate-y-1 rtl:translate-x-0.5 rotate-90 w-3 h-3`}>
+                    <span className={`inline-block shrink-0 transform rtl:-translate-y-1 rtl:translate-x-0.5 rotate-90 w-3 h-3`}>
                         <svg
                             viewBox='0 0 8 13'
                             height='13'
@@ -22,15 +23,14 @@ export default function ContactMessage({ message, isFirst }: { message: TMessage
                         </svg>
                     </span>
                 ) : (
-                    <span className={`block w-3 h-3`}></span>
+                    <span className={`inline-block shrink-0 w-3 h-3`}></span>
                 )}
 
-                <p
-                    className={`p-2 bg-accent shadow-sm shrink-0 rounded-lg ${isFirst && 'rounded-tl-none'}`}
-                >
-                    {message.content}
-                </p>
-            </div>
-        </div>
+                <ConversationMessageContent className={`${isFirst && 'rounded-tl-none'}`}>
+                    <span className='span'>{message.content}</span>
+                        <ConversationMessageTime className='rtl:justify-items-end mt-0.5'>{message.createdAt && moment(message.createdAt).locale(locale).format("LT")}</ConversationMessageTime>
+                    
+                </ConversationMessageContent>
+        </ConversationMessage>
     )
 }

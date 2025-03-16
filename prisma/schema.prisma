@@ -14,11 +14,13 @@ model User {
   emailVerified DateTime?
   image         String    @default("/user-placeholder.png")
 
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  isOnline   Boolean   @default(false) // Tracks if user is currently online
-  lastActive DateTime? // Tracks the last time the user was active
- 
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  isOnline         Boolean   @default(false) // Tracks if user is currently online
+  lastActive       DateTime? // Tracks the last time the user was active
+  pushSubscription Json? // Store user's Web Push subscription object
+  deviceReady      Boolean   @default(false) // Tracks whether the user registered their notification permissions
+
   // relations
   accounts      Account[]
   sessions      Session[]
@@ -27,6 +29,7 @@ model User {
   clipboard     Clipboard[]
   contacts      Contact[]                 @relation("UserOwnedContacts")
   inContacts    Contact[]                 @relation("UserInOtherContacts")
+  files         File[] // User's uploaded files
 }
 
 model Account {
@@ -73,19 +76,6 @@ model Clipboard {
   updatedAt DateTime @updatedAt
 }
 
-model Message {
-  id             String       @id @default(uuid())
-  content        String
-  senderId       String
-  sender         User         @relation(fields: [senderId], references: [id])
-  conversationId String
-  conversation   Conversation @relation(fields: [conversationId], references: [id])
-
-  createdAt DateTime @default(now())
-  received  Boolean  @default(false) // Indicates if the message was received
-  read      Boolean  @default(false) // Indicates if the message was read
-}
-
 model Conversation {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
@@ -116,4 +106,90 @@ model Contact {
   createdAt DateTime @default(now())
 
   @@unique([ownerId, contactId]) // Avoid duplicate contacts
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+  DOCUMENT
+  AUDIO
+  OTHER
+}
+
+model Message {
+  id             String       @id @default(uuid())
+  content        String?
+  media          Media[]
+  senderId       String
+  sender         User         @relation(fields: [senderId], references: [id])
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+
+  createdAt DateTime  @default(now())
+  received  Boolean   @default(false)
+  read      Boolean   @default(false)
+  // New reply functionality fields
+  parentId  String?   @map("parent_id") // Reference to original message
+  parent    Message?  @relation("Replies", fields: [parentId], references: [id], onDelete: SetNull)
+  replies   Message[] @relation("Replies") // All replies to this message
+}
+
+model Media {
+  id           String    @id @default(uuid())
+  url          String // URL to stored media
+  type         MediaType // Type of media
+  mimeType     String? // MIME type for proper handling
+  filename     String? // Original filename
+  size         Int? // File size in bytes
+  width        Int? // Image/video width
+  height       Int? // Image/video height
+  duration     Int? // Video/audio duration in seconds
+  thumbnailUrl String? // URL to thumbnail for videos/images
+  messageId    String
+  message      Message   @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  createdAt    DateTime  @default(now())
+}
+
+// Add these new enums first
+enum FileType {
+  IMAGE
+  VIDEO
+  DOCUMENT
+  AUDIO
+  ARCHIVE
+  OTHER
+}
+
+enum FileStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+// Add the File model
+model File {
+  id              String     @id @default(uuid())
+  url             String     @unique // File storage URL
+  filename        String // Original filename
+  type            FileType // File category
+  size            Int // File size in bytes
+  mimeType        String // MIME type
+  status          FileStatus @default(PENDING)
+  virusScanStatus String     @default("pending") // Could be enum if needed
+  userId          String
+  user            User       @relation(fields: [userId], references: [id])
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+  deletedAt       DateTime? // For soft deletion
+  downloads       Int        @default(0)
+
+  // Optional metadata fields
+  width        Int? // For images/videos
+  height       Int? // For images/videos
+  duration     Int? // For audio/video
+  thumbnailUrl String? // For media previews
+
+  @@index([userId])
+  @@index([createdAt])
+  @@index([type])
 }

@@ -17,11 +17,31 @@
     },
     "dashboard": {
         "title": "داشبرد",
-        "clipboard" : {
-            "title": "آخرین کلیپ برد ها"
+        "clipboard": {
+            "title": "کلیپ بورد های اخیر",
+            "noEntry": "هیچ کلیپ بوردی یافت نشد!"
         },
         "conversation": {
-            "title": "آخرین گفتگو ها"
+            "title": "گفتگو های اخیر",
+            "noEntry": "هیچ گفتگویی یافت نشد!"
+        },
+        "contacts": {
+            "title": "مخاطبین",
+            "noEntry": "هیچ مخاطبی یافت نشد!"
+        },
+        "files": {
+            "title": "فایل",
+            "noEntry": "هیچ فایلی یافت نشد!"
+        },
+        "conversationList": {
+            "avatar": "نمایه",
+            "name": "نام",
+            "message": "پیام",
+            "visit": "بازدید"
+        },
+        "clipboardList": {
+            "content": "محتوا",
+            "action": "کنش"
         }
     },
     "conversation": {

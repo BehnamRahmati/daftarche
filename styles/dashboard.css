@@ -14,7 +14,7 @@
     @apply border-accent bg-background rounded-3xl lg:border lg:p-5;
 }
 .dashboard-title {
-    @apply mb-5 text-xl font-bold;
+    @apply mb-2.5 text-base lg:text-xl font-bold;
 }
 
 .dashboard-fileUser_container {

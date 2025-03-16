@@ -8,12 +8,12 @@ import {
 import { SidebarMenuAction } from '@/components/ui/sidebar'
 import Link from 'next/link'
 import { FiMoreVertical, FiUser } from 'react-icons/fi'
-import SignoutButton from './signout-button'
+import SignoutButton from './client-signout-button'
 
 async function SidebarAccountDropmenu({ locale }: { locale: 'fa' | 'en' }) {
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger asChild className={`py-3 ${locale === 'fa' && 'right-auto left-1'}`}>
+            <DropdownMenuTrigger asChild className={`py-2.5 shrink-0 ${locale === 'fa' && 'right-auto left-1'}`}>
                 <SidebarMenuAction>
                     <FiMoreVertical />
                 </SidebarMenuAction>

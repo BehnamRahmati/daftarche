@@ -56,7 +56,7 @@ export default function DataTable<TData, TValue>({ columns, data, mutate }: Data
                         placeholder= {locale === 'fa' ? 'جستجو بین کلیپ بورد ها' : 'search between clipboards'}
                         value={(table.getColumn('content')?.getFilterValue() as string) ?? ''}
                         onChange={event => table.getColumn('content')?.setFilterValue(event.target.value)}
-                        className='lg:w-sm'
+                        className='text-xs lg:text-sm lg:w-sm bg-background'
                     />
                 </div>
 
@@ -67,7 +67,7 @@ export default function DataTable<TData, TValue>({ columns, data, mutate }: Data
                             table.setPageSize(Number(value))
                         }}
                     >
-                        <SelectTrigger>
+                        <SelectTrigger className='bg-background'>
                             <SelectValue placeholder={table.getState().pagination.pageSize} />
                         </SelectTrigger>
                         <SelectContent>
@@ -84,7 +84,7 @@ export default function DataTable<TData, TValue>({ columns, data, mutate }: Data
                     </Button>
                 </div>
             </div>
-            <div className='border-accent rounded-xl border'>
+            <div className='border-sidebar-border rounded-lg border'>
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map(headerGroup => (

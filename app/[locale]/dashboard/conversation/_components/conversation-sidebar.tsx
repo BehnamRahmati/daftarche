@@ -25,8 +25,8 @@ export default function ConversationSidebar({ user }: { user: TUser }) {
             {data.contacts.length !== 0 ? (
                 pathname === `/${locale}/dashboard` ? (
                     data.contacts.slice(-4, -1).map(contactItem => (
-                        <div key={contactItem.id} className='flex w-full items-center gap-2 overflow-hidden'>
-                            <div className='flex w-5/6 items-center gap-2'>
+                        <div key={contactItem.id} className='flex items-center gap-2 w-full'>
+                            <div className='flex w-5/6 items-center gap-2 overflow-hidden'>
                                 <Avatar
                                     className={`size-7 lg:size-12 border-4 ${contactItem.isOnline ? 'border-green-500' : 'border-zinc-300'}`}
                                 >
@@ -41,7 +41,7 @@ export default function ConversationSidebar({ user }: { user: TUser }) {
                                     <p className='truncate text-sm hidden lg:block'>{contactItem.email}</p>
                                 </div>
                             </div>
-                            <div className='w-1/6'>
+                            <div className='w-1/6 flex justify-center'>
                                 <ContactDropdown contactId={data.contact.id} user={user} recipientId={contactItem.id!} />
                             </div>
                         </div>

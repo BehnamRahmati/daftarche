@@ -1,32 +1,38 @@
-import { TParamsLocale } from '@/app/[locale]/_contants'
-import { SidebarProvider } from '@/components/ui/sidebar'
-import React from 'react'
-import { DashboardFooter, DashboardHeader, DashboardSidebar } from './_components'
 
-type TProps = TParamsLocale &{
-        children: React.ReactNode
-    }
+import ServiceWorkerRegister from '@/components/service-worker-register'
+import { SidebarProvider } from '@/components/ui/sidebar'
+import { DashboardSidebar } from './_components'
+import DashboardFooter from './_components/footer/dashboard-footer'
+import DashboardHeader from './_components/header/dashboard-header'
+
+type TProps = {
+    children: React.ReactNode
+    params : Promise<{locale: 'fa' | 'en'}>
+}
+
+/**
+* * dashboard layout mapped
+*  - wrapper
+*  --- sidebar
+*  --- page content wrapper
+*  ------ header
+*  ------ main content
+*  ------ footer
+*
+*/
 
 async function DashboardLayout({ children, params }: TProps) {
     const locale = (await params).locale
     return (
-        <SidebarProvider className='layout'>
-            {/* sidebar */}
+        <SidebarProvider className='flex flex-col lg:flex-row lg:h-100dvh w-full max-w-100dvw'>
             <DashboardSidebar locale={locale} />
-
-            {/* page content */}
-            <div className='layout-main'>
-                {/* header */}
+            <div className='flex flex-col flex-1 overflow-hidden'>
                 <DashboardHeader />
-
-                {/* main content */}
-                <main className='h-full lg:max-h-[calc(100dvh-15rem)]'>{children}</main>
-
-                {/* footer */}
+                <main className='p-2.5 flex-1'>{children}</main>
                 <DashboardFooter />
-                
             </div>
-        </SidebarProvider> 
+            <ServiceWorkerRegister />
+        </SidebarProvider>
     )
 }
 

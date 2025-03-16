@@ -5,6 +5,7 @@ import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { createNewClipboard } from '@/lib/clipboard-helpers'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { FiClipboard } from 'react-icons/fi'
 import { RiPlayListAddLine } from 'react-icons/ri'
@@ -17,6 +18,7 @@ const formSchema = z.object({
 })
 
 export default function CreateClipboard({ email }: { email: string }) {
+    const locale = useParams().locale as 'fa' | 'en'
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -38,14 +40,14 @@ export default function CreateClipboard({ email }: { email: string }) {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className='flex items-center gap-2 mt-10 [&>*:first-child]:flex-1'>
+            <form onSubmit={form.handleSubmit(onSubmit)} className='flex items-center gap-1 mt-10 [&>*:first-child]:flex-1'>
                 <FormField
                     control={form.control}
                     name='content'
                     render={({ field }) => (
                         <FormItem>
                             <FormControl>
-                                <Input {...field} />
+                                <Input className='bg-sidebar text-xs lg:text-sm' placeholder={locale === 'en' ? "Enter or paste your clipboard here." : "متن خود را در اینجا جایگذاری کنید."} {...field} />
                             </FormControl>
                         </FormItem>
                     )}
@@ -56,13 +58,13 @@ export default function CreateClipboard({ email }: { email: string }) {
                     render={({ field }) => (
                         <FormItem>
                             <FormControl>
-                                <Input hidden {...field} />
+                                <Input  hidden {...field} />
                             </FormControl>
                         </FormItem>
                     )}
                 />
 
-                <Button type='button' variant={'outline'} size={'icon'} onClick={() => handlePaste()}>
+                <Button type='button' className='mx-1 ' variant={'outline'} size={'icon'} onClick={() => handlePaste()}>
                     <FiClipboard />
                     <span className='sr-only'>paste from clipboard</span>
                 </Button>

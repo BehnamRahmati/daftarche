@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function DashboardFooter() {
     return (
-        <footer className='bg-background p-3 lg:p-5 border border-accent rounded-lg lg:shadow-md'>
+        <footer className='bg-sidebar p-2.5 border-t border-t-sidebar-border leading-7'>
             <p className='text-center'>made with class by Behnam</p>
         </footer>
     )

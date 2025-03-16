@@ -6,12 +6,12 @@
         "title": "file"
     },
     "clipboard": {
-        "title": "clipboard",
+        "title": "Clipboard",
         "table": {
             "columns": {
-                "content": "content",
-                "action": "action",
-                "updatedAt": "updated at"
+                "content": "Content",
+                "action": "Action",
+                "updatedAt": "Updated at"
             }
         },
         "form": {
@@ -19,15 +19,35 @@
         }
     },
     "dashboard": {
-        "title": "dashboard",
+        "title": "Dashboard",
         "clipboard" : {
-            "title": "recent clipbords"
+            "title": "Recent clipbords",
+            "noEntry" : "No Clipbourd found!"
         },
         "conversation": {
-            "title": "recent conversation"
+            "title": "Recent conversation",
+            "noEntry" : "No Conversation found!"
+        },
+        "contacts" : {
+            "title": "Contacts",
+            "noEntry" : "No Contact found!"
+        },
+        "files" : {
+            "title": "Files",
+            "noEntry" : "No file found!"
+        },
+        "conversationList" : {
+            "avatar": "Avatar",
+            "name": "Name",
+            "message": "Message",
+            "visit": "Visit"
+        },
+        "clipboardList": {
+            "content" : "Content",
+            "action" : "Action"
         }
     },
     "conversation": {
-        "title": "conversation"
+        "title": "Conversation"
     }
 }

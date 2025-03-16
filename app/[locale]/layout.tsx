@@ -1,14 +1,12 @@
 import Providers from '@/components/Providers'
-import ServiceWorkerRegister from '@/components/service-worker-register'
 import { Toaster } from '@/components/ui/sonner'
 import type { Metadata, Viewport } from 'next'
 import { Poppins } from 'next/font/google'
 import { markInactiveUsersOffline } from '../api/user/user.services'
 import '../globals.css'
-import { TParamsLocale } from './_contants'
 
 // Run this periodically, e.g., every 5-10 minutes
-setInterval(markInactiveUsersOffline, 600000) // 10 minutes
+setInterval(markInactiveUsersOffline, 300000) // 5 minutes
 
 const poppins = Poppins({
     weight: ['100', '300', '400', '500', '700', '800', '900'],
@@ -31,9 +29,10 @@ export const metadata: Metadata = {
     ],
 }
 
-type TProps = TParamsLocale &
+type TProps = 
     Readonly<{
         children: React.ReactNode
+        params : Promise<{locale: 'fa' | 'en'}>
     }>
 
 export default async function RootLayout({ children, params }: TProps) {
@@ -44,7 +43,6 @@ export default async function RootLayout({ children, params }: TProps) {
             <body className={`antialiased ${poppins.className}`}>
                 <Providers>{children}</Providers>
                 <Toaster dir={locale === 'fa' ? 'rtl' : 'ltr'} position={locale === 'fa' ? 'bottom-right' : 'bottom-left'} />
-                <ServiceWorkerRegister />
             </body>
         </html>
     )

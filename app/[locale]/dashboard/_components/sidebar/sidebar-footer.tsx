@@ -12,8 +12,8 @@ function DashboardSidebarFooter({ children, user }: { user: TUser; children: Rea
             <SidebarMenu>
                 <SidebarMenuItem className='flex items-center'>
                     {/* user info */}
-                    <div className='flex w-44 items-center gap-2 overflow-hidden p-2'>
-                        <Avatar>
+                    <div className='flex items-center w-full gap-2 overflow-hidden'>
+                        <Avatar className='size-7 ltr:ml-0.5 rtl:mr-0.5'>
                             <AvatarImage src={`${user.image}`} alt={`${user.name}`} />
                             <AvatarFallback>DF</AvatarFallback>
                         </Avatar>

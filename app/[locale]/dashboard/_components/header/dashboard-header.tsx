@@ -1,24 +1,22 @@
-import BackButton from './back-button'
-// import FullScreenButton from './fullscreen-button'
-import LocaleToggle from './toggle-locale'
-import NotificationToggle from './toggle-notification'
-import SidebarToggle from './toggle-sidebar'
-import ModeToggle from './toggle-theme'
 
-export default function DashboardHeader() {
+import WithUser, { TWithUserProp } from '../../with-user'
+import { BackButton, NotificationDropdown, SelectLocaleDropdown, SelectThemeDropdown, SidebarToggleButton } from './header'
+
+function DashboardHeader({ user }:TWithUserProp) {
     return (
-        <header className='layout-header'>
+        <header className='flex items-center justify-between border-b border-b-sidebar-border py-1.5 px-2.5 bg-sidebar'>
             <div className='layout-header_group'>
-                <SidebarToggle />
+                <SidebarToggleButton />
                 <BackButton />
-                {/* <FullScreenButton /> */}
             </div>
 
             <div className='layout-header_group'>
-                <LocaleToggle />
-                <ModeToggle />
-                <NotificationToggle />
+                <SelectLocaleDropdown />
+                <SelectThemeDropdown />
+                <NotificationDropdown user={user} />
             </div>
         </header>
     )
 }
+
+export default WithUser(DashboardHeader)

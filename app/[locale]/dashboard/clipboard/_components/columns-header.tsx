@@ -19,7 +19,7 @@ export function UpdateHeader({onClick}: {onClick: () => void}) {
         <div className='flex justify-end lg:justify-center max-w-10'>
             <Button
                 variant='ghost'
-                className='text-2xs lg:text-base'
+                className='text-[0px] lg:text-sm'
                 onClick={onClick}
             >
                 {locale === 'en' ? 'last update' : 'بروزرسانی شده در'}
@@ -31,5 +31,5 @@ export function UpdateHeader({onClick}: {onClick: () => void}) {
 
 export function ActionsHeader() {
     const { locale } = useParams()
-    return <div className='text-center text-xs lg:text-base'>{locale === 'en' ? 'Actions' : 'عملیات'}</div>
+    return <div className='text-center text-xs lg:text-sm'>{locale === 'en' ? 'Actions' : 'عملیات'}</div>
 }

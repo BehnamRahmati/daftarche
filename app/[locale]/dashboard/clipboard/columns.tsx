@@ -15,7 +15,7 @@ export const columns: ColumnDef<TClipboard>[] = [
         },
         cell({ row }) {
             const clipboard = row.original
-            return <div className='max-w-32 text-xs lg:text-base lg:max-w-5/6 truncate'>{clipboard.content}</div>
+            return <div className='max-w-32 text-xs lg:text-sm lg:max-w-5/6 truncate'>{clipboard.content}</div>
         },
     },
 

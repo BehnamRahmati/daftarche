@@ -29,7 +29,10 @@
     }
 }
 
+
 @import '../styles/fonts.css';
+
+
 @import '../styles/home.css';
 @import '../styles/dashboard.css';
 @import '../styles/dashboard-layout.css';
@@ -78,19 +81,15 @@
     --radius-xl: calc(var(--radius) + 4px);
 }
 
-
-
-
 body {
     font-family: "Poppins", Helvetica, sans-serif;
-    @apply max-w-screen bg-background;
+    @apply max-w-screen bg-zinc-50 dark:bg-background;
 }
 
 html[dir='rtl'] body {
     font-family: iranyekan, Helvetica, sans-serif;
     text-align: right;
 }
-
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
@@ -107,17 +106,16 @@ input:-webkit-autofill:active {
     -webkit-text-fill-color: var(--secondary) !important;
 }
 
-
 .no-scrollbar::-webkit-scrollbar {
     width: 0px;
   }
-  
+
   /* Track */
   .no-scrollbar::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px grey;
     border-radius: 10px;
   }
-  
+
   /* Handle */
   .no-scrollbar::-webkit-scrollbar-thumb {
     background: red;

@@ -39,13 +39,9 @@ export async function POST(req: NextRequest) {
 
     const sender = await prisma.user.findUnique({ where: { email: senderEmail } })
 
-    
-    
-
     if (!senderEmail || !recipientId || !sender) {
         return NextResponse.json({ message: 'failed', status: 500 })
     }
-
 
     // Find an existing conversation between sender and recipient
     let conversation = await prisma.conversation.findFirst({
@@ -76,5 +72,32 @@ export async function POST(req: NextRequest) {
         })
     }
 
-    return NextResponse.json({ message: 'successful', status: 200 , conversation })
+    return NextResponse.json({ message: 'successful', status: 200, conversation })
+}
+
+export async function PATCH(req: NextRequest) {
+    const { email } = await req.json()
+
+    const receivedMessages = await prisma.message.updateMany({
+        where: {
+            conversation: {
+                participants: {
+                    some: {
+                        user: { email },
+                    },
+                },
+            },
+            received: false,
+            sender: { NOT: [{ email }] },
+        },
+        data: {
+            received: true,
+        },
+    })
+
+    if (!receivedMessages) {
+        return NextResponse.json({ message: 'failed to create convers' }, { status: 500 })
+    }
+
+    return NextResponse.json({ message: 'successfully created convers' }, { status: 200 })
 }

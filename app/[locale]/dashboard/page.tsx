@@ -1,47 +1,58 @@
 import { TParamsLocale } from '@/app/[locale]/_contants'
-import DashboardClipboardList from '@/app/[locale]/dashboard/_components/dashboard-clipboard-list'
-import DashboardConversationList from '@/app/[locale]/dashboard/_components/dashboard-conversation-list'
+import DashboardClipboardList from '@/app/[locale]/dashboard/_components/landing-clipboard-list'
 import { getDictionary } from '@/i18n/dictionaries'
-import WithUser, { TWithUserProp } from './with-user'
+import { TDictionary } from '@/lib/types'
+import DashboardUser from './_components/client-dashboard-user'
+import { LandingContent, LandingSection, LandingSidebar, LandingTitle, LandingWrapper } from './_components/landing'
+import { LandingConversationList } from './_components/landing-conversation-list'
 import ConversationSidebar from './conversation/_components/conversation-sidebar'
-import { DashboardUser } from './_components'
+import WithUser, { TWithUserProp } from './with-user'
 
+// * props types
 type TProps = TParamsLocale & TWithUserProp
+
+/**
+ * * dashboard page mapped
+ * - wrapper
+ * ---- content wrapper
+ * --------- user info
+ * --------------- user contacts
+ * --------- file info
+ * --------- conversations lists
+ * ---- sidebar
+ * --------- clipboards lists
+ */
 
 async function Dashboard({ params, user }: TProps) {
     const locale = (await params).locale
-    const dictionary = await getDictionary(locale)
+    const dictionary: TDictionary = await getDictionary(locale)
 
     return (
-        <div className='dashboard'>
-            <div className='dashboard_main'>
-                {/* user and files info */}
-                <div className='dashboard-fileUser_container'>
-                    {/* user info */}
-                    <div className='flex flex-col lg:flex-row gap-5 lg:col-span-3'>
-                        <DashboardUser user={user} />
-                        <div className='w-full lg:w-3/5 rounded-3xl lg:shadow-md border border-accent bg-background p-5 '>
-                            <div className='dashboard-title'>{locale === "en" ? "Contacts" : "مخاطبین"}</div>
-                           <ConversationSidebar user={user} />
-                        </div>
-                    </div>
-                    {/* files info */}
-                    <div className=''>
-                        <div className='dashboard-title'>{locale === "en" ? "Recent Files" : "آخرین فایل ها"}</div>
-                        <div className='lg:h-[calc(100%-3rem)] lg:shadow-md bg-background border border-accent p-5 rounded-3xl'>{locale === "en" ? "no file found !" : "هیچ فایلی پیدا نشد!"} </div>
-                    </div>
+        <LandingWrapper>
+            <LandingContent>
+                <div className='grid grid-cols-1 lg:grid-cols-2 gap-2.5'>
+                    <DashboardUser user={user} />
+                    <LandingSection>
+                        <LandingTitle>{dictionary.dashboard.contacts.title}</LandingTitle>
+                        <ConversationSidebar user={user} />
+                    </LandingSection>
                 </div>
-                <div className='dashboard-conversation lg:shadow-md'>
-                    <div className='dashboard-title'>{dictionary.dashboard.conversation.title}</div>
-                    <DashboardConversationList locale={locale} user={user} />
-                </div>
-            </div>
-            <div className='dashboard-sidebar lg:shadow-md'>
-                <div className='dashboard-title p-5 pb-0'>{dictionary.dashboard.clipboard.title}</div>
-                <DashboardClipboardList user={user} />
-            </div>
-        </div>
+                <LandingSection className='h-44'>
+                    <LandingTitle>{dictionary.dashboard.files.title}</LandingTitle>
+                    {dictionary.dashboard.files.noEntry}
+                </LandingSection>
+                <LandingSection>
+                    <LandingTitle>{dictionary.dashboard.conversation.title}</LandingTitle>
+                    <LandingConversationList locale={locale} user={user} />
+                </LandingSection>
+            </LandingContent>
+            <LandingSidebar>
+                <LandingTitle>{dictionary.dashboard.clipboard.title}</LandingTitle>
+                <DashboardClipboardList user={user} dictionary={dictionary} />
+            </LandingSidebar>
+        </LandingWrapper>
     )
 }
 
+// * user hoc
 export default WithUser(Dashboard)

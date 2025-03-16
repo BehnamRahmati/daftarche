@@ -6,7 +6,7 @@ import SidebarAccountDropmenu from './sidebar-account-dropmenu'
 import DashboardSidebarFooter from './sidebar-footer'
 import DashboardSidebarHeader from './sidebar-header'
 import DashboardSidebarMenu from './sidebar-menu'
-import DashboardSidebarLink from './sidebar-menu-item'
+import DashboardSidebarLink from './client-sidebar-menu-item'
 
 type TProps = {
     locale: 'en' | 'fa'
@@ -39,7 +39,7 @@ export default async function DashboardSidebar({ locale }: TProps) {
     ]
 
     return (
-        <Sidebar variant='floating' side={locale === 'en' ? 'left' : 'right'} collapsible='icon'>
+        <Sidebar variant='sidebar' side={locale === 'en' ? 'left' : 'right'} collapsible='icon'>
             {/* sidebar header */}
             <DashboardSidebarHeader locale={locale} />
             <SidebarSeparator className='mx-0' />
@@ -52,6 +52,7 @@ export default async function DashboardSidebar({ locale }: TProps) {
             </DashboardSidebarMenu>
 
             {/* sidebar footer */}
+            <SidebarSeparator className='mx-0' />
             <DashboardSidebarFooter>
                 <SidebarAccountDropmenu locale={locale} />
             </DashboardSidebarFooter>

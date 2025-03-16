@@ -37,3 +37,43 @@ export async function createNewMessage(data: {
     })
     return await response.json()
 }
+
+export async function markMessagesRead(data: { conversationId: string; email: string }) {
+    const response = await fetch(`/api/conversation/${data.conversationId}`, {
+        method: 'PATCH',
+        body: JSON.stringify(data),
+    })
+    return await response.json()
+}
+
+export async function markMessagesReceived(data: { email: string }) {
+    try {
+        const response = await fetch(`/api/conversation`, {
+            method: 'PATCH',
+            body: JSON.stringify(data),
+        })
+        return await response.json()
+    } catch (e) {
+        /* Handle error */
+        console.warn(e)
+    }
+}
+
+export async function sendPushNotification(email: string) {
+    const response = await fetch(`/api/notification`, {
+        method: 'POST',
+        body: JSON.stringify({ email, eventType: 'received' }),
+    })
+    if (!response.ok) {
+        return []
+    }
+    return await response.json()
+}
+
+export async function fetchUnreadMessages(email: string): Promise<TMessage[] | []> {
+    const response = await fetch('/api/notification/messages', {
+        method: 'POST',
+        body: JSON.stringify({ email }),
+    })
+    return await response.json()
+}
