@@ -8,19 +8,35 @@ function LandingWrapper({ className, ...props }: React.ComponentProps<'div'>) {
 
 function LandingSidebar({ className, ...props }: React.ComponentProps<'div'>) {
     return (
+        <div className={cn('border-sidebar-border bg-sidebar w-full rounded-lg border lg:w-4/12 p-2.5', className)} {...props} />
+    )
+}
+
+function LandingNoEntry({ className, ...props }: React.ComponentProps<'div'>) {
+    return (
         <div
-            className={cn('border-sidebar-border bg-sidebar w-full rounded-lg border lg:w-4/12 p-2.5', className)}
+            className={cn('flex-1 min-h-44 grid place-content-center rounded-lg border-2 border-dashed border-sidebar-accent', className)}
             {...props}
         />
     )
 }
 
+function LandingListSkleton({ className, count, section }: { count: number; section: string } & React.ComponentProps<'div'>) {
+    return (
+        <div className={cn('flex flex-col gap-2.5', className)}>
+            {[...new Array(count)].map((_, index) => (
+                <Skeleton key={section + index} className='h-10 w-full' />
+            ))}
+        </div>
+    )
+}
+
 function LandingContent({ className, ...props }: React.ComponentProps<'div'>) {
-    return <div className={cn('flex flex-col gap-2.5 lg:w-8/12', className)} {...props} />
+    return <div className={cn('flex flex-col gap-2.5 lg:w-8/12 lg:max-h-[calc(100vh-7.5rem)]', className)} {...props} />
 }
 
 function LandingSection({ className, ...props }: React.ComponentProps<'div'>) {
-    return <div className={cn('border-sidebar-border bg-sidebar rounded-lg border p-2.5', className)} {...props} />
+    return <div className={cn('border-sidebar-border bg-sidebar rounded-lg border p-2.5 flex flex-col overflow-hidden', className)} {...props} />
 }
 
 function LandingTitle({ className, ...props }: React.ComponentProps<'h2'>) {
@@ -57,7 +73,7 @@ function LandingListBodyRow({ className, ...props }: React.ComponentProps<'li'>)
 }
 
 function LandingListBodyItem({ className, ...props }: React.ComponentProps<'div'>) {
-    return <div className={cn('p-2.5 text-xs md:text-sm', className)} {...props} />
+    return <div className={cn('p-2.5 text-sm', className)} {...props} />
 }
 
 export default function DashboardUserSkeleton() {
@@ -90,8 +106,10 @@ export {
     LandingListContainer,
     LandingListHeader,
     LandingListHeaderItem,
+    LandingNoEntry,
     LandingSection,
     LandingSidebar,
     LandingTitle,
     LandingWrapper,
+    LandingListSkleton
 }

@@ -87,6 +87,8 @@ export type TDictionary = {
     }
     file: {
         title: string
+        downloadForm: string
+        UploadForm: string
     }
     clipboard: {
         title: string
@@ -127,6 +129,13 @@ export type TDictionary = {
         }
         clipboardList: {
             content: string
+            action: string
+        }
+        filesList: {
+            filename: string
+            type: string
+            status: string
+            size: string
             action: string
         }
     }

@@ -1,9 +1,11 @@
 import LoginForm from '@/components/molecules/form/LoginForm'
 import React from 'react'
 
-export default function page() {
+export default function LoginPage() {
     return (
-        <div className='size-full grid place-content-center'>
+        <div className='h-dvh w-dvw overflow-hidden relative'>
+            <div className="h-1/2 w-full bg-zinc-100"></div>
+            <div className="h-1/2 w-full bg-black"></div>
             <LoginForm />
         </div>
     )

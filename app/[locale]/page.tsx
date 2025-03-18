@@ -1,16 +1,6 @@
-import { TParamsLocale } from '@/app/[locale]/_contants'
-import { getDictionary } from '@/i18n/dictionaries'
+import { redirect } from 'next/navigation'
 
-type TProps = TParamsLocale
-
-export default async function Home({ params }: TProps) {
-    const locale = (await params).locale
-    const dictionary = await getDictionary(locale)
-    return (
-        <>
-            <header>header</header>
-            <main>{dictionary.home.title}</main>
-            <footer>footer</footer>
-        </>
-    )
+export default async function Home() {
+    redirect('/en/dashboard')
+    return <></>
 }

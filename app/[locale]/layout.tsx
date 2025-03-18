@@ -29,11 +29,10 @@ export const metadata: Metadata = {
     ],
 }
 
-type TProps = 
-    Readonly<{
-        children: React.ReactNode
-        params : Promise<{locale: 'fa' | 'en'}>
-    }>
+type TProps = Readonly<{
+    children: React.ReactNode
+    params: Promise<{ locale: 'fa' | 'en' }>
+}>
 
 export default async function RootLayout({ children, params }: TProps) {
     const locale = (await params).locale

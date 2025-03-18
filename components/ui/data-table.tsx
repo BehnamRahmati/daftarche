@@ -21,15 +21,15 @@ import { FiChevronLeft, FiChevronRight, FiRefreshCw } from 'react-icons/fi'
 import { KeyedMutator } from 'swr'
 import { Button } from './button'
 import { Input } from './input'
-import { TClipboard } from '@/lib/types'
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
-    mutate: KeyedMutator<TClipboard[]>
+    mutate: KeyedMutator<any>
+    searchColumn: string
 }
 
-export default function DataTable<TData, TValue>({ columns, data, mutate }: DataTableProps<TData, TValue>) {
+export default function DataTable<TData, TValue>({ columns, data, mutate, searchColumn }: DataTableProps<TData, TValue>) {
     const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
     const { locale } = useParams()
@@ -54,8 +54,8 @@ export default function DataTable<TData, TValue>({ columns, data, mutate }: Data
                 <div className='flex items-center'>
                     <Input
                         placeholder= {locale === 'fa' ? 'جستجو بین کلیپ بورد ها' : 'search between clipboards'}
-                        value={(table.getColumn('content')?.getFilterValue() as string) ?? ''}
-                        onChange={event => table.getColumn('content')?.setFilterValue(event.target.value)}
+                        value={(table.getColumn(searchColumn)?.getFilterValue() as string) ?? ''}
+                        onChange={event => table.getColumn(searchColumn)?.setFilterValue(event.target.value)}
                         className='text-xs lg:text-sm lg:w-sm bg-background'
                     />
                 </div>

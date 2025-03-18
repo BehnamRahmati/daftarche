@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input'
 import { createNewMessage } from '@/lib/conversation-helpers'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { FiSend } from 'react-icons/fi'
+import { PiPaperPlaneRightFill } from 'react-icons/pi'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
@@ -16,7 +16,15 @@ const formSchema = z.object({
     senderEmail: z.string().email(),
 })
 
-export default function CreateMessageForm({ conversationId, senderEmail , locale }: { conversationId: string; senderEmail: string ; locale: 'fa' | 'en'}) {
+export default function CreateMessageForm({
+    conversationId,
+    senderEmail,
+    locale,
+}: {
+    conversationId: string
+    senderEmail: string
+    locale: 'fa' | 'en'
+}) {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -37,7 +45,7 @@ export default function CreateMessageForm({ conversationId, senderEmail , locale
         <Form {...form}>
             <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className='flex items-center rtl:flex-row-reverse gap-2 [&>*:first-child]:flex-1 shrink-0 w-full p-4 lg:p-0 fixed lg:static bottom-0 left-0 bg-background'
+                className='flex items-center rtl:flex-row-reverse gap-2 [&>*:first-child]:flex-1 shrink-0 w-full p-2.5 lg:p-0 fixed lg:static bottom-0 left-0 bg-background'
             >
                 <FormField
                     control={form.control}
@@ -45,13 +53,16 @@ export default function CreateMessageForm({ conversationId, senderEmail , locale
                     render={({ field }) => (
                         <FormItem>
                             <FormControl>
-                                <Input {...field} placeholder={locale === 'en' ? 'enter your message' : "پیام خود را اینجا بنویسید"} className='h-12 lg:h-9' />
+                                <Input
+                                    {...field}
+                                    placeholder={locale === 'en' ? 'enter your message' : 'پیام خود را اینجا بنویسید'}
+                                />
                             </FormControl>
                         </FormItem>
                     )}
                 />
-                <Button type='submit' variant={'outline'} size={'icon'} className='hidden lg:flex'>
-                    <FiSend />
+                <Button type='submit' variant={'outline'} size={'icon'} className='bg-sidebar-primary'>
+                    <PiPaperPlaneRightFill />
                 </Button>
             </form>
         </Form>

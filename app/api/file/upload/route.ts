@@ -1,52 +1,44 @@
 import { s3client } from '@/lib/file.services'
 import { prisma } from '@/lib/prisma'
-import { GetObjectCommand, S3ServiceException } from '@aws-sdk/client-s3'
+import { GetObjectCommand,  S3ServiceException } from '@aws-sdk/client-s3'
 import { Upload } from '@aws-sdk/lib-storage'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 import archiver from 'archiver'
-import axios from 'axios'
 import { NextRequest, NextResponse } from 'next/server'
-import path from 'path'
 import stream from 'stream'
 import { v4 as uuidv4 } from 'uuid'
 
-// variables
-// const endpoint = process.env.s3_ENDPOINT!
-// const accessKeyId = process.env.s3_ACCESS_KEY!
-// const secretAccessKey = process.env.s3_SECRET_KEY!
 const Bucket = process.env.s3_BUCKET_NAME!
 
-// post request
-export async function POST(request: NextRequest) {
-    // * 1.0 - s3client for uploading to storage
+export async function POST(req: NextRequest) {
 
     try {
-        // * 2.0 initiate constants
-        // 2.1 fields
-        const { email, url } = await request.json()
-        // 2.2 parsed url
-        const parsedUrl = new URL(decodeURIComponent(url))
-        // 2.3 starting archiving
+        const formData = await req.formData()
+        const file = formData.get('file') as File
+        const email = formData.get('email') as string
         const archive = archiver('zip', {
             zlib: { level: 9 },
             store: true, // Enable store mode for buffer compatibility
         })
-        // 2.4 getting user
-        const user = await prisma.user.findUnique({
-            where: { email },
-        })
-        const zipId = uuidv4()
-        const zipFilename = `${zipId}.zip`
 
-        // checking if fields and user exist
-        if (!url || !user) {
+        if (!email || !file) {
             return NextResponse.json({ error: 'Invalid request' }, { status: 400 })
         }
 
+        const user = await prisma.user.findUnique({
+            where: { email },
+        })
+        // checking if fields and user exist
+        if (!user) {
+            return NextResponse.json({ error: 'Invalid request' }, { status: 400 })
+        }
+        const zipId = uuidv4()
+        const zipFilename = `${file.name}.zip`
+
         const zipFileRecord = await prisma.file.create({
             data: {
-                url: `download-${Date.now()}.zip`,
-                filename: `download-${Date.now()}.zip`,
+                url: `${zipId}-${file.name}.zip`,
+                filename: file.name,
                 type: 'ARCHIVE',
                 size: 0,
                 mimeType: 'application/zip',
@@ -54,29 +46,10 @@ export async function POST(request: NextRequest) {
                 status: 'PENDING',
             },
         })
-
-        // * 3.0 - downlading file from url
-        const response = await axios.get(url, { responseType: 'stream' })
-
-        // * 4.0 - passing downloadded file to archiver
         const passThrough = new stream.PassThrough()
         archive.pipe(passThrough)
-
-        archive.on('entry', () => console.log('entry'))
-        archive.on('finish', () => console.log('finish'))
-        archive.on('error', error => console.log(error))
-        archive.on('warning', function (err) {
-            if (err.code === 'ENOENT') {
-                // log warning
-                console.log(err.message)
-            } else {
-                // throw error
-                throw err
-            }
-        })
-
-        const filename = path.basename(parsedUrl.pathname) || `file-${Date.now()}`
-        archive.append(response.data, { name: filename }).finalize()
+        const fileBuffer = Buffer.from(await file.arrayBuffer())
+        archive.append(fileBuffer, { name: file.name }).finalize()
 
         const s3Params = {
             Bucket,
@@ -157,8 +130,8 @@ export async function POST(request: NextRequest) {
                 { status: 500 },
             )
         }
-    } catch (err) {
-        console.error('Archive creation failed:', err)
-        return NextResponse.json({ mesg: 'Archive creation failed:', err })
+    } catch (error) {
+        console.log(error)
+        return NextResponse.json('hi')
     }
 }

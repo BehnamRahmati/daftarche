@@ -12,16 +12,16 @@ export default function SenderInfo({ conversationId, userEmail }: { conversation
     const sender = data.conversation.participants.find(x => x.user.email !== userEmail)
 
     return (
-        <div className='flex items-center justify-between mb-2'>
+        <div className='flex items-center justify-between'>
             <div className='flex gap-2 items-center'>
-                <Avatar className={`size-6 lg:size-9 border-4 ${sender?.user.isOnline ? 'border-green-500' : 'border-zinc-300'}`}>
+                <Avatar className={`size-10 bg-zinc-300 rounded-lg border-2 ${sender?.user.isOnline ? 'border-green-500' : 'border-zinc-300'}`}>
                     <AvatarImage src={sender?.user.image} alt={`${sender?.user.name}`} />
                     <AvatarFallback>DF</AvatarFallback>
                 </Avatar>
-                <div className=''>{sender?.user.name}</div>
+                <div className='font-light'>{sender?.user.name}</div>
             </div>
 
-            <div className=''>{sender?.user.isOnline ? 'online' : 'offline'}</div>
+            <div className='font-light'>{sender?.user.isOnline ? 'online' : 'offline'}</div>
         </div>
     )
 }

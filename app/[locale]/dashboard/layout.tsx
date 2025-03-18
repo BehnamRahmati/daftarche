@@ -1,25 +1,23 @@
-
 import ServiceWorkerRegister from '@/components/service-worker-register'
 import { SidebarProvider } from '@/components/ui/sidebar'
 import { DashboardSidebar } from './_components'
 import DashboardFooter from './_components/footer/dashboard-footer'
 import DashboardHeader from './_components/header/dashboard-header'
-
 type TProps = {
     children: React.ReactNode
-    params : Promise<{locale: 'fa' | 'en'}>
+    params: Promise<{ locale: 'fa' | 'en' }>
 }
 
 /**
-* * dashboard layout mapped
-*  - wrapper
-*  --- sidebar
-*  --- page content wrapper
-*  ------ header
-*  ------ main content
-*  ------ footer
-*
-*/
+ * * dashboard layout mapped
+ *  - wrapper
+ *  --- sidebar
+ *  --- page content wrapper
+ *  ------ header
+ *  ------ main content
+ *  ------ footer
+ *
+ */
 
 async function DashboardLayout({ children, params }: TProps) {
     const locale = (await params).locale

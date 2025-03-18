@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils'
 
 function ConversationContainer({ className, ...props }: React.ComponentProps<'div'>) {
-    return <div className={cn('flex-1 rounded-lg border border-sidebar-border bg-zinc-300 dark:bg-sidebar bg-[url("/static/chatbackground.png")] p-0.5 pb-2.5', className)} {...props} />
+    return <div className={cn('flex-1 rounded-lg border border-sidebar-border bg-zinc-300 dark:bg-sidebar bg-[url("/static/chatbackground.png")] dark:bg-[url("/static/dark-chat-bg.jpg")] p-0.5 pb-2.5', className)} {...props} />
 }
 
 function ConversationList({ className, ...props }: React.ComponentProps<'div'>) {

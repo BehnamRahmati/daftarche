@@ -3,6 +3,7 @@ import { getDictionary } from '@/i18n/dictionaries'
 import WithUser, { TWithUserProp } from '../with-user'
 import DownloadForm from './_components/download-form'
 import DownloadList from './_components/download-list'
+import UploadForm from './_components/upload-form'
 
 type TProps = TParamsLocale & TWithUserProp
 
@@ -11,9 +12,12 @@ async function File({ params, user }: TProps) {
     const dictionary = await getDictionary(locale)
     return (
         <div>
-            <h2>{dictionary.file.title}</h2>
-            <DownloadForm email={user.email} />
-            <DownloadList  email={user.email} />
+            <div className='flex items-center flex-col lg:flex-row gap-5'>
+                <DownloadForm email={user.email} dictionary={dictionary} />
+                <UploadForm email={user.email} dictionary={dictionary} />
+            </div>
+
+            <DownloadList email={user.email} />
         </div>
     )
 }

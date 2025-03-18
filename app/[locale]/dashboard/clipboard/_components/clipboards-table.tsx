@@ -23,7 +23,7 @@ export default function ClipboardsTable({ user }: { user: TUser }) {
     return (
         <div className='mt-2.5 border border-sidebar-border bg-sidebar p-2.5 rounded-lg'>
             <div className='hidden md:block'>
-                <DataTable columns={columns} data={clipboards} mutate={mutate} />
+                <DataTable columns={columns} data={clipboards} mutate={mutate} searchColumn="content" />
             </div>
             <div className='md:hidden'>
                 <ClipboardList clipboards={clipboards} />

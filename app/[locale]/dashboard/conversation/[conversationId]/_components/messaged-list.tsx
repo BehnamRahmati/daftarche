@@ -134,7 +134,7 @@ export default function MessagesList({ conversationId, user }: { conversationId:
 
 function MessagesListSkeleton() {
     return (
-        <div className='h-[calc(100dvh-13rem)] lg:h-full max-h-[calc(100%-13)] lg:max-h-[calc(100dvh-14rem)]'>
+        <div className='h-[calc(100dvh-11.5rem)] lg:h-full max-h-[calc(100%-13)] lg:max-h-[calc(100dvh-14rem)]'>
             <Skeleton className='w-full h-full' />
         </div>
     )

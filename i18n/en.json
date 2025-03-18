@@ -3,7 +3,9 @@
         "title": "home"
     },
     "file": {
-        "title": "file"
+        "title": "file",
+        "downloadForm" : "download file from url ...",
+        "UploadForm" : "upload your file here ..."
     },
     "clipboard": {
         "title": "Clipboard",
@@ -44,6 +46,13 @@
         },
         "clipboardList": {
             "content" : "Content",
+            "action" : "Action"
+        },
+        "filesList": {
+            "filename" : "Filename",
+            "type" : "Type",
+            "status" : "Status",
+            "size" : "Size",
             "action" : "Action"
         }
     },

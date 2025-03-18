@@ -7,6 +7,7 @@ import { LandingContent, LandingSection, LandingSidebar, LandingTitle, LandingWr
 import { LandingConversationList } from './_components/landing-conversation-list'
 import ConversationSidebar from './conversation/_components/conversation-sidebar'
 import WithUser, { TWithUserProp } from './with-user'
+import DashboardFileList from './_components/landing-file-list'
 
 // * props types
 type TProps = TParamsLocale & TWithUserProp
@@ -29,19 +30,19 @@ async function Dashboard({ params, user }: TProps) {
 
     return (
         <LandingWrapper>
-            <LandingContent>
-                <div className='grid grid-cols-1 lg:grid-cols-2 gap-2.5'>
+            <LandingContent >
+                <div className='grid grid-cols-1 lg:grid-cols-2 gap-2.5 lg:h-1/3'>
                     <DashboardUser user={user} />
                     <LandingSection>
                         <LandingTitle>{dictionary.dashboard.contacts.title}</LandingTitle>
                         <ConversationSidebar user={user} />
                     </LandingSection>
                 </div>
-                <LandingSection className='h-44'>
+                <LandingSection className='lg:h-1/3'>
                     <LandingTitle>{dictionary.dashboard.files.title}</LandingTitle>
-                    {dictionary.dashboard.files.noEntry}
+                    <DashboardFileList user={user} dictionary={dictionary} />
                 </LandingSection>
-                <LandingSection>
+                <LandingSection className='lg:h-1/3'>
                     <LandingTitle>{dictionary.dashboard.conversation.title}</LandingTitle>
                     <LandingConversationList locale={locale} user={user} />
                 </LandingSection>

@@ -12,6 +12,7 @@ import {
     LandingListContainer,
     LandingListHeader,
     LandingListHeaderItem,
+    LandingListSkleton,
 } from './landing'
 
 type TProps = {
@@ -22,8 +23,11 @@ type TProps = {
 async function LandingConversationList({ user, locale }: TProps) {
     const conversations = await fetchAllConversations(user.email)
     const dictionary: TDictionary = await getDictionary(locale)
+
+    if(!conversations) return <LandingListSkleton count={4} section='conversation' />
+    
     return (
-        <LandingListContainer>
+        <LandingListContainer className='lg:overflow-y-auto no-scrollbar'>
             <LandingList>
                 <LandingListHeader>
                     <LandingListHeaderItem className='w-1/6 lg:w-2/12'>
@@ -41,15 +45,15 @@ async function LandingConversationList({ user, locale }: TProps) {
                 </LandingListHeader>
                 <LandingListBody>
                     {conversations.length ? (
-                        conversations.map(convers => {
+                        conversations.slice(0,9).map(convers => {
                             const sender = convers.participants.find((pt: TParticipants) => pt.user.email !== user.email)
                             const fromNow = moment(convers.messages[0].createdAt).locale(locale).fromNow()
                             return (
-                                <LandingListBodyRow key={convers.id}>
+                                <LandingListBodyRow key={convers.id} className='p-1'>
                                     <Link href={`/${locale}/dashboard/conversation/${convers.id}`} className='flex w-full items-center justify-between '>
-                                        <LandingListBodyItem className='w-1/6 lg:w-2/12 py-0'>
+                                        <LandingListBodyItem className='w-1/6 lg:w-2/12 p-0'>
                                             <Avatar
-                                                className={`size-8 lg:size-10 border-4 ${sender?.user.isOnline ? 'border-green-500' : 'bg-zinc-400'}`}
+                                                className={`size-10 rounded-lg border-2 bg-zinc-300 ${sender?.user.isOnline ? 'border-green-500' : 'border-zinc-300'}`}
                                             >
                                                 <AvatarImage src={sender?.user.image || '#'} alt={sender?.user.name} />
                                                 <AvatarFallback>DF</AvatarFallback>

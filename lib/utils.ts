@@ -26,3 +26,4 @@ export const exitFullscreen = (): void => {
     (document as any).msExitFullscreen();
   }
 };
+

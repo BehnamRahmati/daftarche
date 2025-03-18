@@ -14,20 +14,25 @@ import {
     LandingListContainer,
     LandingListHeader,
     LandingListHeaderItem,
+    LandingListSkleton,
+    LandingNoEntry,
 } from './landing'
+import React from 'react'
 
-export default function DashboardClipboardList({ user, dictionary }: { user: TUser, dictionary: TDictionary }) {
+function DashboardClipboardList({ user, dictionary }: { user: TUser; dictionary: TDictionary }) {
     const { locale } = useParams()
-    
+
     const {
         data: clipboards,
         isLoading,
         error,
     } = useSWR(`/api/clipboard?email=${encodeURIComponent(user.email)}`, fetchUserClipboards)
 
-    if (isLoading) return <p className='p-5 text-center'>is loading</p>
+    if (isLoading) return <LandingListSkleton count={15} section='clipboards' />
 
-    if (error || !clipboards) return <p className='p-2.5 text-center'>error : no clipboards</p>
+    if (error) return <p className='p-2.5 text-center'>error : no clipboards</p>
+    if (!clipboards || clipboards.length === 0)
+        return <LandingNoEntry>{dictionary.dashboard.clipboard.noEntry}</LandingNoEntry>
 
     return (
         <LandingListContainer>
@@ -37,30 +42,26 @@ export default function DashboardClipboardList({ user, dictionary }: { user: TUs
                     <LandingListHeaderItem className='w-1/6'>{dictionary.dashboard.clipboardList.action}</LandingListHeaderItem>
                 </LandingListHeader>
                 <LandingListBody>
-                    {clipboards.length === 0 ? (
-                        <p className='p-2.5 text-center'>{dictionary.dashboard.clipboard.noEntry}</p>
-                    ) : (
-                        clipboards.map(clip => (
-                            <LandingListBodyRow key={clip.id}>
-                                <LandingListBodyItem className='w-5/6 truncate'>
-                                    {clip.content}
-                                </LandingListBodyItem>
-                                <LandingListBodyItem className='w-1/6 shrink-0 cursor-pointer flex justify-center'>
-                                    <Button
-                                        variant={'ghost'}
-                                        size={'sm'}
-                                        className='h-5 cursor-pointer hover:bg-transparent'
-                                        onClick={() => navigator.clipboard.writeText(clip.content)}
-                                        title={locale === 'en' ? 'copy' : 'کپی'}
-                                    >
-                                        <FiCopy size={20} />
-                                    </Button>
-                                </LandingListBodyItem>
-                            </LandingListBodyRow>
-                        ))
-                    )}
+                    {clipboards.slice(0,9).map(clip => (
+                        <LandingListBodyRow key={clip.id}>
+                            <LandingListBodyItem className='w-5/6 truncate text-sm'>{clip.content}</LandingListBodyItem>
+                            <LandingListBodyItem className='w-1/6 shrink-0 cursor-pointer flex justify-center'>
+                                <Button
+                                    variant={'ghost'}
+                                    size={'sm'}
+                                    className='h-5 cursor-pointer hover:bg-transparent'
+                                    onClick={() => navigator.clipboard.writeText(clip.content)}
+                                    title={locale === 'en' ? 'copy' : 'کپی'}
+                                >
+                                    <FiCopy size={20} />
+                                </Button>
+                            </LandingListBodyItem>
+                        </LandingListBodyRow>
+                    ))}
                 </LandingListBody>
             </LandingList>
         </LandingListContainer>
     )
 }
+
+export default React.memo(DashboardClipboardList)

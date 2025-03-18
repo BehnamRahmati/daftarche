@@ -1,46 +1,37 @@
 {
-    "name": "Daftarche",
-    "short_name": "Daftarche",
-    "description": "Daftarche is for clipboard , chat and files.",
-    "start_url": "/en/dashboard",
-    "scope": "/",
-    "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#000000",
-    "gcm_sender_id": "103953800507",
-    "permissions": ["notifications"],
-    "icons": [
-        {
-            "src": "/icon-144x144.png",
-            "sizes": "144x144",
-            "type": "image/png",
-            "purpose": "any"
-        },
-        {
-            "src": "/web-app-manifest-192x192.PNG",
-            "sizes": "192x192",
-            "type": "image/png",
-            "purpose": "any"
-        },
-        {
-            "src": "/web-app-manifest-512x512.PNG",
-            "sizes": "512x512",
-            "type": "image/png",
-            "purpose": "maskable"
-        }
-    ],
-    "screenshots": [
-        {
-            "src": "/static/screenshot1.PNG",
-            "type": "image/png",
-            "sizes": "1859x947",
-            "form_factor": "narrow"
-        },
-        {
-            "src": "/static/screenshot2.PNG",
-            "type": "image/jpg",
-            "sizes": "1855x932",
-            "form_factor": "wide"
-        }
-    ]
+	"name": "Daftarche",
+	"short_name": "Daftarche",
+	"description": "Daftarche is for clipboard , chat and files.",
+	"theme_color": "#000000",
+	"background_color": "#1447e6",
+	"display": "standalone",
+	"orientation": "portrait",
+	"scope": "/",
+	"start_url": "/fa/dashboard",
+	"icons": [
+		{ "src": "icons/16x16.png", "sizes": "16x16", "type": "image/png" },
+		{ "src": "icons/32x32.png", "sizes": "32x32", "type": "image/png" },
+		{ "src": "icons/72x72.png", "sizes": "72x72", "type": "image/png" },
+		{ "src": "icons/96x96.png", "sizes": "96x96", "type": "image/png" },
+		{ "src": "icons/120x120.png", "sizes": "120x120", "type": "image/png" },
+		{ "src": "icons/128x128.png", "sizes": "128x128", "type": "image/png" },
+		{ "src": "icons/144x144.png", "sizes": "144x144", "type": "image/png" },
+		{ "src": "icons/152x152.png", "sizes": "152x152", "type": "image/png" },
+		{ "src": "icons/180x180.png", "sizes": "180x180", "type": "image/png" },
+		{ "src": "icons/192x192.png", "sizes": "192x192", "type": "image/png" },
+		{ "src": "icons/384x384.png", "sizes": "384x384", "type": "image/png" },
+		{ "src": "icons/512x512.png", "sizes": "512x512", "type": "image/png" },
+		{ "src": "icons/512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+	],
+	"gcm_sender_id": "103953800507",
+	"permissions": ["notifications"],
+	"screenshots": [
+		{
+			"src": "/static/screenshot1.PNG",
+			"type": "image/png",
+			"sizes": "1859x947",
+			"form_factor": "narrow"
+		},
+		{ "src": "/static/screenshot2.PNG", "type": "image/jpg", "sizes": "1855x932", "form_factor": "wide" }
+	]
 }

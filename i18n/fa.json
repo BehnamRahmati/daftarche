@@ -42,12 +42,21 @@
         "clipboardList": {
             "content": "محتوا",
             "action": "کنش"
+        },
+        "filesList": {
+            "filename" : "فایل",
+            "type" : "نوع",
+            "status" : "وضعیت",
+            "size" : "حجم",
+            "action" : "کنش"
         }
     },
     "conversation": {
         "title": "گفتگو"
     },
     "file": {
-        "title": "فایل"
+        "title": "فایل",
+        "downloadForm" : "دانلود فایل از اینترنت",
+        "UploadForm" : "آپلود فایل "
     }
 }

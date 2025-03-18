@@ -7,9 +7,9 @@ import { TUser } from '@/lib/types'
 import { createNewContact } from '@/lib/user-helpers'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { FiPlusCircle } from 'react-icons/fi'
 import { toast } from 'sonner'
 import { z } from 'zod'
+import { PiUserCirclePlus } from "react-icons/pi";
 
 const formSchema = z.object({
     email: z.string().email(),
@@ -37,14 +37,14 @@ export default function ConversationContactForm({ user }: { user: TUser }) {
                     render={({ field }) => (
                         <FormItem>
                             <FormControl>
-                                <Input {...field} />
+                                <Input className='bg-background h-10' placeholder='enter contact email' {...field} />
                             </FormControl>
                         </FormItem>
                     )}
                 />
 
-                <Button type='submit' variant={'outline'} size={'icon'}>
-                    <FiPlusCircle />
+                <Button type='submit' variant={'outline'} size={'icon'} className='bg-sidebar-primary'>
+                    <PiUserCirclePlus />
                     <span className='sr-only'>Add to clipboards</span>
                 </Button>
             </form>

@@ -69,7 +69,7 @@ export default function CreateClipboard({ email }: { email: string }) {
                     <span className='sr-only'>paste from clipboard</span>
                 </Button>
 
-                <Button type='submit' variant={'outline'} size={'icon'}>
+                <Button type='submit' variant={'outline'} size={'icon'} className="bg-sidebar-primary">
                     <RiPlayListAddLine />
                     <span className='sr-only'>Add to clipboards</span>
                 </Button>
