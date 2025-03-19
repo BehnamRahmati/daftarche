@@ -11,14 +11,18 @@ async function File({ params, user }: TProps) {
     const locale = (await params).locale
     const dictionary = await getDictionary(locale)
     return (
-        <div>
-            <div className='flex items-center flex-col lg:flex-row gap-5'>
+        <>
+            <div>
+                <h2 className='text-center text-3xl font-bold my-5'>{dictionary.file.title}</h2>
+                <p className='text-center max-w-md mx-auto'>{dictionary.file.subtitle}</p>
+            </div>
+            <div className='flex items-center flex-col gap-5 mt-5 max-w-xl mx-auto'>
                 <DownloadForm email={user.email} dictionary={dictionary} />
                 <UploadForm email={user.email} dictionary={dictionary} />
             </div>
 
             <DownloadList email={user.email} />
-        </div>
+        </>
     )
 }
 

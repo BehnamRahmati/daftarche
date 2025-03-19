@@ -40,7 +40,7 @@ export default function CreateClipboard({ email }: { email: string }) {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className='flex items-center gap-1 mt-10 [&>*:first-child]:flex-1'>
+            <form onSubmit={form.handleSubmit(onSubmit)} className='max-w-md mx-auto flex items-center gap-1 my-5 [&>*:first-child]:flex-1'>
                 <FormField
                     control={form.control}
                     name='content'

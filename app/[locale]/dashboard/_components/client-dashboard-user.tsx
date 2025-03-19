@@ -9,6 +9,7 @@ import DashboardUserSkeleton from './landing'
 export default function DashboardUser({ user }: { user: TUser }) {
     const { data, isLoading } = useSWR(`/api/user/${encodeURIComponent(user.email)}`, fetchUser)
     const { locale } = useParams()
+    console.warn(user)
 
     if (isLoading || !data || !data.user) return <DashboardUserSkeleton />
 

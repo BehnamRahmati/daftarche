@@ -13,7 +13,10 @@ async function Clipboard({ user, params }: TProp) {
 
     return (
         <>
-            <h2 className='text-center text-3xl font-bold my-5'>{dictionary.clipboard.title}</h2>
+            <div>
+                <h2 className='text-center text-3xl font-bold my-5'>{dictionary.clipboard.title}</h2>
+                <p className='text-center max-w-md mx-auto'>{dictionary.clipboard.subtitle}</p>
+            </div>
             <CreateClipboard email={user.email} />
             <ClipboardsTable user={user} />
         </>

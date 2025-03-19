@@ -8,10 +8,8 @@ export async function fetchConversation(url: string): Promise<{ conversation: TC
     return await response.json()
 }
 
-export async function fetchAllConversations(email: string): Promise<TConversation[]> {
-    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/conversation?email=${encodeURIComponent(email)}`, {
-        next: { revalidate: 5 },
-    })
+export async function fetchAllConversations(url: string): Promise<TConversation[]> {
+    const response = await fetch(url)
     return await response.json()
 }
 

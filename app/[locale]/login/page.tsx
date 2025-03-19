@@ -1,4 +1,4 @@
-import LoginForm from '@/components/molecules/form/LoginForm'
+import LoginForm from '@/app/[locale]/login/login-form'
 import React from 'react'
 
 export default function LoginPage() {

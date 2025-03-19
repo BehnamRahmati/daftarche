@@ -30,7 +30,7 @@ export default function ConversationContactForm({ user }: { user: TUser }) {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className='mt-10 flex items-center gap-2 [&>*:first-child]:flex-1'>
+            <form onSubmit={form.handleSubmit(onSubmit)} className='flex items-center gap-2 [&>*:first-child]:flex-1'>
                 <FormField
                     control={form.control}
                     name='email'

@@ -1,22 +1,23 @@
 'use client'
 
+import GoogleSignInButton from '@/components/google-signin-button'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { signIn, useSession } from 'next-auth/react'
 import Link from 'next/link'
-import { redirect } from 'next/navigation'
+import { redirect, useParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
-import { FcGoogle } from 'react-icons/fc'
 import { z } from 'zod'
 const formSchema = z.object({
-    password: z.string(),
-    email: z.string().email(),
+    password: z.string().min(8),
+    email: z.string().min(10).email(),
 })
 
 export default function LoginForm() {
     const { data: session } = useSession()
+    const locale = useParams().locale as 'fa' | 'en'
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -31,6 +32,11 @@ export default function LoginForm() {
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
         console.warn(values)
+        await signIn('credentials', {
+            email: values.email,
+            password: values.password,
+            redirect: false,
+        })
     }
 
     return (
@@ -64,13 +70,13 @@ export default function LoginForm() {
                             </FormItem>
                         )}
                     />
-                    <Button variant={'outline'} type='submit' disabled className='bg-sidebar-primary'>
+                    <Button variant={'outline'} type='submit' className='cursor-pointer bg-sidebar-primary'>
                         log in
                     </Button>
                 </form>
             </Form>
 
-            <div className='flex items-center'>
+            <div className='flex items-center md:w-xs mx-auto'>
                 <div className='flex-1 border-b border-accent'></div>
                 <div className='w-10 py-5 text-center'>OR</div>
                 <div className='flex-1 border-b border-accent'></div>
@@ -79,24 +85,19 @@ export default function LoginForm() {
             <div className='mb-5 flex flex-col items-center justify-center gap-2.5'>
                 <div className='text-sm'>
                     <span> don&lsquo;t have an account ?</span>
-                    <Link href={'/'} className='text-sidebar-primary dark:text-blue-500 ml-2'>register</Link>
+                    <Link href={`/${locale}/register`} className='text-sidebar-primary dark:text-blue-500 ml-2'>
+                        register
+                    </Link>
                 </div>
                 <div className='text-sm'>
                     <span> forgot your password ?</span>
-                    <Link href={'/'} className='text-sidebar-primary dark:text-blue-500 ml-2'>new password</Link>
+                    <Link href={'/'} className='text-sidebar-primary dark:text-blue-500 ml-2'>
+                        new password
+                    </Link>
                 </div>
             </div>
 
-            <Button
-                variant={'outline'}
-                type='button'
-                size={'lg'}
-                onClick={() => signIn('google')}
-                className='flex items-center gap-2.5 mx-auto'
-            >
-                <FcGoogle />
-                Sign in with Google
-            </Button>
+            <GoogleSignInButton />
         </div>
     )
 }

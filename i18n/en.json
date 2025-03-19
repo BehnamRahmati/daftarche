@@ -3,12 +3,14 @@
         "title": "home"
     },
     "file": {
-        "title": "file",
-        "downloadForm" : "download file from url ...",
-        "UploadForm" : "upload your file here ..."
+        "title": "File",
+        "subtitle": "Save your files from either your device or web in your personal cloud storage.",
+        "downloadForm" : "Download file from url ...",
+        "UploadForm" : "Upload your file here ..."
     },
     "clipboard": {
         "title": "Clipboard",
+        "subtitle": "Save your clipboards here so that you can use them on other devices.",
         "table": {
             "columns": {
                 "content": "Content",

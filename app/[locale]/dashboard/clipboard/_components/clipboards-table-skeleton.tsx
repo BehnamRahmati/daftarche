@@ -2,7 +2,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 
 export default function ClipboardTableSkeleton() {
     return (
-        <div className='mt-10 flex flex-col'>
+        <div className='mt-10 flex flex-col max-w-5xl mx-auto'>
             <div className='mb-5 flex items-center justify-between'>
                 <Skeleton className='w-sm h-8' />
 

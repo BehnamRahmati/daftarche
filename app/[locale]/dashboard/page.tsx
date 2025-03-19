@@ -44,7 +44,7 @@ async function Dashboard({ params, user }: TProps) {
                 </LandingSection>
                 <LandingSection className='lg:h-1/3'>
                     <LandingTitle>{dictionary.dashboard.conversation.title}</LandingTitle>
-                    <LandingConversationList locale={locale} user={user} />
+                    <LandingConversationList dictionary={dictionary} locale={locale} user={user} />
                 </LandingSection>
             </LandingContent>
             <LandingSidebar>

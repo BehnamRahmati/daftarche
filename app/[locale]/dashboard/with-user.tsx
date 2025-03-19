@@ -14,10 +14,11 @@ export default function WithUser<P extends Record<string, unknown>>(WrappedCompo
 
     const ComponentWithUser = async (props: Omit<P, keyof TWithUserProp>) => {
         const session = await getServerSession(authOptions)
-        if (!session || !session.user || !session.user.name || !session.user.email || !session.user.image) {
+        if (!session || !session.user || !session.user.name || !session.user.email || !session.user.image || !session.user.id) {
             redirect(`/en/login`)
         }
-        const user = { name: session.user.name, email: session.user.email, image: session.user.image }
+        
+        const user = { name: session.user.name, email: session.user.email, image: session.user.image, id: session.user.id }
         await markUserOnlinePeriodically(user.email)
         return <WrappedComponent {...(props as P)} user={user} />
     }

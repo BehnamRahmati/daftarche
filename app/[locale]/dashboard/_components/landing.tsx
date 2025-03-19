@@ -8,14 +8,14 @@ function LandingWrapper({ className, ...props }: React.ComponentProps<'div'>) {
 
 function LandingSidebar({ className, ...props }: React.ComponentProps<'div'>) {
     return (
-        <div className={cn('border-sidebar-border bg-sidebar w-full rounded-lg border lg:w-4/12 p-2.5', className)} {...props} />
+        <div className={cn('border-sidebar-border bg-sidebar w-full rounded-lg border lg:w-4/12 p-2.5 flex flex-col', className)} {...props} />
     )
 }
 
 function LandingNoEntry({ className, ...props }: React.ComponentProps<'div'>) {
     return (
         <div
-            className={cn('flex-1 min-h-44 grid place-content-center rounded-lg border-2 border-dashed border-sidebar-accent', className)}
+            className={cn('flex-1 min-h-32 grid place-content-center rounded-lg border-2 border-dashed border-sidebar-accent', className)}
             {...props}
         />
     )
