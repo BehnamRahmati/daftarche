@@ -16,7 +16,7 @@ export function ContentHeader() {
 export function UpdateHeader({onClick}: {onClick: () => void}) {
     const { locale } = useParams()
     return (
-        <div className='flex justify-end lg:justify-center max-w-10'>
+        <div className='flex justify-end lg:justify-center'>
             <Button
                 variant='ghost'
                 className='text-[0px] lg:text-sm'

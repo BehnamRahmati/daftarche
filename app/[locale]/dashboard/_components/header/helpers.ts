@@ -26,9 +26,10 @@ function safeNotification() {
 }
 
 async function requestNotificationPermission() {
-    if (safeNotification().supported && safeNotification().permission) {
-        await Notification.requestPermission()
-        // Add analytics tracking here
+    if (Notification.permission !== 'denied') {
+        if (safeNotification().supported && safeNotification().permission) {
+            await Notification.requestPermission()
+        }
     }
 }
 

@@ -21,7 +21,7 @@ async function File({ params, user }: TProps) {
                 <UploadForm email={user.email} dictionary={dictionary} />
             </div>
 
-            <DownloadList email={user.email} />
+            <DownloadList id={user.id} />
         </>
     )
 }

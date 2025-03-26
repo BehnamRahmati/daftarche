@@ -8,13 +8,13 @@ datasource db {
 }
 
 model User {
-  id               String    @id @default(uuid())
-  name             String
-  email            String    @unique
-  emailVerified    DateTime?
-  image            String    @default("/user-placeholder.png")
-  hashedPassword   String?
-  
+  id             String    @id @default(uuid())
+  name           String
+  email          String    @unique
+  emailVerified  DateTime?
+  image          String    @default("/user-placeholder.png")
+  hashedPassword String?
+
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
   isOnline         Boolean   @default(false) // Tracks if user is currently online
@@ -70,7 +70,7 @@ model VerificationToken {
 model Clipboard {
   id      String @id @default(uuid())
   content String
-  user    User   @relation(fields: [userid], references: [id])
+  user    User   @relation(fields: [userid], references: [id], onDelete: Cascade)
   userid  String
 
   createdAt DateTime @default(now())
@@ -89,7 +89,7 @@ model Conversation {
 model ConversationParticipant {
   id             String       @id @default(uuid())
   conversationId String
-  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
   userId         String
   user           User         @relation(fields: [userId], references: [id])
 
@@ -102,7 +102,7 @@ model Contact {
   ownerId   String // The user who owns the contact list
   owner     User   @relation("UserOwnedContacts", fields: [ownerId], references: [id])
   contactId String // The user who is a contact
-  contact   User   @relation("UserInOtherContacts", fields: [contactId], references: [id])
+  contact   User   @relation("UserInOtherContacts", fields: [contactId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
 
@@ -124,7 +124,7 @@ model Message {
   senderId       String
   sender         User         @relation(fields: [senderId], references: [id])
   conversationId String
-  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: NoAction)
 
   createdAt DateTime  @default(now())
   received  Boolean   @default(false)
@@ -178,7 +178,7 @@ model File {
   status          FileStatus @default(PENDING)
   virusScanStatus String     @default("pending") // Could be enum if needed
   userId          String
-  user            User       @relation(fields: [userId], references: [id])
+  user            User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt       DateTime   @default(now())
   updatedAt       DateTime   @updatedAt
   deletedAt       DateTime? // For soft deletion

@@ -14,15 +14,15 @@ import { z } from 'zod'
 
 const formSchema = z.object({
     content: z.string().min(2).max(500),
-    email: z.string().min(2).max(100),
+    id: z.string().uuid(),
 })
 
-export default function CreateClipboard({ email }: { email: string }) {
+export default function CreateClipboard({ id }: { id: string }) {
     const locale = useParams().locale as 'fa' | 'en'
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            email,
+            id,
             content: ""
         },
     })
@@ -52,24 +52,13 @@ export default function CreateClipboard({ email }: { email: string }) {
                         </FormItem>
                     )}
                 />
-                <FormField
-                    control={form.control}
-                    name='email'
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormControl>
-                                <Input  hidden {...field} />
-                            </FormControl>
-                        </FormItem>
-                    )}
-                />
 
                 <Button type='button' className='mx-1 ' variant={'outline'} size={'icon'} onClick={() => handlePaste()}>
                     <FiClipboard />
                     <span className='sr-only'>paste from clipboard</span>
                 </Button>
 
-                <Button type='submit' variant={'outline'} size={'icon'} className="bg-sidebar-primary">
+                <Button type='submit' variant={'outline'} size={'icon'} className="bg-blue-700 text-accent dark:text-accent-foreground">
                     <RiPlayListAddLine />
                     <span className='sr-only'>Add to clipboards</span>
                 </Button>

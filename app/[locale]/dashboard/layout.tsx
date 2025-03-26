@@ -22,7 +22,7 @@ type TProps = {
 async function DashboardLayout({ children, params }: TProps) {
     const locale = (await params).locale
     return (
-        <SidebarProvider className='flex flex-col lg:flex-row lg:h-100dvh w-full max-w-100dvw'>
+        <SidebarProvider className='flex flex-col lg:flex-row w-full max-w-100dvw'>
             <DashboardSidebar locale={locale} />
             <div className='flex flex-col flex-1 overflow-hidden'>
                 <DashboardHeader />

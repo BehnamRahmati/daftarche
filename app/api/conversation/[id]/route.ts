@@ -37,9 +37,6 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
         },
     })
 
-    if (messages.length === 0 || !conversation) {
-        return NextResponse.json({ error: 'Failed to fetch messages' }, { status: 500 })
-    }
 
     // const lastMessage = messages[messages.length - 1]
     const nextCursor = messages.length > 0 ? messages[messages.length - 1].createdAt.toISOString() : null
@@ -75,10 +72,10 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     })
 
     if (!conversation) {
-        return NextResponse.json({ message: 'failed to create convers' }, { status: 500 })
+        return NextResponse.json({ message: 'failed to create convers',status: 500 }, { status: 500 })
     }
 
-    return NextResponse.json({ message: 'successfully created convers' }, { status: 200 })
+    return NextResponse.json({ message: 'successfully created convers',status: 200 }, { status: 200 })
 }
 
 export async function PATCH(req: NextRequest) {

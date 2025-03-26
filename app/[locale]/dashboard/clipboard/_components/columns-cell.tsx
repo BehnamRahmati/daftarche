@@ -35,5 +35,5 @@ import { TClipboard } from '@/lib/types'
 export  function UpdatedCell({ updatedAt }: { updatedAt: Date }) {
     const locale = useParams().locale as 'en' | 'fa'
     const fromNow = moment(updatedAt).locale(locale).fromNow()
-    return <div className='max-w-10 text-xs lg:text-sm text-start lg:text-center'>{fromNow}</div>
+    return <div className='text-xs lg:text-sm text-start lg:text-center'>{fromNow}</div>
 }

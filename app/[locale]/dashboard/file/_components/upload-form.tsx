@@ -5,8 +5,9 @@ import { Input } from '@/components/ui/input'
 import { TDictionary } from '@/lib/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import axios from 'axios'
+import { useParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
-import { AiOutlineCloudUpload } from 'react-icons/ai'
+import { AiOutlineCloudUpload, AiOutlineLoading } from 'react-icons/ai'
 import { z } from 'zod'
 
 const formSchema = z.object({
@@ -27,13 +28,13 @@ export default function UploadForm({ email, dictionary }: { email: string; dicti
             file: '',
         },
     })
+    const locale = useParams().locale as 'fa' || 'en'
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
         const formData = new FormData()
         formData.append('email', values.email)
         formData.append('file', values.file)
-        const data = await fetcher(`/api/file/upload`, formData)
-        console.warn(data)
+        await fetcher(`/api/file/upload`, formData)
     }
     return (
         <Form {...form}>
@@ -54,12 +55,22 @@ export default function UploadForm({ email, dictionary }: { email: string; dicti
                                     {...field}
                                 />
                             </FormControl>
-                            <FormDescription>Select a single file to upload to cloud .</FormDescription>
+                            <FormDescription>
+                                {locale === 'fa'
+                                    ? 'یک فایل را برای آپلود در فضای ابری انتخاب کنید.'
+                                    : 'Select a single file to upload to cloud .'}
+                            </FormDescription>
                         </FormItem>
                     )}
                 />
-                <Button variant={'outline'} size={'icon'} type='submit' className='cursor-pointer bg-sidebar-primary'>
-                    <AiOutlineCloudUpload />
+                <Button
+                    variant={'outline'}
+                    size={'icon'}
+                    type='submit'
+                    disabled={form.formState.isSubmitting}
+                    className='cursor-pointer bg-blue-700 text-accent  dark:text-accent-foreground'
+                >
+                    {form.formState.isSubmitting ? <AiOutlineLoading className='animate-spin' /> : <AiOutlineCloudUpload />}
                 </Button>
             </form>
         </Form>

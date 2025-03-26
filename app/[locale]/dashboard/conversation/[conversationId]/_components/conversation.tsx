@@ -1,14 +1,14 @@
 import { cn } from '@/lib/utils'
 
 function ConversationContainer({ className, ...props }: React.ComponentProps<'div'>) {
-    return <div className={cn('flex-1 rounded-lg border border-sidebar-border bg-zinc-300 dark:bg-sidebar bg-[url("/static/chatbackground.png")] dark:bg-[url("/static/dark-chat-bg.jpg")] p-0.5 pb-2.5', className)} {...props} />
+    return <div className={cn('flex-1 rounded-lg lg:border lg:border-sidebar-border bg-zinc-300 dark:bg-sidebar bg-[url("/static/chatbackground.png")] dark:bg-[url("/static/dark-chat-bg.jpg")] p-0.5', className)} {...props} />
 }
 
 function ConversationList({ className, ...props }: React.ComponentProps<'div'>) {
     return (
         <div
             className={cn(
-                'flex flex-col h-[calc(100dvh-13rem)] lg:h-full max-h-[calc(100%-13)] lg:max-h-[calc(100dvh-14rem)] gap-1 overflow-x-hidden overflow-y-auto no-scrollbar',
+                'flex flex-col h-[calc(100dvh-11.5rem)] max-h-[calc(100dvh-11.5rem)] lg:h-[calc(100dvh-14rem)] lg:max-h-[calc(100dvh-14rem)] gap-1 overflow-x-hidden overflow-y-auto no-scrollbar',
                 className,
             )}
             {...props}

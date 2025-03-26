@@ -4,9 +4,9 @@ import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { TUser } from '@/lib/types'
 import { deleteContact } from '@/lib/user-helpers'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useSession } from 'next-auth/react'
 import { useParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { FiMoreVertical } from 'react-icons/fi'
@@ -18,16 +18,10 @@ const deleteContactForm = z.object({
     contactId: z.string().min(2).max(50),
 })
 
-export default function ContactDropdown({
-    contactId,
-    user,
-    recipientId,
-}: {
-    contactId: string
-    user: TUser
-    recipientId: string
-}) {
+export default function ContactDropdown({ contactId, recipientId }: { contactId: string; recipientId: string }) {
     const { locale } = useParams()
+    const { data, status } = useSession()
+
     const form = useForm<z.infer<typeof deleteContactForm>>({
         resolver: zodResolver(deleteContactForm),
         defaultValues: {
@@ -40,6 +34,10 @@ export default function ContactDropdown({
         const response = await deleteContact(values.contactId)
         toast(response.message)
     }
+
+    if (status === 'unauthenticated' || status === 'loading' || !data) return <p>loading</p>
+
+    const userId = data.user.id
 
     return (
         <DropdownMenu>
@@ -69,7 +67,7 @@ export default function ContactDropdown({
                     </Form>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                    <CreateConversation recipientId={recipientId} senderEmail={user.email} />
+                    <CreateConversation recipientId={recipientId} id={userId} />
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

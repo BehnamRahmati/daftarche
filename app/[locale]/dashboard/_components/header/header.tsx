@@ -90,14 +90,16 @@ function SidebarToggleButton() {
 function NotificationDropdown({ user }: { user: TUser }) {
     const [notifications, setNotification] = useState<TMessage[] | []>([])
     useEffect(() => {
-        sendPushNotification(user.email)
+        if (Notification.permission !== 'denied') {
+            sendPushNotification(user.email)
+        }
         const notifIntervals = setInterval(() => {
-            fetchUnreadMessages(user.email).then(notifs => setNotification(notifs))
+            fetchUnreadMessages(user.email).then(notifs => notifs && setNotification(notifs))
         }, 30000)
         return () => {
             clearInterval(notifIntervals)
         }
-    }, [user.email, ])
+    }, [user.email])
     return (
         <>
             <DropdownMenu>
@@ -113,7 +115,9 @@ function NotificationDropdown({ user }: { user: TUser }) {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                     {notifications.length !== 0 ? (
-                        notifications.map(notif => <NotificationDropdownItem email={user.email} key={notif.id} notification={notif} />)
+                        notifications.map(notif => (
+                            <NotificationDropdownItem email={user.email} key={notif.id} notification={notif} />
+                        ))
                     ) : (
                         <DropdownMenuItem>You have no notification</DropdownMenuItem>
                     )}

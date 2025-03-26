@@ -13,13 +13,16 @@ const poppins = Poppins({
     subsets: ['latin'],
 })
 export const viewport: Viewport = {
+    initialScale: 1,
+    width: 'device-width',
+    interactiveWidget : "resizes-visual",
     themeColor: [{ media: '(prefers-color-scheme: dark)', color: '#ffffff' }],
 }
 
 export const metadata: Metadata = {
     title: 'Daftarche',
     description: 'Daftarche is for clipboard , chat and files.',
-    applicationName: 'Daftarche', // Optional: Application name
+    applicationName: 'Daftarche',
     generator: 'Next.js',
     manifest: '/manifest.json',
     keywords: ['nextjs', 'next14', 'pwa', 'next-pwa'],

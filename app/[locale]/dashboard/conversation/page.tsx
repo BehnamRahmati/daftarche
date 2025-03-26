@@ -24,7 +24,7 @@ async function Conversation({ params, user }: TProps) {
                 <div className='flex flex-col w-full lg:w-1/3 gap-2.5 lg:p-2.5 lg:bg-sidebar size-full lg:border border-sidebar-border rounded-lg'>
                     <h2 className='mt-2.5 text-base lg:text-xl'>{locale === 'fa' ? 'مخاطبین :' : 'Contacts :'}</h2>
                     <ConversationSidebar user={user} />
-                    <ConversationContactForm user={user} />
+                    <ConversationContactForm id={user.id} />
                 </div>
             </div>
         </div>

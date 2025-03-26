@@ -7,9 +7,9 @@ export function retirievingEmail(req: NextRequest) {
     return searchParams.get('email')
 }
 
-export async function findUserClipboards(email: string) {
+export async function findUserClipboards(id: string) {
     // retrieving clipboards
-    const clipboards = await prisma.clipboard.findMany({ where: { user: { email } } })
+    const clipboards = await prisma.clipboard.findMany({ where: { user: { id } } })
 
     // check if have clipboards
     if (!clipboards || clipboards.length === 0) {
@@ -23,13 +23,13 @@ export async function findUserClipboards(email: string) {
     }))
 }
 
-export async function createNewClipboard({ content, email }: { content: string; email: string }) {
+export async function createNewClipboard({ content, id }: { content: string; id: string }) {
     // encripting content
     const encryptedContent = CryptoJS.AES.encrypt(content, process.env.ENCRYPTION_SECRET!).toString()
 
     // creating new clipboard in db
     const newClipboard = await prisma.clipboard.create({
-        data: { content: encryptedContent, user: { connect: { email } } },
+        data: { content: encryptedContent, user: { connect: { id } } },
     })
 
     if (!newClipboard) {

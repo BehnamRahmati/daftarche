@@ -2,13 +2,12 @@ import { TClipboard } from '@/lib/types'
 import {
     LandingList,
     LandingListBody,
-    LandingListBodyItem,
-    LandingListBodyRow,
     LandingListContainer,
     LandingListHeader,
     LandingListHeaderItem,
 } from '../../_components/landing'
-import { ActionsCell } from './columns-cell'
+
+import ClipboardItem from './clipboard-item'
 
 export default function ClipboardList({ clipboards }: { clipboards: TClipboard[] }) {
     return (
@@ -28,14 +27,7 @@ export default function ClipboardList({ clipboards }: { clipboards: TClipboard[]
                     {clipboards.length === 0 ? (
                         <p className='p-2.5 text-center'>{/* {dictionary.dashboard.clipboard.noEntry} */}</p>
                     ) : (
-                        clipboards.map(clip => (
-                            <LandingListBodyRow key={clip.id}>
-                                <LandingListBodyItem className='w-5/6 truncate'>{clip.content}</LandingListBodyItem>
-                                <LandingListBodyItem className='w-1/6 shrink-0 cursor-pointer flex justify-center'>
-                                    <ActionsCell clipboard={clip} />
-                                </LandingListBodyItem>
-                            </LandingListBodyRow>
-                        ))
+                        clipboards.map(clip => <ClipboardItem key={clip.id} clipboard={clip} />)
                     )}
                 </LandingListBody>
             </LandingList>

@@ -1,6 +1,6 @@
 import { s3client } from '@/lib/file.services'
 import { prisma } from '@/lib/prisma'
-import { GetObjectCommand,  S3ServiceException } from '@aws-sdk/client-s3'
+import { GetObjectCommand, S3ServiceException } from '@aws-sdk/client-s3'
 import { Upload } from '@aws-sdk/lib-storage'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 import archiver from 'archiver'
@@ -9,13 +9,14 @@ import stream from 'stream'
 import { v4 as uuidv4 } from 'uuid'
 
 const Bucket = process.env.s3_BUCKET_NAME!
+const MAX_SPACE = 5368709120
 
 export async function POST(req: NextRequest) {
-
     try {
         const formData = await req.formData()
         const file = formData.get('file') as File
         const email = formData.get('email') as string
+        let usage = 0
         const archive = archiver('zip', {
             zlib: { level: 9 },
             store: true, // Enable store mode for buffer compatibility
@@ -27,11 +28,17 @@ export async function POST(req: NextRequest) {
 
         const user = await prisma.user.findUnique({
             where: { email },
+            include: { files: true },
         })
         // checking if fields and user exist
         if (!user) {
             return NextResponse.json({ error: 'Invalid request' }, { status: 400 })
         }
+
+        for (const file of user.files) {
+            usage = usage + file.size
+        }
+
         const zipId = uuidv4()
         const zipFilename = `${file.name}.zip`
 
@@ -66,6 +73,9 @@ export async function POST(req: NextRequest) {
 
         try {
             // * 5.0 - uploading process
+            if (file.size > MAX_SPACE || file.size > MAX_SPACE - usage) {
+                throw new Error('exceeded maxiomum space')
+            }
 
             upload.on('httpUploadProgress', progress => {
                 console.log(progress)

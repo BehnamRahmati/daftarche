@@ -1,33 +1,25 @@
 'use client'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { fetchAllConversations } from '@/lib/conversation-helpers'
-import { TDictionary, TParticipants, TUser } from '@/lib/types'
-import moment from 'moment'
-import Link from 'next/link'
-import useSWR from 'swr'
+import useConversations from '@/hooks/use-conversations'
+import { TDictionary } from '@/lib/types'
+import React from 'react'
+import { TWithUserProp } from '../with-user'
 import {
     LandingList,
     LandingListBody,
-    LandingListBodyItem,
-    LandingListBodyRow,
     LandingListContainer,
     LandingListHeader,
     LandingListHeaderItem,
     LandingListSkleton,
     LandingNoEntry,
 } from './landing'
+import LandingConversationItem from './landing-conversation-item'
 
 type TProps = {
-    user: TUser
     dictionary: TDictionary
-    locale: 'fa' | 'en'
-}
+} & TWithUserProp
 
-function LandingConversationList({ user, dictionary, locale }: TProps) {
-    const { data: conversations, isLoading } = useSWR(
-        `/api/conversation?email=${encodeURIComponent(user.email)}`,
-        fetchAllConversations,
-    )
+function LandingConversationList({ user, dictionary }: TProps) {
+    const { conversations, isLoading } = useConversations(user.id)
 
     if (isLoading) return <LandingListSkleton count={4} section='conversation' />
 
@@ -52,38 +44,13 @@ function LandingConversationList({ user, dictionary, locale }: TProps) {
                     </LandingListHeaderItem>
                 </LandingListHeader>
                 <LandingListBody>
-                    {conversations.slice(0, 9).map(convers => {
-                        const sender = convers.participants.find((pt: TParticipants) => pt.user.email !== user.email)
-                        const fromNow = moment(convers.messages[0].createdAt).locale(locale).fromNow()
-                        return (
-                            <LandingListBodyRow key={convers.id} className='p-1'>
-                                <Link
-                                    href={`/${locale}/dashboard/conversation/${convers.id}`}
-                                    className='flex w-full items-center justify-between '
-                                >
-                                    <LandingListBodyItem className='w-1/6 lg:w-2/12 p-0'>
-                                        <Avatar
-                                            className={`size-10 rounded-lg border-2 bg-zinc-300 ${sender?.user.isOnline ? 'border-green-500' : 'border-zinc-300'}`}
-                                        >
-                                            <AvatarImage src={sender?.user.image || '#'} alt={sender?.user.name} />
-                                            <AvatarFallback>DF</AvatarFallback>
-                                        </Avatar>
-                                    </LandingListBodyItem>
-                                    <LandingListBodyItem className='w-2/6 lg:w-3/12'>{sender?.user.name}</LandingListBodyItem>
-                                    <LandingListBodyItem className='w-2/6 lg:w-5/12 truncate'>
-                                        {convers.messages[0] ? convers.messages[0].content : 'no content'}
-                                    </LandingListBodyItem>
-                                    <LandingListBodyItem className='w-1/6 lg:w-2/12 truncate'>
-                                        {convers.messages[0] ? fromNow : 'no content'}
-                                    </LandingListBodyItem>
-                                </Link>
-                            </LandingListBodyRow>
-                        )
-                    })}
+                    {conversations.slice(0, 9).map(convers => (
+                        <LandingConversationItem key={convers.id} conversation={convers} email={user.email} />
+                    ))}
                 </LandingListBody>
             </LandingList>
         </LandingListContainer>
     )
 }
 
-export { LandingConversationList }
+export default React.memo(LandingConversationList)

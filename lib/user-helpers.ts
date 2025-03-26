@@ -8,18 +8,18 @@ export async function fetchUserContacts(url: string): Promise<{ contact: TContac
 export async function markUserOnlinePeriodically(email: string) {
     const response = await fetch(`${process.env.NEXTAUTH_URL}/api/user/${encodeURIComponent(email)}`, {
         method: 'PUT',
-        next: { revalidate: 60 },
+        next: { revalidate: 600 },
     })
     return await response.json()
 }
 
-export async function fetchUser(url: string): Promise<{ messsage: string; user: TUser }> {
+export async function fetchUser(url: string): Promise<TUser> {
     const response = await fetch(url)
     return await response.json()
 }
 
-export async function createNewContact(data: { userEmail: string; email: string }): Promise<{ message: string }> {
-    const response = await fetch(`/api/user/${data.userEmail}/contact`, {
+export async function createNewContact(data: { id: string; email: string }): Promise<{ message: string }> {
+    const response = await fetch(`/api/user/${data.id}/contacts`, {
         method: 'POST',
         body: JSON.stringify(data.email),
     })

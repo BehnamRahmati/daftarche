@@ -32,7 +32,7 @@ function LandingListSkleton({ className, count, section }: { count: number; sect
 }
 
 function LandingContent({ className, ...props }: React.ComponentProps<'div'>) {
-    return <div className={cn('flex flex-col gap-2.5 lg:w-8/12 lg:max-h-[calc(100vh-7.5rem)]', className)} {...props} />
+    return <div className={cn('flex flex-col gap-2.5 lg:w-8/12', className)} {...props} />
 }
 
 function LandingSection({ className, ...props }: React.ComponentProps<'div'>) {

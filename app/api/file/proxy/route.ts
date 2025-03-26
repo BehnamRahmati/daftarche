@@ -10,11 +10,8 @@ import path from 'path'
 import stream from 'stream'
 import { v4 as uuidv4 } from 'uuid'
 
-// variables
-// const endpoint = process.env.s3_ENDPOINT!
-// const accessKeyId = process.env.s3_ACCESS_KEY!
-// const secretAccessKey = process.env.s3_SECRET_KEY!
 const Bucket = process.env.s3_BUCKET_NAME!
+const MAX_SPACE = 5368709120
 
 // post request
 export async function POST(request: NextRequest) {
@@ -34,13 +31,19 @@ export async function POST(request: NextRequest) {
         // 2.4 getting user
         const user = await prisma.user.findUnique({
             where: { email },
+            include: { files: true },
         })
+        let usage = 0
         const zipId = uuidv4()
         const zipFilename = `${zipId}.zip`
 
         // checking if fields and user exist
         if (!url || !user) {
             return NextResponse.json({ error: 'Invalid request' }, { status: 400 })
+        }
+
+        for (const file of user.files) {
+            usage = usage + file.size
         }
 
         const zipFileRecord = await prisma.file.create({
@@ -93,6 +96,10 @@ export async function POST(request: NextRequest) {
 
         try {
             // * 5.0 - uploading process
+
+            if (archive.pointer() > MAX_SPACE || archive.pointer() > MAX_SPACE - usage) {
+                throw new Error('exceeded maxiomum space')
+            }
 
             upload.on('httpUploadProgress', progress => {
                 console.log(progress)

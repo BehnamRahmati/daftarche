@@ -53,7 +53,7 @@ export default function DataTable<TData, TValue>({ columns, data, mutate, search
             <div className='flex gap-2 flex-col lg:flex-row lg:items-center justify-between pb-5'>
                 <div className='flex items-center'>
                     <Input
-                        placeholder= {locale === 'fa' ? 'جستجو بین کلیپ بورد ها' : 'search between clipboards'}
+                        placeholder= {locale === 'fa' ? 'جستجو بین   داده ها' : 'search between clipboards'}
                         value={(table.getColumn(searchColumn)?.getFilterValue() as string) ?? ''}
                         onChange={event => table.getColumn(searchColumn)?.setFilterValue(event.target.value)}
                         className='text-xs lg:text-sm lg:w-sm bg-background'
@@ -90,7 +90,7 @@ export default function DataTable<TData, TValue>({ columns, data, mutate, search
                         {table.getHeaderGroups().map(headerGroup => (
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map(header => (
-                                    <TableHead key={header.id}>
+                                    <TableHead key={header.id} className='rtl:text-right!'>
                                         {header.isPlaceholder
                                             ? null
                                             : flexRender(header.column.columnDef.header, header.getContext())}

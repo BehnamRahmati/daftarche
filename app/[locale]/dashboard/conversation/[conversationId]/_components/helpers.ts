@@ -56,3 +56,4 @@ export const createBubbles = (messages: TMessage[]) => {
 
     return newArr
 }
+

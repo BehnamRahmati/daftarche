@@ -3,29 +3,26 @@
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { TUser } from '@/lib/types'
 import { createNewContact } from '@/lib/user-helpers'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { toast } from 'sonner'
+import { AiOutlineLoading } from 'react-icons/ai'
+import { PiUserCirclePlus } from 'react-icons/pi'
 import { z } from 'zod'
-import { PiUserCirclePlus } from "react-icons/pi";
 
 const formSchema = z.object({
     email: z.string().email(),
-    userEmail: z.string().email(),
+    id: z.string().uuid(),
 })
 
-export default function ConversationContactForm({ user }: { user: TUser }) {
+export default function ConversationContactForm({ id }: { id: string }) {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
-        defaultValues: { userEmail: user.email  , email: ''},
+        defaultValues: { id, email: '' },
     })
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        toast('creating new contact')
-        const response = await createNewContact(values)
-        toast(response.message)
+        await createNewContact(values)
     }
 
     return (
@@ -43,8 +40,14 @@ export default function ConversationContactForm({ user }: { user: TUser }) {
                     )}
                 />
 
-                <Button type='submit' variant={'outline'} size={'icon'} className='bg-sidebar-primary'>
-                    <PiUserCirclePlus />
+                <Button
+                    type='submit'
+                    disabled={form.formState.isSubmitting}
+                    variant={'outline'}
+                    size={'icon'}
+                    className='bg-blue-700 text-accent dark:text-accent-foreground'
+                >
+                    {form.formState.isSubmitting ? <AiOutlineLoading className='animate-spin' /> : <PiUserCirclePlus />}
                     <span className='sr-only'>Add to clipboards</span>
                 </Button>
             </form>

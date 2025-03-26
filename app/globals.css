@@ -121,6 +121,15 @@ input:-webkit-autofill:active {
     background: red;
     border-radius: 10px;
   }
+  @media (max-width: 768px) {
+    html {
+        height: -webkit-fill-available;
+    }
+    body {
+        min-height: 100vh;
+        min-height: -webkit-fill-available;
+    }
+}
 
 :root {
     --background: oklch(1 0 0);

@@ -14,12 +14,12 @@ export async function fetchAllConversations(url: string): Promise<TConversation[
 }
 
 export async function createConversation(data: {
-    senderEmail: string
+    id: string
     recipientId: string
-}): Promise<{ message: string; status: number; conversation?: TConversation }> {
-    const response = await fetch(`/api/conversation`, {
+}): Promise<{ conversation: TConversation; status: 200 | 500 }> {
+    const response = await fetch(`/api/user/${data.id}/conversations`, {
         method: 'POST',
-        body: JSON.stringify(data),
+        body: JSON.stringify({ recipientId: data.recipientId }),
     })
     return await response.json()
 }
@@ -28,7 +28,7 @@ export async function createNewMessage(data: {
     message: string
     conversationId: string
     senderEmail: string
-}): Promise<{ message: string }> {
+}): Promise<{ message: string; status: 200 | 500 }> {
     const response = await fetch(`/api/conversation/${data.conversationId}`, {
         method: 'PUT',
         body: JSON.stringify({ message: data.message, senderEmail: data.senderEmail }),

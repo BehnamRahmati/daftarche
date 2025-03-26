@@ -9,16 +9,16 @@ import { toast } from 'sonner'
 import { z } from 'zod'
 
 const formSchema = z.object({
-    senderEmail: z.string().email(),
+    id: z.string().uuid(),
     recipientId: z.string().uuid(),
 })
 
-export default function CreateConversation({ senderEmail, recipientId }: { senderEmail: string; recipientId: string }) {
+export default function CreateConversation({ id, recipientId }: { id: string; recipientId: string }) {
     const { locale } = useParams()
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            senderEmail,
+            id,
             recipientId,
         },
     })
