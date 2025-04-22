@@ -70,7 +70,7 @@ export default function LoginForm() {
                             </FormItem>
                         )}
                     />
-                    <Button variant={'outline'} type='submit' className='cursor-pointer bg-sidebar-primary'>
+                    <Button variant={'default'} type='submit' className='cursor-pointer '>
                         log in
                     </Button>
                 </form>

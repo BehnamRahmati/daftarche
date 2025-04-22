@@ -1,5 +1,4 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/auth.services'
-import { markUserOnlinePeriodically } from '@/lib/user-helpers'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import React from 'react'
@@ -23,7 +22,7 @@ export default function WithUser<P extends Record<string, unknown>>(WrappedCompo
         }
 
         const user = { name: session.user.name, email: session.user.email, image: session.user.image, id: session.user.id }
-        await markUserOnlinePeriodically(user.email)
+        // await markUserOnlinePeriodically(user.id)
         return <WrappedComponent {...(props as P)} user={user} />
     }
 

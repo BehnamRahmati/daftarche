@@ -14,7 +14,7 @@
         --sidebar-accent-foreground: 240 5.9% 10%;
         --sidebar-border: 220 13% 91%;
         --sidebar-ring: 217.2 91.2% 59.8%;
-        --font-iranyekan-sans : iranyekan, Helvetica, sans-serif;
+        --font-iranyekan-sans: iranyekan, Helvetica, sans-serif;
     }
 
     .dark {
@@ -29,9 +29,7 @@
     }
 }
 
-
 @import '../styles/fonts.css';
-
 
 @import '../styles/home.css';
 @import '../styles/dashboard.css';
@@ -82,8 +80,8 @@
 }
 
 body {
-    font-family: "Poppins", Helvetica, sans-serif;
-    @apply max-w-screen bg-zinc-50 dark:bg-background;
+    font-family: 'Poppins', Helvetica, sans-serif;
+    @apply max-w-screen dark:bg-background bg-zinc-50;
 }
 
 html[dir='rtl'] body {
@@ -108,20 +106,20 @@ input:-webkit-autofill:active {
 
 .no-scrollbar::-webkit-scrollbar {
     width: 0px;
-  }
+}
 
-  /* Track */
-  .no-scrollbar::-webkit-scrollbar-track {
+/* Track */
+.no-scrollbar::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px grey;
     border-radius: 10px;
-  }
+}
 
-  /* Handle */
-  .no-scrollbar::-webkit-scrollbar-thumb {
+/* Handle */
+.no-scrollbar::-webkit-scrollbar-thumb {
     background: red;
     border-radius: 10px;
-  }
-  @media (max-width: 768px) {
+}
+@media (max-width: 768px) {
     html {
         height: -webkit-fill-available;
     }
@@ -157,7 +155,7 @@ input:-webkit-autofill:active {
     --chart-4: oklch(0.828 0.189 84.429);
     --chart-5: oklch(0.769 0.188 70.08);
     --radius: 0.625rem;
-    --sidebar:#fff;
+    --sidebar: #fff;
     --sidebar-foreground: oklch(0.141 0.005 285.823);
     --sidebar-primary: oklch(0.21 0.006 285.885);
     --sidebar-primary-foreground: oklch(0.985 0 0);
@@ -175,7 +173,7 @@ input:-webkit-autofill:active {
     --popover: oklch(0.141 0.005 285.823);
     --popover-foreground: oklch(0.985 0 0);
     --primary: oklch(0.985 0 0);
-    --primary-foreground: oklch(0.21 0.006 285.885);
+    --primary-foreground: oklch(0.274 0.006 286.033);
     --secondary: oklch(0.274 0.006 286.033);
     --secondary-foreground: oklch(0.985 0 0);
     --muted: oklch(0.274 0.006 286.033);

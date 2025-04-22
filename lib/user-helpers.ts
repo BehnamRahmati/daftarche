@@ -5,8 +5,8 @@ export async function fetchUserContacts(url: string): Promise<{ contact: TContac
     return response.json()
 }
 
-export async function markUserOnlinePeriodically(email: string) {
-    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/user/${encodeURIComponent(email)}`, {
+export async function markUserOnlinePeriodically(id: string) {
+    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/user/${id}`, {
         method: 'PUT',
         next: { revalidate: 600 },
     })
